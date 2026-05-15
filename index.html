@@ -1365,60 +1365,125 @@
       <section id="s-market-opportunity" class="section-pad max-w-7xl mx-auto relative overflow-hidden">
         <div class="pointer-events-none absolute inset-0 opacity-[0.45] bg-[linear-gradient(135deg,transparent_45%,rgba(148,163,184,0.12)_46%,transparent_47%),linear-gradient(-35deg,transparent_40%,rgba(148,163,184,0.08)_41%,transparent_42%)] bg-[length:28px_28px]" aria-hidden="true"></div>
         <div class="relative z-10">
-          <p class="section-kicker mb-2 text-slate-500">GAME INDUSTRY · MACRO</p>
-          <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">市场机会：游戏行业的百年变局</h2>
-          <p class="mt-3 text-base font-semibold text-fuse-blue">AI 正在颠覆传统游戏的创作与分发模式</p>
-          <div class="grid lg:grid-cols-12 gap-10 mt-12 items-start">
-            <div class="lg:col-span-5 space-y-5">
-              <article class="glass rounded-2xl p-6 shadow-glass card-hover ring-1 ring-white/80">
-                <div class="w-11 h-11 rounded-xl bg-sky-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-4" aria-hidden="true"><i data-lucide="users-round"></i></div>
-                <h3 class="font-bold text-slate-900">传统痛点：创作门槛极高</h3>
-                <p class="mt-3 text-sm text-slate-600 leading-relaxed">传统游戏开发需百人专业团队，开发周期长达 3～5 年，资金成本动辄数百万美元，导致供给严重不足。</p>
-              </article>
-              <article class="glass rounded-2xl p-6 shadow-glass card-hover ring-1 ring-white/80">
-                <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-700 bp-li bp-li-lg flex items-center justify-center mb-4" aria-hidden="true"><i data-lucide="workflow"></i></div>
-                <h3 class="font-bold text-slate-900">分发困境：一方创作占绝对主导</h3>
-                <p class="mt-3 text-sm text-slate-600 leading-relaxed">游戏掌机应用市场形成垄断趋势，以任天堂 Switch 为例，一方／二方游戏占绝对主导地位，三方生态不够繁荣。</p>
-              </article>
-              <article class="glass rounded-2xl p-6 shadow-glass card-hover ring-1 ring-orange-100/80 border border-orange-100/60">
-                <div class="w-11 h-11 rounded-xl bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center mb-4" aria-hidden="true"><i data-lucide="sparkles"></i></div>
-                <h3 class="font-bold text-fuse-orange">AI 变革：全民创作时代</h3>
-                <p class="mt-3 text-sm text-slate-600 leading-relaxed">大模型将创作门槛降至「一句话」，UGC 内容爆发，实现「人人都是开发者」，重塑游戏行业的供需关系。</p>
-              </article>
+          <p class="section-kicker mb-2 text-slate-500">GAME INDUSTRY · CENTURY SHIFT</p>
+          <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">百年变局：AI 正在重写游戏产业的底层逻辑</h2>
+          <p class="mt-3 text-base md:text-lg text-slate-700 max-w-3xl leading-relaxed">游戏行业五十年来经历了数次革命，但都是在扩大<strong class="text-slate-900">受众</strong>。AI 时代第一次改变的是<strong class="text-fuse-orange">创造者</strong>的身份——这是产业史上从未发生过的根本性重构，我们正站在这道边界上。</p>
+
+          <!-- 历史演进时间轴 -->
+          <div class="mt-12 relative">
+            <div class="hidden md:block absolute left-0 right-0 top-[2.6rem] h-0.5 bg-gradient-to-r from-slate-200 via-blue-300 to-orange-400 rounded-full" aria-hidden="true"></div>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-0 relative">
+              <!-- Era 1 -->
+              <div class="flex flex-col items-center text-center px-2 md:px-3">
+                <div class="w-5 h-5 rounded-full bg-slate-300 border-2 border-white shadow ring-2 ring-slate-200 z-10 mb-4"></div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">1970s</p>
+                <p class="mt-1 text-xs font-bold text-slate-700">街机时代</p>
+                <p class="mt-1 text-[11px] text-slate-500 leading-relaxed">游戏进入公共空间，娱乐从私人走向社交</p>
+              </div>
+              <!-- Era 2 -->
+              <div class="flex flex-col items-center text-center px-2 md:px-3">
+                <div class="w-5 h-5 rounded-full bg-slate-400 border-2 border-white shadow ring-2 ring-slate-300 z-10 mb-4"></div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">1983–2000</p>
+                <p class="mt-1 text-xs font-bold text-slate-700">主机家庭时代</p>
+                <p class="mt-1 text-[11px] text-slate-500 leading-relaxed">游戏进入每个家庭，任天堂与索尼奠定行业结构</p>
+              </div>
+              <!-- Era 3 -->
+              <div class="flex flex-col items-center text-center px-2 md:px-3">
+                <div class="w-5 h-5 rounded-full bg-blue-400 border-2 border-white shadow ring-2 ring-blue-200 z-10 mb-4"></div>
+                <p class="text-[10px] font-bold text-blue-500 uppercase tracking-wider">2000s</p>
+                <p class="mt-1 text-xs font-bold text-slate-700">网络在线时代</p>
+                <p class="mt-1 text-[11px] text-slate-500 leading-relaxed">游戏变成社交基础设施，MMO 连接亿级玩家</p>
+              </div>
+              <!-- Era 4 -->
+              <div class="flex flex-col items-center text-center px-2 md:px-3">
+                <div class="w-5 h-5 rounded-full bg-blue-600 border-2 border-white shadow ring-2 ring-blue-300 z-10 mb-4"></div>
+                <p class="text-[10px] font-bold text-fuse-blue uppercase tracking-wider">2007–2020</p>
+                <p class="mt-1 text-xs font-bold text-slate-700">移动普惠时代</p>
+                <p class="mt-1 text-[11px] text-slate-500 leading-relaxed">App Store 打开长尾，游戏触达全球 30 亿用户</p>
+              </div>
+              <!-- Era 5 - NOW -->
+              <div class="flex flex-col items-center text-center px-2 md:px-3 relative">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-orange-400 to-amber-500 border-2 border-white shadow-lg ring-2 ring-orange-300 z-10 mb-[14px] animate-pulse"></div>
+                <div class="hidden md:block absolute -top-7 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow">← 我们在这里</div>
+                <p class="text-[10px] font-black text-fuse-orange uppercase tracking-wider">2026+</p>
+                <p class="mt-1 text-xs font-black text-fuse-orange">AI 创造时代</p>
+                <p class="mt-1 text-[11px] text-orange-700 leading-relaxed font-semibold">第一次：每个人都能成为游戏的<em>创造者</em></p>
+              </div>
             </div>
-            <div class="lg:col-span-7">
-              <article class="glass rounded-3xl p-6 md:p-8 shadow-glass ring-1 ring-white/80 h-full">
-                <h3 class="text-lg md:text-xl font-bold text-slate-900 border-b border-slate-200 pb-4">核心指标对比：传统 vs AI 赋能</h3>
-                <div class="mt-8 space-y-8">
-                  <div>
-                    <p class="text-sm font-semibold text-slate-700 mb-3">开发资金成本</p>
-                    <div class="grid sm:grid-cols-2 gap-3">
-                      <div class="rounded-2xl bg-sky-50 border border-sky-100 px-4 py-4 text-center">
-                        <p class="text-[10px] uppercase tracking-wider text-sky-700/80 mb-1">传统</p>
-                        <p class="text-xl md:text-2xl font-bold text-sky-900">$ 1,000,000+</p>
-                      </div>
-                      <div class="rounded-2xl bg-orange-50 border border-orange-100 px-4 py-4 text-center">
-                        <p class="text-[10px] uppercase tracking-wider text-orange-800/80 mb-1">AI 赋能</p>
-                        <p class="text-xl md:text-2xl font-bold text-orange-900">$ 1,000</p>
-                        <p class="text-xs text-orange-700 mt-1">≈ 1%</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="text-sm font-semibold text-slate-700 mb-3">核心开发周期</p>
-                    <div class="grid sm:grid-cols-2 gap-3">
-                      <div class="rounded-2xl bg-sky-50 border border-sky-100 px-4 py-4 text-center">
-                        <p class="text-[10px] uppercase tracking-wider text-sky-700/80 mb-1">传统</p>
-                        <p class="text-lg md:text-xl font-bold text-sky-900">3 ～ 5 年</p>
-                      </div>
-                      <div class="rounded-2xl bg-orange-50 border border-orange-100 px-4 py-4 text-center">
-                        <p class="text-[10px] uppercase tracking-wider text-orange-800/80 mb-1">AI 赋能</p>
-                        <p class="text-lg md:text-xl font-bold text-orange-900">1 ～ 24 小时</p>
-                      </div>
-                    </div>
+          </div>
+
+          <!-- 核心洞察：什么是真正的百年变局 -->
+          <div class="mt-10 rounded-3xl bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white p-7 md:p-10 overflow-hidden relative shadow-glass">
+            <div class="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-blue-500/20 blur-3xl" aria-hidden="true"></div>
+            <div class="absolute -left-16 -bottom-20 w-64 h-64 rounded-full bg-orange-400/16 blur-3xl" aria-hidden="true"></div>
+            <div class="relative grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <p class="text-[10px] tracking-[0.3em] font-bold text-blue-100/60 uppercase">The Century Shift</p>
+                <h3 class="mt-3 text-2xl md:text-3xl font-black leading-snug">过去五十年，游戏行业每次革命都在扩大<span class="text-blue-300">受众</span>。<br/>AI 第一次扩大的是<span class="text-orange-300">创造者</span>。</h3>
+                <p class="mt-5 text-sm text-blue-100/75 leading-relaxed">从街机到主机，从 PC 到手机，玩游戏的人越来越多——但做游戏的人，始终是极少数。百人团队、千万资金、数年周期，这堵墙从未真正倒塌。</p>
+                <p class="mt-3 text-sm text-blue-100/75 leading-relaxed">AI 正在推倒这堵墙。当一句话就能生成可玩的游戏原型，当任何人都能把灵感变成世界，这不是工具层的效率提升——<strong class="text-white">这是游戏行业生产关系的根本性重构</strong>，是五十年未曾出现过的结构性裂变。</p>
+              </div>
+              <div class="space-y-4">
+                <div class="rounded-2xl bg-white/8 border border-white/12 p-5">
+                  <p class="text-xs font-bold text-blue-100/60 uppercase tracking-wider mb-3">过去所有革命的共同特征</p>
+                  <div class="space-y-2">
+                    <div class="flex items-center gap-3"><div class="w-2 h-2 rounded-full bg-slate-400 shrink-0"></div><p class="text-sm text-blue-100/80">扩大玩游戏的人群</p></div>
+                    <div class="flex items-center gap-3"><div class="w-2 h-2 rounded-full bg-slate-400 shrink-0"></div><p class="text-sm text-blue-100/80">创作者始终是专业团队</p></div>
+                    <div class="flex items-center gap-3"><div class="w-2 h-2 rounded-full bg-slate-400 shrink-0"></div><p class="text-sm text-blue-100/80">内容供给受资金和人力严格约束</p></div>
                   </div>
                 </div>
-              </article>
+                <div class="rounded-2xl bg-orange-500/15 border border-orange-400/30 p-5">
+                  <p class="text-xs font-bold text-orange-300 uppercase tracking-wider mb-3">AI 时代的根本不同</p>
+                  <div class="space-y-2">
+                    <div class="flex items-center gap-3"><div class="w-2 h-2 rounded-full bg-orange-400 shrink-0"></div><p class="text-sm text-orange-100">创造者从"极少数"变成"所有人"</p></div>
+                    <div class="flex items-center gap-3"><div class="w-2 h-2 rounded-full bg-orange-400 shrink-0"></div><p class="text-sm text-orange-100">内容供给从"稀缺"变成"无限"</p></div>
+                    <div class="flex items-center gap-3"><div class="w-2 h-2 rounded-full bg-orange-400 shrink-0"></div><p class="text-sm text-orange-100">游戏本质：从消费品变为创作媒介</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 变局的量级证据 -->
+          <div class="mt-8 grid md:grid-cols-3 gap-5">
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-slate-100/80">
+              <div class="w-11 h-11 rounded-xl bg-sky-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-4" aria-hidden="true"><i data-lucide="clock"></i></div>
+              <h3 class="font-bold text-slate-900">开发周期：月→小时</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">传统独立游戏核心原型需 1～3 个月。AI 赋能后，同等规模原型可在 1～24 小时内生成并可玩。这不是效率提升，是时间维度的坍缩。</p>
+              <div class="mt-4 flex items-baseline gap-2">
+                <span class="text-2xl font-black text-fuse-orange">100×</span>
+                <span class="text-xs text-slate-500">速度量级提升</span>
+              </div>
+            </article>
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-slate-100/80">
+              <div class="w-11 h-11 rounded-xl bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center mb-4" aria-hidden="true"><i data-lucide="banknote"></i></div>
+              <h3 class="font-bold text-slate-900">创作成本：百万→千元</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">传统游戏开发资金门槛 $100 万+ 起步。AI 工具链将同等输出的创作成本压缩至 $1,000 级别，供给端的壁垒正在全面崩塌。</p>
+              <div class="mt-4 flex items-baseline gap-2">
+                <span class="text-2xl font-black text-fuse-orange">1/1000</span>
+                <span class="text-xs text-slate-500">成本压缩幅度</span>
+              </div>
+            </article>
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-orange-100/80">
+              <div class="w-11 h-11 rounded-xl bg-violet-100 text-fuse-purple bp-li bp-li-lg flex items-center justify-center mb-4" aria-hidden="true"><i data-lucide="users"></i></div>
+              <h3 class="font-bold text-slate-900">创造者：千人→数十亿</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">全球专业游戏开发者不足百万，而全球玩家超 30 亿。AI 让每个玩家都有机会成为创造者，这是整个产业从未面对过的供给爆炸前夜。</p>
+              <div class="mt-4 flex items-baseline gap-2">
+                <span class="text-2xl font-black text-fuse-orange">30亿</span>
+                <span class="text-xs text-slate-500">潜在创造者规模</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- 我们站在边界上 -->
+          <div class="mt-6 rounded-3xl bg-gradient-to-r from-orange-50 via-amber-50 to-yellow-50 border border-orange-200/60 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6">
+            <div class="w-14 h-14 rounded-2xl bg-orange-100 text-fuse-orange flex items-center justify-center shrink-0 shadow" aria-hidden="true">
+              <i data-lucide="map-pin" class="w-7 h-7"></i>
+            </div>
+            <div class="flex-1">
+              <p class="text-xs font-bold text-orange-600 uppercase tracking-wider mb-1">Where We Are Now · 我们的位置</p>
+              <h3 class="text-lg md:text-xl font-black text-slate-900">我们正站在百年变局的边界上</h3>
+              <p class="mt-2 text-sm text-slate-700 leading-relaxed max-w-3xl">大模型在 2022–2024 年的能力跃迁，已经让"AI 做游戏"从实验室概念变成了可量产的现实。但真正的浪潮才刚刚开始——Agent、多模态、世界模型的叠加，将在未来 2–3 年内把"人人创造"从可能推向必然。<strong class="text-fuse-orange">先看到这个窗口、先构建好基础设施的公司，将获得这个时代最大的结构性红利。</strong></p>
             </div>
           </div>
         </div>
@@ -1429,14 +1494,14 @@
         <div class="max-w-7xl mx-auto">
           <div class="flex flex-col lg:flex-row lg:items-end gap-8 mb-10">
             <div class="flex-1">
-              <p class="section-kicker mb-2 text-slate-500">AI EVOLUTION · GAME INDUSTRY IMPACT</p>
-              <h2 class="text-2xl md:text-4xl font-bold text-slate-900">AI 游戏的演进：从工具提效到人人创造</h2>
-              <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl">这不是简单的“AI 帮忙做游戏”，而是 AI 能力高速进化后，对游戏生产、内容形态、玩家身份和硬件入口的连续重构。未来的游戏机不只是用来玩游戏，更会成为随时随地实现想法和创意的 AI 创作终端。</p>
+              <p class="section-kicker mb-2 text-slate-500">AI EVOLUTION · HOW THE SHIFT UNFOLDS</p>
+              <h2 class="text-2xl md:text-4xl font-bold text-slate-900">变局如何发生：AI 对游戏产业的六阶段重构</h2>
+              <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl">百年变局不是一夜之间降临的——它是 AI 能力在六个维度上依次突破后，对游戏生产方式、内容形态、玩家身份和硬件入口的连续冲击。理解这条演进路径，才能判断我们现在站在哪里、下一波浪潮何时到来。</p>
             </div>
             <div class="shrink-0 rounded-3xl bg-slate-900 text-white px-6 py-5 shadow-glass max-w-sm">
-              <p class="text-[10px] tracking-[0.28em] text-blue-100/70 font-bold">CORE SHIFT</p>
-              <p class="mt-3 text-2xl font-black">从“消费游戏”到“创造游戏”</p>
-              <p class="mt-2 text-xs text-white/68 leading-relaxed">玩游戏是体验别人的世界，创造游戏是把自己的想法变成世界。</p>
+              <p class="text-[10px] tracking-[0.28em] text-blue-100/70 font-bold">NOW AT STAGE 3 → 4</p>
+              <p class="mt-3 text-2xl font-black">原型可玩，AI 原生即将到来</p>
+              <p class="mt-2 text-xs text-white/68 leading-relaxed">我们正处于第 3 阶段尾声与第 4 阶段起点的交界处——这正是最佳投资窗口。</p>
             </div>
           </div>
           <div class="grid lg:grid-cols-5 gap-8 items-stretch">
@@ -1603,21 +1668,31 @@
         <div class="max-w-7xl mx-auto">
           <div class="max-w-4xl mb-10">
             <p class="section-kicker mb-2">PART 03 · STRUCTURAL CONTRAST</p>
-            <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">市场格局与破局点：AI 带来新机会，高维打破任天堂垄断</h2>
-            <p class="mt-4 text-slate-600">行业霸主 Switch 的软肋，正是我们的机会。</p>
+            <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">破局点：百年变局撕开的结构性裂缝</h2>
+            <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl">任天堂的整个商业模式，建立在"消费时代"的假设上——少数专业团队制作内容，数十亿玩家被动消费。AI 创造时代的到来，正在从根本上瓦解这一假设，而任天堂根本没有做好准备。</p>
           </div>
+
+          <!-- 结构性裂缝说明 -->
+          <div class="mb-8 rounded-2xl bg-gradient-to-r from-amber-50 via-orange-50 to-red-50 border border-orange-200/50 p-5 md:p-6 flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-xl bg-orange-100 text-fuse-orange flex items-center justify-center shrink-0 mt-0.5"><i data-lucide="zap" class="w-5 h-5"></i></div>
+            <div>
+              <p class="text-sm font-bold text-orange-800">百年变局创造了一个过去不存在的机会窗口</p>
+              <p class="mt-1 text-sm text-slate-600 leading-relaxed">当 AI 把"做游戏"的门槛从百人团队、百万资金降到任何人都能参与，掌机行业由谁主导内容生产的权力结构就开始松动。垄断的根基从未如此脆弱——这是游戏行业五十年来第一次真正的权力转移机会。</p>
+            </div>
+          </div>
+
           <div class="flex flex-col lg:flex-row lg:items-stretch gap-8 lg:gap-6">
             <div class="flex-1 min-w-0">
-              <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-nintendo-red"></span>行业霸主：任天堂 Switch</h3>
+              <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-nintendo-red"></span>消费时代的霸主：任天堂 Switch</h3>
               <div class="space-y-4">
                 <button type="button" class="vs-card w-full text-left glass rounded-2xl p-5 card-hover border-red-100/60 hover:border-red-300 transition ring-1 ring-transparent hover:ring-red-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-nintendo-red">
-                  <p class="text-sm text-slate-700"><strong class="text-slate-900">核心竞争力：</strong>拥有塞尔达、马里奥等顶尖第一方 IP，提供高质量沉浸式主机游戏体验。</p>
+                  <p class="text-sm text-slate-700"><strong class="text-slate-900">为"消费时代"而生：</strong>拥有塞尔达、马里奥等顶尖第一方 IP，整个商业模式建立在"大团队造精品、大众来消费"的假设上。</p>
                 </button>
                 <button type="button" class="vs-card w-full text-left glass rounded-2xl p-5 card-hover border-red-100/60 hover:border-red-300 transition ring-1 ring-transparent hover:ring-red-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-nintendo-red">
-                  <p class="text-sm text-slate-700"><strong class="text-slate-900">封闭生态：</strong>第三方生态发展偏弱，重度依赖自有研发，可扩展性有限。</p>
+                  <p class="text-sm text-slate-700"><strong class="text-slate-900">封闭即护城河，也是软肋：</strong>封闭生态虽保护了品牌体验，但同时堵死了 UGC 和 AI 创作生态的入口，在创造时代到来时无法快速转型。</p>
                 </button>
                 <button type="button" class="vs-card w-full text-left glass rounded-2xl p-5 card-hover border-red-100/60 hover:border-red-300 transition ring-1 ring-transparent hover:ring-red-300/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-nintendo-red">
-                  <p class="text-sm text-slate-700"><strong class="text-slate-900">创新迟缓：</strong>硬件多年未更迭、游戏投产周期长，难以满足 AIGC 世代玩家的个性化诉求。</p>
+                  <p class="text-sm text-slate-700"><strong class="text-slate-900">变局面前的结构性盲区：</strong>AI 能力的指数级跃迁不在任天堂的体系内——他们没有大模型、没有 AI 创作平台、没有为"人人创造"设计的生态，且内部文化难以快速迭代。</p>
                 </button>
               </div>
             </div>
@@ -1625,37 +1700,38 @@
               <div class="vs-badge select-none cursor-default" role="presentation" aria-hidden="true">VS</div>
             </div>
             <div class="flex-1 min-w-0">
-              <h3 class="text-lg font-bold text-fuse-blue mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-fuse-blue"></span>AI 破局：Fuse 的机会</h3>
+              <h3 class="text-lg font-bold text-fuse-blue mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-fuse-blue"></span>创造时代的入场券：Fuse 的破局路径</h3>
               <div class="space-y-4">
                 <button type="button" class="vs-card w-full text-left glass rounded-2xl p-5 card-hover border-blue-100 ring-1 ring-blue-500/10 hover:border-fuse-blue/40 hover:shadow-[0_0_0_1px_rgba(30,107,255,0.25)] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-fuse-blue">
-                  <p class="text-sm text-slate-700"><strong class="text-fuse-blue">UGC 内容生态：</strong>以 AI 显著降低研发门槛，赋能用户海量创作，繁荣第三方生态。</p>
+                  <p class="text-sm text-slate-700"><strong class="text-fuse-blue">乘势百年变局：</strong>不是做一台"更好的 Switch"，而是做第一台为 AI 创造时代原生设计的掌机——把"人人都能做游戏"作为核心产品价值。</p>
                 </button>
                 <button type="button" class="vs-card w-full text-left glass rounded-2xl p-5 card-hover border-blue-100 ring-1 ring-blue-500/10 hover:border-fuse-blue/40 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-fuse-blue">
-                  <p class="text-sm text-slate-700"><strong class="text-fuse-blue">定义 AI 游戏标准：</strong>抢占话语权，确立 AI 硬件交互与内容生成标准，牵引下一代掌机。</p>
+                  <p class="text-sm text-slate-700"><strong class="text-fuse-blue">占据创造时代的标准位：</strong>抢先定义 AI 游戏创作的硬件入口与内容生态标准，让竞争对手跟随我们的规则而不是反过来。</p>
                 </button>
                 <button type="button" class="vs-card w-full text-left glass rounded-2xl p-5 card-hover border-blue-100 ring-1 ring-blue-500/10 hover:border-fuse-blue/40 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-fuse-blue">
-                  <p class="text-sm text-slate-700"><strong class="text-fuse-blue">极致个性 + 极致敏捷：</strong>基于玩家创意生成千人千面内容；软硬件以互联网极致迭代重构掌机赛道。</p>
+                  <p class="text-sm text-slate-700"><strong class="text-fuse-blue">用创造者网络效应构建护城河：</strong>每一个加入平台的创造者，都在为下一个创造者制造理由。这是消费平台不具备的飞轮——内容越多创造者越多，创造者越多内容越丰富。</p>
                 </button>
               </div>
             </div>
           </div>
           <button type="button" id="vs-highlight-cta" class="mt-10 w-full rounded-2xl bg-gradient-to-r from-fuse-blue to-blue-700 text-white py-5 px-6 font-semibold tracking-wide shadow-lg hover:brightness-110 active:scale-[0.99] transition text-center cursor-pointer border border-white/10">
-            AI 是打破任天堂垄断的绝佳机会
+            百年变局的窗口期，是打破垄断格局的唯一时机
           </button>
         </div>
       </section>
 
       <!-- MODEL COMPARE -->
       <section id="s-model-compare" class="section-pad max-w-7xl mx-auto">
-        <div class="max-w-4xl mb-12">
+        <div class="max-w-4xl mb-10">
           <p class="section-kicker mb-2">PART 04 · FRAMEWORK</p>
-          <h2 class="text-2xl md:text-[2.25rem] font-extrabold text-slate-900 leading-tight">核心模式对比：“用 Apple 的模式，重做任天堂的生意”</h2>
-          <p class="mt-3 text-slate-500 font-medium">传统巨头模式的局限性 vs Fuse AI 驱动的下一代生态</p>
+          <h2 class="text-2xl md:text-[2.25rem] font-extrabold text-slate-900 leading-tight">“用Apple的模式，重做任天堂的生意”</h2>
+          <p class="mt-3 text-slate-600 text-sm md:text-base max-w-3xl">任天堂代表“消费时代”的极致——少数人做内容，多数人消费。苹果代表“开发者时代”的突破——专业开发者提供内容，平台做分发。Fuse 要做的，是百年变局带来的第三种范式：<strong class="text-fuse-orange">AI 让每个人都成为内容的创造者</strong>，平台不只是分发，而是创造的基础设施。</p>
         </div>
 
         <div id="model-compare-grid" class="grid lg:grid-cols-3 gap-8 items-stretch">
           <!-- 任天堂模式 -->
           <article data-model-card class="model-card glass rounded-[2rem] p-8 shadow-glass card-hover flex flex-col items-center text-center" tabindex="0" role="button" aria-label="任天堂模式">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">消费时代 · 1983–2026</p>
             <h3 class="text-xl font-bold text-slate-900">任天堂模式</h3>
             <div class="accent-line bg-orange-400"></div>
 
@@ -1663,29 +1739,36 @@
               <li class="compare-item">
                 <div class="compare-icon"><i data-lucide="gamepad-2" class="w-5 h-5"></i></div>
                 <div class="compare-content">
-                  <span class="compare-label">内容生产</span>
-                  <span class="compare-value">厂商主导 造精品大作</span>
+                  <span class="compare-label">谁来创造内容</span>
+                  <span class="compare-value">厂商专业团队 · 百人以上</span>
                 </div>
               </li>
               <li class="compare-item">
                 <div class="compare-icon"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></div>
                 <div class="compare-content">
-                  <span class="compare-label">内容规模</span>
-                  <span class="compare-value">每年仅数款大作，百款新游</span>
+                  <span class="compare-label">内容供给规模</span>
+                  <span class="compare-value">每年数款旗舰，百款新游</span>
                 </div>
               </li>
               <li class="compare-item">
                 <div class="compare-icon"><i data-lucide="wallet" class="w-5 h-5"></i></div>
                 <div class="compare-content">
-                  <span class="compare-label">核心收入</span>
-                  <span class="compare-value">硬件销售 + 自研游戏</span>
+                  <span class="compare-label">核心收入来源</span>
+                  <span class="compare-value">硬件销售 + 自研游戏售卖</span>
                 </div>
               </li>
               <li class="compare-item">
                 <div class="compare-icon"><i data-lucide="trending-up" class="w-5 h-5"></i></div>
                 <div class="compare-content">
-                  <span class="compare-label">增长模型</span>
-                  <span class="compare-value">线性增长 (依赖 IP 迭代)</span>
+                  <span class="compare-label">增长上限</span>
+                  <span class="compare-value">线性 · 受团队产能硬约束</span>
+                </div>
+              </li>
+              <li class="compare-item">
+                <div class="compare-icon"><i data-lucide="lock" class="w-5 h-5"></i></div>
+                <div class="compare-content">
+                  <span class="compare-label">AI 时代适应性</span>
+                  <span class="compare-value text-red-500">封闭体系，难以转型</span>
                 </div>
               </li>
             </ul>
@@ -1693,6 +1776,7 @@
 
           <!-- 苹果 App Store 模式 -->
           <article data-model-card class="model-card glass rounded-[2rem] p-8 shadow-glass card-hover flex flex-col items-center text-center" tabindex="0" role="button" aria-label="苹果 App Store 模式">
+            <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-2">开发者时代 · 2008–今</p>
             <h3 class="text-xl font-bold text-slate-900">苹果 App Store 模式</h3>
             <div class="accent-line bg-blue-600"></div>
 
@@ -1700,29 +1784,36 @@
               <li class="compare-item">
                 <div class="compare-icon"><i data-lucide="smartphone" class="w-5 h-5"></i></div>
                 <div class="compare-content">
-                  <span class="compare-label">内容生产</span>
-                  <span class="compare-value">开发者主导 海量 APP</span>
+                  <span class="compare-label">谁来创造内容</span>
+                  <span class="compare-value">专业开发者 · 仍需编程能力</span>
                 </div>
               </li>
               <li class="compare-item">
                 <div class="compare-icon"><i data-lucide="layout-grid" class="w-5 h-5"></i></div>
                 <div class="compare-content">
-                  <span class="compare-label">内容规模</span>
+                  <span class="compare-label">内容供给规模</span>
                   <span class="compare-value">每年百万级 APP 上架</span>
                 </div>
               </li>
               <li class="compare-item">
                 <div class="compare-icon"><i data-lucide="shopping-bag" class="w-5 h-5"></i></div>
                 <div class="compare-content">
-                  <span class="compare-label">核心收入</span>
+                  <span class="compare-label">核心收入来源</span>
                   <span class="compare-value">30% 平台抽成 + Apple Ads</span>
                 </div>
               </li>
               <li class="compare-item">
                 <div class="compare-icon"><i data-lucide="line-chart" class="w-5 h-5"></i></div>
                 <div class="compare-content">
-                  <span class="compare-label">增长模型</span>
-                  <span class="compare-value">指数增长 (依赖生态扩展)</span>
+                  <span class="compare-label">增长上限</span>
+                  <span class="compare-value">指数 · 但受开发者数量制约</span>
+                </div>
+              </li>
+              <li class="compare-item">
+                <div class="compare-icon"><i data-lucide="alert-circle" class="w-5 h-5"></i></div>
+                <div class="compare-content">
+                  <span class="compare-label">AI 时代适应性</span>
+                  <span class="compare-value text-amber-600">部分适配，创作门槛仍存</span>
                 </div>
               </li>
             </ul>
@@ -1730,40 +1821,57 @@
 
           <!-- Fuse 下一代模式 -->
           <article data-model-card class="model-card rounded-[2rem] p-8 text-white shadow-2xl card-hover flex flex-col items-center text-center bg-gradient-to-b from-[#1E6BFF] to-[#1558d6]" tabindex="0" role="button" aria-label="Fuse 下一代模式">
-            <h3 class="text-xl font-bold">Fuse 下一代模式</h3>
+            <p class="text-[10px] font-bold text-blue-200/70 uppercase tracking-widest mb-2">AI 创造时代 · 2026+</p>
+            <h3 class="text-xl font-bold">Fuse · AI 创造时代原生模式</h3>
             <div class="accent-line bg-white/40"></div>
 
             <ul class="mt-8 space-y-4 w-full text-left">
               <li class="compare-item">
                 <div class="compare-icon"><i data-lucide="bot" class="w-5 h-5"></i></div>
                 <div class="compare-content">
-                  <span class="compare-label">内容生产 (AI 赋能)</span>
-                  <span class="compare-value">厂商主导，人人都是创作者</span>
+                  <span class="compare-label">谁来创造内容</span>
+                  <span class="compare-value">每一个玩家 · 一句话即可</span>
                 </div>
               </li>
               <li class="compare-item">
                 <div class="compare-icon"><i data-lucide="layers" class="w-5 h-5"></i></div>
                 <div class="compare-content">
-                  <span class="compare-label">内容规模 (爆发式)</span>
-                  <span class="compare-value">每年亿级游戏生成/二创/N创</span>
+                  <span class="compare-label">内容供给规模</span>
+                  <span class="compare-value">亿级游戏生成 · 无上限</span>
                 </div>
               </li>
               <li class="compare-item">
                 <div class="compare-icon"><i data-lucide="wallet-2" class="w-5 h-5"></i></div>
                 <div class="compare-content">
-                  <span class="compare-label">多元收入体系</span>
-                  <span class="compare-value">硬件 + 平台税 + AI Token 订阅</span>
+                  <span class="compare-label">核心收入来源</span>
+                  <span class="compare-value">硬件 + 平台税 + AI 创作订阅</span>
                 </div>
               </li>
               <li class="compare-item">
                 <div class="compare-icon"><i data-lucide="rocket" class="w-5 h-5"></i></div>
                 <div class="compare-content">
-                  <span class="compare-label">估值核心</span>
-                  <span class="compare-value">AI 未来爆发式生产力与生态价值</span>
+                  <span class="compare-label">增长上限</span>
+                  <span class="compare-value">超指数 · 创造者网络飞轮</span>
+                </div>
+              </li>
+              <li class="compare-item">
+                <div class="compare-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></div>
+                <div class="compare-content">
+                  <span class="compare-label">AI 时代适应性</span>
+                  <span class="compare-value text-green-300">原生设计 · 为变局而生</span>
                 </div>
               </li>
             </ul>
           </article>
+        </div>
+
+        <!-- 底部总结 -->
+        <div class="mt-8 rounded-2xl bg-slate-950 text-white p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6">
+          <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shrink-0"><i data-lucide="milestone" class="w-6 h-6 text-orange-300"></i></div>
+          <div>
+            <p class="text-xs font-bold text-blue-200/60 uppercase tracking-wider mb-1">核心判断</p>
+            <p class="text-base md:text-lg font-bold leading-snug">任天堂赢在了消费时代，苹果定义了开发者时代。<span class="text-orange-300">AI 创造时代还没有赢家——这正是 Fuse 的机会所在。</span></p>
+          </div>
         </div>
       </section>
 
@@ -4124,6 +4232,9 @@
   var angryResetBtn = document.getElementById('angry-reset');
   var angryRaf = null;
   var angryState = null;
+  var ANGRY_WIDTH = 640;
+  var ANGRY_HEIGHT = 360;
+  var angryPixelRatio = 1;
   var angryBirds = [
     { label: '追觅方法论', target: '方法', animal: '浣熊', color: '#60a5fa', beak: '#facc15', x: 462, y: 244, size: 33 },
     { label: 'AI Native 商业模式', target: '模式', animal: '狐狸', color: '#a78bfa', beak: '#fb923c', x: 548, y: 226, size: 33 },
@@ -4132,6 +4243,38 @@
   ];
   function angryTargetFor(i) {
     return angryBirds[i] || angryBirds[0];
+  }
+  function prepareAngryCanvas() {
+    if (!angryCanvas || !angryCtx) return;
+    var ratio = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+    var pixelW = Math.round(ANGRY_WIDTH * ratio);
+    var pixelH = Math.round(ANGRY_HEIGHT * ratio);
+    if (angryCanvas.width !== pixelW || angryCanvas.height !== pixelH || angryPixelRatio !== ratio) {
+      angryPixelRatio = ratio;
+      angryCanvas.width = pixelW;
+      angryCanvas.height = pixelH;
+    }
+    angryCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  }
+  function angryHitCount() {
+    return angryState ? angryState.hit.filter(Boolean).length : 0;
+  }
+  function angryNextBird() {
+    return angryBirds[Math.min(angryHitCount(), angryBirds.length - 1)];
+  }
+  function angryRemainingTargets() {
+    if (!angryState) return '';
+    return angryBirds.filter(function (_, i) { return !angryState.hit[i]; }).map(function (b) { return b.target; }).join('、');
+  }
+  function findAngryHitTarget() {
+    if (!angryState) return -1;
+    for (var i = 0; i < angryBirds.length; i++) {
+      if (angryState.hit[i]) continue;
+      var target = angryTargetFor(i);
+      var isHit = Math.abs(angryState.bird.x - target.x) < target.size + 30 && Math.abs(angryState.bird.y - target.y) < target.size + 24;
+      if (isHit) return i;
+    }
+    return -1;
   }
   function drawAngryLevelScene(w, h) {
     var sky = angryCtx.createLinearGradient(0, 0, 0, h);
@@ -4373,13 +4516,14 @@
   }
   function drawAngryGame() {
     if (!angryCtx || !angryCanvas || !angryState) return;
-    var w = angryCanvas.width;
-    var h = angryCanvas.height;
+    prepareAngryCanvas();
+    var w = ANGRY_WIDTH;
+    var h = ANGRY_HEIGHT;
     angryCtx.clearRect(0, 0, w, h);
     angryState.t += 16;
     drawAngryLevelScene(w, h);
     drawAngrySlingshot();
-    var bird = angryBirds[Math.min(angryState.step, angryBirds.length - 1)];
+    var bird = angryNextBird();
     if (!angryState.flying && angryState.drag) {
       angryCtx.strokeStyle = 'rgba(69,26,3,.88)';
       angryCtx.lineWidth = 3;
@@ -4392,14 +4536,14 @@
     angryBirds.forEach(function (b, i) {
       drawAngryTarget(b, i, angryState.hit[i]);
     });
-    if (angryState.step < angryBirds.length) {
+    if (angryHitCount() < angryBirds.length) {
       drawAngryBirdSprite(bird, angryState.bird.x, angryState.bird.y, angryState.bird.vx);
     }
   }
   function updateAngryHud() {
-    var bird = angryBirds[Math.min(angryState ? angryState.step : 0, angryBirds.length - 1)];
+    var bird = angryNextBird();
     if (angryBirdLabel) angryBirdLabel.textContent = '当前小鸟：' + bird.label;
-    if (angryHitLabel) angryHitLabel.textContent = '命中 ' + (angryState ? angryState.step : 0) + '/' + angryBirds.length;
+    if (angryHitLabel) angryHitLabel.textContent = '命中 ' + angryHitCount() + '/' + angryBirds.length;
   }
   function resetAngryBirdPosition() {
     if (!angryState) return;
@@ -4422,7 +4566,7 @@
     if (angryState) angryState.flying = false;
   }
   function launchAngryBird() {
-    if (!angryState || angryState.flying || angryState.step >= angryBirds.length) return;
+    if (!angryState || angryState.flying || angryHitCount() >= angryBirds.length) return;
     var dx = 112 - angryState.bird.x;
     var dy = 225 - angryState.bird.y;
     if (Math.abs(dx) + Math.abs(dy) < 18) {
@@ -4445,13 +4589,12 @@
     angryState.bird.x += angryState.bird.vx * dt;
     angryState.bird.y += angryState.bird.vy * dt;
     angryState.bird.vy += 0.16 * dt;
-    var target = angryTargetFor(angryState.step);
-    var hit = Math.abs(angryState.bird.x - target.x) < target.size + 30 && Math.abs(angryState.bird.y - target.y) < target.size + 24;
-    if (hit) {
-      angryState.hit[angryState.step] = true;
-      angryState.step++;
-      if (angryStatus) angryStatus.textContent = angryState.step >= angryBirds.length ? '四个成功理由全部命中，模块通关。' : '命中，下一只小鸟继续攻击。';
-      if (angryState.step >= angryBirds.length) {
+    var hitIndex = findAngryHitTarget();
+    if (hitIndex !== -1) {
+      angryState.hit[hitIndex] = true;
+      var hits = angryHitCount();
+      if (angryStatus) angryStatus.textContent = hits >= angryBirds.length ? '四个成功理由全部命中，模块通关。' : '命中「' + angryBirds[hitIndex].target + '」，下一只小鸟继续攻击。';
+      if (hits >= angryBirds.length) {
         updateAngryHud();
         drawAngryGame();
         setTimeout(function () { completeModule('success'); }, 520);
@@ -4462,8 +4605,8 @@
       drawAngryGame();
       return;
     }
-    if (angryState.bird.x > angryCanvas.width + 30 || angryState.bird.y > angryCanvas.height + 30 || angryState.bird.x < -30) {
-      if (angryStatus) angryStatus.textContent = '差一点，重新拉弓命中「' + angryBirds[angryState.step].target + '」。';
+    if (angryState.bird.x > ANGRY_WIDTH + 30 || angryState.bird.y > ANGRY_HEIGHT + 30 || angryState.bird.x < -30) {
+      if (angryStatus) angryStatus.textContent = '差一点，重新拉弓命中剩余目标：' + angryRemainingTargets() + '。';
       resetAngryBirdPosition();
       drawAngryGame();
       return;
@@ -4473,7 +4616,7 @@
   }
   if (angryCanvas) {
     angryCanvas.addEventListener('pointerdown', function (ev) {
-      if (!angryState || angryState.flying || angryState.step >= angryBirds.length) return;
+      if (!angryState || angryState.flying || angryHitCount() >= angryBirds.length) return;
       ev.preventDefault();
       angryState.drag = true;
       try { angryCanvas.setPointerCapture(ev.pointerId); } catch (err) {}
@@ -4481,8 +4624,8 @@
     angryCanvas.addEventListener('pointermove', function (ev) {
       if (!angryState || !angryState.drag || angryState.flying) return;
       var r = angryCanvas.getBoundingClientRect();
-      var x = (ev.clientX - r.left) / r.width * angryCanvas.width;
-      var y = (ev.clientY - r.top) / r.height * angryCanvas.height;
+      var x = (ev.clientX - r.left) / r.width * ANGRY_WIDTH;
+      var y = (ev.clientY - r.top) / r.height * ANGRY_HEIGHT;
       angryState.bird.x = Math.max(52, Math.min(150, x));
       angryState.bird.y = Math.max(190, Math.min(285, y));
       drawAngryGame();
@@ -4518,6 +4661,16 @@
   var financeAllocReset = document.getElementById('finance-alloc-reset');
   var financeRaf = null;
   var financeState = null;
+  var FINANCE_GAME_W = 640;
+  var FINANCE_GAME_H = 360;
+  function setupFinanceCanvasResolution() {
+    if (!financeCanvas || !financeCtx) return;
+    var dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+    financeCanvas.width = Math.round(FINANCE_GAME_W * dpr);
+    financeCanvas.height = Math.round(FINANCE_GAME_H * dpr);
+    financeCanvas.style.aspectRatio = FINANCE_GAME_W + ' / ' + FINANCE_GAME_H;
+    financeCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
   function stopFinanceAllocGame() {
     if (financeRaf) {
       cancelAnimationFrame(financeRaf);
@@ -4530,7 +4683,7 @@
     var bw = 170;
     var bh = 38;
     var gap = 18;
-    var startX = (financeCanvas.width - (cols * bw + (cols - 1) * gap)) / 2;
+    var startX = (FINANCE_GAME_W - (cols * bw + (cols - 1) * gap)) / 2;
     FIN_ALLOC_ITEMS.forEach(function (item, i) {
       var row = Math.floor(i / cols);
       var col = i % cols;
@@ -4596,8 +4749,8 @@
   }
   function drawFinanceAllocGame() {
     if (!financeCtx || !financeCanvas || !financeState) return;
-    var w = financeCanvas.width;
-    var h = financeCanvas.height;
+    var w = FINANCE_GAME_W;
+    var h = FINANCE_GAME_H;
     financeCtx.clearRect(0, 0, w, h);
     var bg = financeCtx.createLinearGradient(0, 0, 0, h);
     bg.addColorStop(0, '#0f172a');
@@ -4712,12 +4865,13 @@
   function resetFinanceAllocGame() {
     if (!financeCanvas) return;
     stopFinanceAllocGame();
+    setupFinanceCanvasResolution();
     financeState = {
       lives: 3,
       won: false,
       last: 0,
-      paddle: { x: financeCanvas.width / 2 - 68, y: financeCanvas.height - 34, w: 136, h: 14, speed: 30 },
-      ball: { x: financeCanvas.width / 2, y: financeCanvas.height - 45, vx: 0, vy: 0, r: 8, moving: false },
+      paddle: { x: FINANCE_GAME_W / 2 - 68, y: FINANCE_GAME_H - 34, w: 136, h: 14, speed: 30 },
+      ball: { x: FINANCE_GAME_W / 2, y: FINANCE_GAME_H - 45, vx: 0, vy: 0, r: 8, moving: false },
       bricks: buildFinanceBricks(),
       particles: []
     };
@@ -4739,7 +4893,7 @@
   function moveFinancePaddle(dx) {
     if (!financeState || !financeCanvas) return;
     var p = financeState.paddle;
-    p.x = Math.max(12, Math.min(financeCanvas.width - p.w - 12, p.x + dx));
+    p.x = Math.max(12, Math.min(FINANCE_GAME_W - p.w - 12, p.x + dx));
     if (!financeState.ball.moving) resetFinanceBall();
     drawFinanceAllocGame();
   }
@@ -4759,7 +4913,7 @@
     });
     financeState.particles = financeState.particles.filter(function (pt) { return pt.life > 0; });
     if (ball.x < ball.r) { ball.x = ball.r; ball.vx = Math.abs(ball.vx); }
-    if (ball.x > financeCanvas.width - ball.r) { ball.x = financeCanvas.width - ball.r; ball.vx = -Math.abs(ball.vx); }
+    if (ball.x > FINANCE_GAME_W - ball.r) { ball.x = FINANCE_GAME_W - ball.r; ball.vx = -Math.abs(ball.vx); }
     if (ball.y < ball.r) { ball.y = ball.r; ball.vy = Math.abs(ball.vy); }
     if (ball.y + ball.r >= p.y && ball.y - ball.r <= p.y + p.h && ball.x >= p.x && ball.x <= p.x + p.w && ball.vy > 0) {
       var hitPos = (ball.x - (p.x + p.w / 2)) / (p.w / 2);
@@ -4791,7 +4945,7 @@
       setTimeout(function () { completeModule('finance'); }, 520);
       return;
     }
-    if (ball.y > financeCanvas.height + 24) {
+    if (ball.y > FINANCE_GAME_H + 24) {
       financeState.lives--;
       if (financeState.lives <= 0) {
         if (financeAllocStatus) financeAllocStatus.textContent = '资金球掉落，重开一局。';
@@ -4814,7 +4968,7 @@
     financeCanvas.addEventListener('pointermove', function (ev) {
       if (!financeState) return;
       var r = financeCanvas.getBoundingClientRect();
-      financeState.paddle.x = Math.max(12, Math.min(financeCanvas.width - financeState.paddle.w - 12, (ev.clientX - r.left) / r.width * financeCanvas.width - financeState.paddle.w / 2));
+      financeState.paddle.x = Math.max(12, Math.min(FINANCE_GAME_W - financeState.paddle.w - 12, (ev.clientX - r.left) / r.width * FINANCE_GAME_W - financeState.paddle.w / 2));
       if (!financeState.ball.moving) resetFinanceBall();
       drawFinanceAllocGame();
     });
