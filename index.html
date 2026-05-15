@@ -32,6 +32,8 @@
       --bg: #f0f4f8;
       --mesh-blue: rgba(59, 130, 246, 0.12);
       --mesh-orange: rgba(245, 158, 11, 0.1);
+      /* 桌面端为二级固定侧栏 #bp-nav 预留横向安全区，配合 grid min-width 防重叠 */
+      --bp-sidebar-gutter: 10.75rem;
     }
     html { scroll-behavior: smooth; }
     #mesh-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.85; }
@@ -55,6 +57,17 @@
     }
     .nav-dot { transition: background 0.2s, transform 0.2s; }
     .nav-dot.active { background: #1E6BFF; transform: scale(1.15); }
+    .nav-group { display: flex; flex-direction: column; gap: 0.25rem; }
+    .nav-group + .nav-group { margin-top: 0.35rem; }
+    .nav-group-title {
+      padding: 0.2rem 0.5rem 0.1rem;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+      white-space: nowrap;
+    }
+    .nav-dot.nav-child { padding-left: 0.9rem; }
     @keyframes pulse-ring {
       0%, 100% { box-shadow: 0 0 0 0 rgba(30, 107, 255, 0.35); }
       50% { box-shadow: 0 0 0 12px rgba(30, 107, 255, 0); }
@@ -177,7 +190,8 @@
     /* 分部估值表：层次化排版 + 财经数字对齐 */
     .valuation-matrix-wrap {
       border-radius: 1rem;
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 1px 2px rgba(15, 23, 42, 0.06);
       border: 1px solid rgba(226, 232, 240, 0.95);
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #f8fafc 100%);
@@ -340,15 +354,20 @@
     /* 避让固定侧栏/FAB（仅正文+页脚；首屏 hero 仍可全宽） */
     .bp-main-safe {
       box-sizing: border-box;
+      min-width: 0;
       padding-left: clamp(1rem, 4vw, 1.75rem);
       padding-right: clamp(1rem, 4vw, 1.75rem);
       padding-bottom: clamp(6rem, 18vh, 9rem);
     }
     @media (min-width: 1024px) {
       .bp-main-safe {
-        padding-left: max(7.5rem, env(safe-area-inset-left, 0px));
+        padding-left: max(var(--bp-sidebar-gutter), env(safe-area-inset-left, 0px));
         padding-right: max(8rem, env(safe-area-inset-right, 0px));
         padding-bottom: max(3rem, env(safe-area-inset-bottom, 0px));
+      }
+      /* 避免 grid 子项按内容最小宽度把整行撑到侧栏下方 */
+      .bp-main-safe .grid > * {
+        min-width: 0;
       }
     }
     .bp-footer-safe {
@@ -359,9 +378,14 @@
     }
     @media (min-width: 1024px) {
       .bp-footer-safe {
-        padding-left: max(7.5rem, env(safe-area-inset-left, 0px));
+        padding-left: max(var(--bp-sidebar-gutter), env(safe-area-inset-left, 0px));
         padding-right: max(8rem, env(safe-area-inset-right, 0px));
         padding-bottom: max(2.5rem, env(safe-area-inset-bottom, 0px));
+      }
+      /* 侧栏显示时：居中标题区在约 1024px 宽仍会侵入左侧固定目录 */
+      #s-hero {
+        padding-left: max(2.5rem, var(--bp-sidebar-gutter));
+        padding-right: 2.5rem;
       }
     }
     .tilt-wrap { transform-style: preserve-3d; transition: transform .15s ease-out; }
@@ -440,11 +464,73 @@
     .boss-meter span { display: block; height: 100%; width: 75%; background: linear-gradient(90deg,#E60012,#F59E0B); transition: width .7s ease; }
     .boss-meter.is-hit span { width: 28%; }
     .secret-rune { cursor: pointer; user-select: none; }
+    .secret-arrow-hint {
+      display: inline-flex; align-items: center; justify-content: center; gap: .28rem; flex-wrap: wrap;
+      color: rgba(255,255,255,.26); font-size: .78rem; letter-spacing: .08em; user-select: none;
+    }
+    .secret-arrow-hint span {
+      width: 1.55rem; height: 1.55rem; border-radius: .55rem; display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+      animation: secret-hint-pulse 2.8s ease-in-out infinite;
+    }
+    .secret-arrow-hint span:nth-child(2) { animation-delay: .12s; }
+    .secret-arrow-hint span:nth-child(3) { animation-delay: .24s; }
+    .secret-arrow-hint span:nth-child(4) { animation-delay: .36s; }
+    .secret-arrow-hint span:nth-child(5) { animation-delay: .48s; }
+    .secret-arrow-hint span:nth-child(6) { animation-delay: .6s; }
+    .secret-arrow-hint span:nth-child(7) { animation-delay: .72s; }
+    .secret-arrow-hint span:nth-child(8) { animation-delay: .84s; }
+    @keyframes secret-hint-pulse {
+      0%, 70%, 100% { opacity: .38; transform: translateY(0); }
+      16% { opacity: .9; transform: translateY(-2px); }
+    }
+    body:not(.demo-egg-unlocked) #s-demo,
+    body:not(.demo-egg-unlocked) .demo-nav-link { display: none !important; }
+    .secret-command-section {
+      min-height: 88vh; display: flex; align-items: center; justify-content: center;
+      background: var(--bg);
+    }
+    .secret-arrow-cluster {
+      display: grid;
+      grid-template-columns: repeat(3, clamp(4.4rem, 10vw, 6.4rem));
+      grid-template-rows: repeat(2, clamp(4.4rem, 10vw, 6.4rem));
+      gap: clamp(.55rem, 1.4vw, .85rem);
+      align-items: center;
+      justify-content: center;
+    }
+    .secret-arrow-cluster .secret-spacer {
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .secret-arrow-key {
+      width: 100%; height: 100%;
+      border-radius: clamp(.85rem, 1.8vw, 1.2rem);
+      color: #475569; font-size: clamp(1.35rem, 3vw, 2rem); font-weight: 900;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 48%, #dbe3ee 100%);
+      border: 1px solid rgba(148,163,184,.86);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.95),
+        inset 0 -0.55rem 0 rgba(148,163,184,.22),
+        0 0.55rem 0 #a8b4c4,
+        0 1.3rem 2.7rem rgba(15,23,42,.18);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+    .secret-arrow-key:hover { filter: brightness(1.02); }
+    .secret-arrow-key:active,
+    .secret-arrow-key.is-pressed {
+      transform: translateY(.4rem);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.95),
+        inset 0 -0.35rem 0 rgba(148,163,184,.18),
+        0 0.16rem 0 #a8b4c4,
+        0 .8rem 1.8rem rgba(15,23,42,.16);
+    }
     body:not(.mode-quest) #quest-hud { display: none; }
-    /* 普通模式：隐藏模块通关条与任天堂页内 Boss 小游戏入口，阅读流不被打断 */
+    /* 普通模式：隐藏闯关模块与闯关提示，阅读流不被打断 */
     body.mode-normal [data-quest-gate],
     body.mode-normal [data-quest-ui] { display: none !important; }
-    /* 闯关模式：愿景正文仅在愿景彩蛋弹层关闭后显示，避免滚动经过 Demo 时提前剧透 */
+    /* 闯关模式：愿景正文仅在 Boss 通关后显示，避免提前剧透 */
     #s-vision .vision-quest-placeholder { display: none; }
     body.mode-quest:not(.quest-vision-unlocked) #s-vision .vision-quest-placeholder {
       display: flex; align-items: center; justify-content: center; min-height: 52vh; padding: 2rem 1.5rem;
@@ -693,16 +779,16 @@
       font-size: clamp(0.62rem, 2vw, 0.8rem); line-height: 1.2; letter-spacing: 0.02em;
       text-shadow: 0 1px 2px rgba(0,0,0,.35); pointer-events: none;
     }
-    .match-tile[data-kind="creator"] { background: radial-gradient(circle at 28% 18%, #93c5fd, transparent 28%), linear-gradient(145deg, #2563eb, #1d4ed8); }
-    .match-tile[data-kind="game"] { background: radial-gradient(circle at 28% 18%, #fde68a, transparent 30%), linear-gradient(145deg, #f59e0b, #c2410c); }
-    .match-tile[data-kind="player"] { background: radial-gradient(circle at 28% 18%, #86efac, transparent 30%), linear-gradient(145deg, #10b981, #047857); }
-    .match-tile[data-kind="engine"] { background: radial-gradient(circle at 28% 18%, #c4b5fd, transparent 30%), linear-gradient(145deg, #8b5cf6, #6d28d9); }
+    .match-tile[data-kind="hardware"] { background: radial-gradient(circle at 28% 18%, #93c5fd, transparent 28%), linear-gradient(145deg, #2563eb, #1d4ed8); }
     .match-tile[data-kind="store"] { background: radial-gradient(circle at 28% 18%, #67e8f9, transparent 30%), linear-gradient(145deg, #06b6d4, #0e7490); }
-    .match-tile[data-kind="creator"]::before { border-radius: 999px 999px .35rem .35rem; }
-    .match-tile[data-kind="game"]::before { border-radius: .35rem; transform: rotate(45deg); }
-    .match-tile[data-kind="player"]::before { border-radius: 999px; }
-    .match-tile[data-kind="engine"]::before { clip-path: polygon(50% 0, 100% 30%, 100% 70%, 50% 100%, 0 70%, 0 30%); }
+    .match-tile[data-kind="first"] { background: radial-gradient(circle at 28% 18%, #fde68a, transparent 30%), linear-gradient(145deg, #f59e0b, #c2410c); }
+    .match-tile[data-kind="remix"] { background: radial-gradient(circle at 28% 18%, #86efac, transparent 30%), linear-gradient(145deg, #10b981, #047857); }
+    .match-tile[data-kind="ip"] { background: radial-gradient(circle at 28% 18%, #c4b5fd, transparent 30%), linear-gradient(145deg, #8b5cf6, #6d28d9); }
+    .match-tile[data-kind="hardware"]::before { border-radius: 999px 999px .35rem .35rem; }
     .match-tile[data-kind="store"]::before { border-radius: .25rem .25rem .5rem .5rem; }
+    .match-tile[data-kind="first"]::before { border-radius: .35rem; transform: rotate(45deg); }
+    .match-tile[data-kind="remix"]::before { border-radius: 999px; }
+    .match-tile[data-kind="ip"]::before { clip-path: polygon(50% 0, 100% 30%, 100% 70%, 50% 100%, 0 70%, 0 30%); }
     .match-tile.is-picked { transform: translateY(-4px) scale(1.06); box-shadow: 0 0 0 3px rgba(251,191,36,.78), 0 16px 34px rgba(251,191,36,.24); }
     .match-tile.is-clearing { opacity: .22; transform: scale(.72) rotate(-4deg); }
     .match-hud {
@@ -720,42 +806,33 @@
     .match-dots { display: inline-flex; gap: .35rem; align-items: center; }
     .match-dot { width: .55rem; height: .55rem; border-radius: 999px; background: rgba(255,255,255,.22); border: 1px solid rgba(255,255,255,.2); transition: background .2s ease, transform .2s ease; }
     .match-dot.is-on { background: linear-gradient(145deg, #fbbf24, #f59e0b); border-color: rgba(251,191,36,.8); transform: scale(1.15); box-shadow: 0 0 12px rgba(251,191,36,.45); }
-    .jump-track {
-      height: 1.55rem; border-radius: 999px; overflow: hidden; position: relative;
-      background:
-        repeating-linear-gradient(90deg, rgba(255,255,255,.12) 0 1px, transparent 1px 12.5%),
-        rgba(255,255,255,.12);
-      box-shadow: inset 0 1px 8px rgba(0,0,0,.38), 0 14px 30px rgba(0,0,0,.16);
-      border: 1px solid rgba(255,255,255,.12);
+    .angry-arena,
+    .finance-alloc-arena {
+      width: min(100%, 680px); margin: 0 auto; border-radius: 1.6rem; overflow: hidden; position: relative;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 24px 68px rgba(0,0,0,.28);
     }
-    .jump-zone { position: absolute; top: 0; bottom: 0; left: 62%; width: 24%; background: linear-gradient(90deg, rgba(16,185,129,.2), rgba(52,211,153,.56), rgba(16,185,129,.2)); box-shadow: 0 0 22px rgba(52,211,153,.42); }
-    .jump-power { position: absolute; top: 0; bottom: 0; left: 0; width: 8%; border-radius: inherit; background: linear-gradient(90deg,#60a5fa,#fbbf24,#fb7185); box-shadow: 0 0 18px rgba(251,191,36,.4); }
-    .jump-character {
-      width: 5.65rem; height: 5.65rem; border-radius: 1.65rem; margin: .3rem auto 1.25rem;
-      background: radial-gradient(circle at 35% 20%, #fff, #fde68a 26%, #f97316 68%, #7c2d12);
-      box-shadow: 0 20px 52px rgba(251,146,60,.36), inset 0 2px 0 rgba(255,255,255,.58);
-      position: relative; animation: jump-float 2.6s ease-in-out infinite;
+    .angry-arena { background: linear-gradient(180deg, rgba(30,107,255,.22), rgba(15,23,42,.86)); }
+    #angry-canvas { display: block; width: 100%; height: auto; touch-action: none; cursor: crosshair; }
+    .angry-hud,
+    .finance-alloc-hud {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin-bottom: .8rem;
+      color: rgba(255,255,255,.86); font-size: .75rem; font-weight: 900;
     }
-    @keyframes jump-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-    .jump-character::before {
-      content: ""; position: absolute; left: 1.4rem; top: 1.55rem; width: .55rem; height: .55rem;
-      border-radius: 999px; background: #111827; box-shadow: 1.75rem 0 0 #111827;
-    }
-    .jump-character::after {
-      content: ""; position: absolute; left: 1.8rem; right: 1.8rem; bottom: 1.25rem; height: .35rem;
-      border-radius: 999px; background: rgba(17,24,39,.72);
-    }
-    .jump-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem; }
-    .jump-step { border-radius: 1rem; padding: .7rem .35rem .6rem; text-align: center; font-size: .72rem; font-weight: 900; background: linear-gradient(145deg, rgba(255,255,255,.1), rgba(255,255,255,.045)); border: 1px solid rgba(255,255,255,.12); display: flex; flex-direction: column; align-items: center; gap: .3rem; box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
-    .jump-step-ico { width: 1.45rem; height: 1.45rem; border-radius: .42rem; background-color: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.14); background-repeat: no-repeat; background-position: center; background-size: 74%; }
-    .jump-step:nth-child(1) .jump-step-ico { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M12 22c4-6 8-9 8-14a8 8 0 10-16 0c0 5 4 8 8 14z'/%3E%3Ccircle cx='12' cy='8' r='2.5'/%3E%3C/svg%3E"); }
-    .jump-step:nth-child(2) .jump-step-ico { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M3 3v18h18'/%3E%3Cpath d='M7 16l4-4 4 4 6-8'/%3E%3C/svg%3E"); }
-    .jump-step:nth-child(3) .jump-step-ico { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z'/%3E%3C/svg%3E"); }
-    .jump-step:nth-child(4) .jump-step-ico { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M3 21h18M5 21V7l7-4 7 4v14M9 21v-4h6v4'/%3E%3C/svg%3E"); }
-    .jump-step-txt { font-size: .62rem; font-weight: 900; letter-spacing: .04em; opacity: .9; line-height: 1.2; }
-    .jump-step.is-on { background: rgba(30,107,255,.34); border-color: rgba(96,165,250,.55); }
-    .jump-step.is-on .jump-step-ico { background-color: rgba(96,165,250,.35); border-color: rgba(147,197,253,.5); }
-    #jump-action { touch-action: manipulation; }
+    .angry-hud span,
+    .finance-alloc-hud span { border-radius: 999px; padding: .4rem .7rem; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); }
+    .finance-alloc-arena { padding: 1rem; background: linear-gradient(145deg, rgba(15,23,42,.88), rgba(30,41,59,.72)); }
+    .finance-budget-track { height: .65rem; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.12); box-shadow: inset 0 1px 6px rgba(0,0,0,.32); }
+    .finance-budget-fill { height: 100%; width: 0%; border-radius: inherit; background: linear-gradient(90deg,#3B82F6,#F59E0B,#10B981); transition: width .22s ease; }
+    .finance-alloc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; margin-top: 1rem; }
+    .finance-alloc-card { border-radius: 1rem; padding: .78rem; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.13); }
+    .finance-alloc-card.is-ok { background: rgba(16,185,129,.18); border-color: rgba(110,231,183,.45); }
+    .finance-alloc-name { font-size: .72rem; font-weight: 900; color: rgba(255,255,255,.92); line-height: 1.25; }
+    .finance-alloc-target { margin-top: .18rem; font-size: .62rem; font-weight: 800; color: rgba(191,219,254,.78); }
+    .finance-alloc-value { font-size: 1.05rem; font-weight: 1000; color: #fbbf24; font-variant-numeric: tabular-nums; }
+    .finance-alloc-controls { display: flex; align-items: center; justify-content: space-between; gap: .45rem; margin-top: .55rem; }
+    .finance-alloc-btn { width: 2rem; height: 2rem; border-radius: .7rem; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.16); color: #fff; font-weight: 1000; }
+    .finance-alloc-btn:hover { background: rgba(255,255,255,.2); }
     .boss-arena {
       width: min(100%, 680px); margin: 0 auto; border-radius: 1.6rem; overflow: hidden; position: relative;
       border: 1px solid rgba(255,255,255,.18); background: radial-gradient(circle at 50% 0%, rgba(239,68,68,.32), transparent 38%), #020617;
@@ -847,10 +924,8 @@
       }
       #gate-normal-btn,
       #gate-start-btn,
-      #gate-demo-btn,
       #hero-normal-btn,
       #hero-start-btn,
-      #s-hero a[href="#s-demo"],
       .start-btn-primary {
         width: 100%;
         justify-content: center;
@@ -921,7 +996,8 @@
         font-size: 16px;
       }
       div:has(> canvas#chart-finance-combo),
-      div:has(> canvas#chart-nintendo-combo) {
+      div:has(> canvas#chart-nintendo-combo),
+      div:has(> canvas#chart-ai-impact) {
         width: 100%;
         max-width: 100%;
         height: 18rem !important;
@@ -1035,6 +1111,14 @@
         text-overflow: clip;
         white-space: normal !important;
       }
+      #bp-nav-mobile .nav-group-title {
+        padding: 0.45rem 0.7rem 0.15rem !important;
+        font-size: 10px;
+        letter-spacing: 0.06em;
+      }
+      #bp-nav-mobile .nav-dot.nav-child {
+        padding-left: 1rem !important;
+      }
       #interaction-fab {
         left: max(0.75rem, env(safe-area-inset-left, 0px));
         right: auto;
@@ -1112,8 +1196,13 @@
         grid-template-columns: repeat(3, minmax(2.35rem, 2.75rem));
         grid-template-rows: repeat(3, minmax(2.35rem, 2.75rem));
       }
-      .jump-steps {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .secret-arrow-hint span {
+        width: 1.35rem;
+        height: 1.35rem;
+        border-radius: 0.45rem;
+      }
+      .finance-alloc-grid {
+        grid-template-columns: 1fr;
       }
       .boss-hud {
         justify-content: flex-start;
@@ -1178,14 +1267,22 @@
         用 Apple 的方式<br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-200 via-white to-amber-200 bg-clip-text text-transparent">重做游戏生态</span>
       </h1>
       <p class="mt-8 text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed reveal" style="transition-delay:.1s">
-        全球首款 AI 原生掌机入口 · Fuse Store UGC · 官方 IP 游戏宇宙 —— 三位一体，闭环增长。
+        全球首款 AI 原生掌机 · Fuse Store UGC · Fuse IP 游戏宇宙。
       </p>
       <p class="mt-6 text-xs md:text-sm text-white/55 max-w-md mx-auto reveal" style="transition-delay:.11s"></p>
+      <div class="mt-5 secret-arrow-hint reveal" aria-label="隐藏指令提示：上上下下左右左右" style="transition-delay:.12s">
+        <span>↑</span><span>↑</span><span>↓</span><span>↓</span><span>←</span><span>→</span><span>←</span><span>→</span>
+      </div>
       <div class="mt-8 flex flex-wrap justify-center gap-4 reveal" style="transition-delay:.14s">
         <button type="button" id="gate-normal-btn" class="inline-flex items-center gap-2 rounded-xl bg-white text-fuse-blue font-bold px-8 py-4 hover:bg-slate-100 transition shadow-xl shadow-black/25">普通模式 · 直接阅读</button>
         <button type="button" id="gate-start-btn" class="inline-flex items-center gap-2 rounded-xl border border-amber-200/70 text-white font-bold px-8 py-4 hover:bg-white/12 backdrop-blur-sm transition">闯关模式 · New Game</button>
-        <button type="button" id="gate-demo-btn" class="inline-flex items-center gap-2 rounded-xl border border-white/45 text-white font-bold px-8 py-4 hover:bg-white/12 backdrop-blur-sm transition">Demo 下载</button>
       </div>
+      <p class="mt-7 text-[10px] md:text-[11px] font-normal text-white/[0.14] hover:text-white/35 tracking-[0.08em] leading-relaxed transition reveal" style="transition-delay:.18s">
+        3号孵化器-超级个体BU<br />
+        <a class="text-inherit no-underline" href="mailto:xiongsilong@navee.tech">xiongsilong@navee.tech</a>
+        <span class="mx-1 text-white/[0.12]">/</span>
+        <a class="text-inherit no-underline" href="tel:19924532173">19924532173</a>
+      </p>
     </div>
   </div>
 
@@ -1201,8 +1298,9 @@
     <div class="mt-3 flex flex-wrap gap-1.5">
       <span class="quest-badge" data-quest-badge="market">市场裂缝</span>
       <span class="quest-badge" data-quest-badge="ecosystem">产品生态</span>
-      <span class="quest-badge" data-quest-badge="finance">飞轮融资</span>
-      <span class="quest-badge" data-quest-badge="egg">愿景彩蛋</span>
+      <span class="quest-badge" data-quest-badge="success">成功理由</span>
+      <span class="quest-badge" data-quest-badge="finance">增长融资</span>
+      <span class="quest-badge" data-quest-badge="egg">对标愿景</span>
     </div>
   </aside>
 
@@ -1238,13 +1336,21 @@
           用 Apple 的方式<br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-200 via-white to-amber-200 bg-clip-text text-transparent">重做游戏生态</span>
         </h1>
         <p class="mt-8 text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed reveal" style="transition-delay:.1s">
-          全球首款 AI 原生掌机入口 · Fuse Store UGC · 官方 IP 游戏宇宙 —— 三位一体，闭环增长。
+          全球首款 AI 原生掌机 · Fuse Store UGC · Fuse IP 游戏宇宙。
         </p>
+        <div class="mt-6 secret-arrow-hint reveal" aria-label="隐藏指令提示：上上下下左右左右" style="transition-delay:.12s">
+          <span>↑</span><span>↑</span><span>↓</span><span>↓</span><span>←</span><span>→</span><span>←</span><span>→</span>
+        </div>
         <div class="mt-10 flex flex-wrap justify-center gap-4 reveal" style="transition-delay:.14s">
           <button type="button" id="hero-normal-btn" class="inline-flex items-center gap-2 rounded-xl bg-white text-fuse-blue font-bold px-8 py-4 hover:bg-slate-100 transition shadow-xl shadow-black/25">普通模式 · 直接阅读</button>
           <button type="button" id="hero-start-btn" class="inline-flex items-center gap-2 rounded-xl border border-amber-200/70 text-white font-bold px-8 py-4 hover:bg-white/12 backdrop-blur-sm transition">闯关模式 · New Game</button>
-          <a href="#s-demo" class="inline-flex items-center gap-2 rounded-xl border border-white/45 text-white font-bold px-8 py-4 hover:bg-white/12 backdrop-blur-sm transition">Demo 下载</a>
         </div>
+        <p class="mt-10 md:mt-12 text-[10px] md:text-[11px] font-normal text-white/[0.14] hover:text-white/35 tracking-[0.08em] leading-relaxed transition reveal" style="transition-delay:.18s">
+          3号孵化器-超级个体BU<br />
+          <a class="text-inherit no-underline" href="mailto:xiongsilong@navee.tech">xiongsilong@navee.tech</a>
+          <span class="mx-1 text-white/[0.12]">/</span>
+          <a class="text-inherit no-underline" href="tel:19924532173">19924532173</a>
+        </p>
       </div>
     </header>
 
@@ -1309,6 +1415,94 @@
                 </div>
               </article>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI EVOLUTION -->
+      <section id="s-ai-evolution" class="section-pad bg-white/40">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col lg:flex-row lg:items-end gap-8 mb-10">
+            <div class="flex-1">
+              <p class="section-kicker mb-2 text-slate-500">AI EVOLUTION · GAME INDUSTRY IMPACT</p>
+              <h2 class="text-2xl md:text-4xl font-bold text-slate-900">AI 游戏的演进：从工具提效到人人创造</h2>
+              <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl">这不是简单的“AI 帮忙做游戏”，而是 AI 能力高速进化后，对游戏生产、内容形态、玩家身份和硬件入口的连续重构。未来的游戏机不只是用来玩游戏，更会成为随时随地实现想法和创意的 AI 创作终端。</p>
+            </div>
+            <div class="shrink-0 rounded-3xl bg-slate-900 text-white px-6 py-5 shadow-glass max-w-sm">
+              <p class="text-[10px] tracking-[0.28em] text-blue-100/70 font-bold">CORE SHIFT</p>
+              <p class="mt-3 text-2xl font-black">从“消费游戏”到“创造游戏”</p>
+              <p class="mt-2 text-xs text-white/68 leading-relaxed">玩游戏是体验别人的世界，创造游戏是把自己的想法变成世界。</p>
+            </div>
+          </div>
+          <div class="grid lg:grid-cols-5 gap-8 items-stretch">
+            <article class="lg:col-span-3 glass rounded-3xl p-6 md:p-8 shadow-glass ring-1 ring-white/80">
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+                <div>
+                  <h3 class="font-bold text-slate-900">AI 对游戏创造的影响力：跃迁式指数增长</h3>
+                  <p class="mt-2 text-xs text-slate-500 leading-relaxed">示意曲线表达 AI 能力对游戏创造的影响节奏：AIGC 与大模型出现前长期贴地缓慢增长，大模型带来第一次跃迁，最近两年曲线突然抬头，未来两年进入指数级上冲，直到普通人也能把创意变成可玩的游戏。</p>
+                </div>
+                <span class="inline-flex self-start rounded-full bg-orange-50 px-3 py-1 text-[11px] font-bold text-amber-700 border border-orange-100">不是线性增长，是跃迁</span>
+              </div>
+              <div class="h-80"><canvas id="chart-ai-impact"></canvas></div>
+              <div class="mt-5 grid grid-cols-2 md:grid-cols-4 gap-2 text-[11px]">
+                <div class="rounded-2xl bg-slate-50 border border-slate-100 p-3"><span class="font-black text-slate-900">2017</span><p class="mt-1 text-slate-500 leading-relaxed">Transformer 奠定大模型路线</p></div>
+                <div class="rounded-2xl bg-blue-50 border border-blue-100 p-3"><span class="font-black text-fuse-blue">2022</span><p class="mt-1 text-slate-500 leading-relaxed">扩散模型 + ChatGPT，创作入口跃迁</p></div>
+                <div class="rounded-2xl bg-orange-50 border border-orange-100 p-3"><span class="font-black text-amber-700">2024</span><p class="mt-1 text-slate-500 leading-relaxed">多模态与视频生成，曲线突然抬头</p></div>
+                <div class="rounded-2xl bg-emerald-50 border border-emerald-100 p-3"><span class="font-black text-emerald-700">2026E+</span><p class="mt-1 text-slate-500 leading-relaxed">Agent / 世界模型推动人人创造</p></div>
+              </div>
+            </article>
+            <article class="lg:col-span-2 rounded-3xl bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white p-7 md:p-8 shadow-glass overflow-hidden relative">
+              <div class="absolute -right-20 -top-20 w-56 h-56 rounded-full bg-blue-500/20 blur-3xl" aria-hidden="true"></div>
+              <div class="absolute -left-16 -bottom-20 w-56 h-56 rounded-full bg-orange-400/16 blur-3xl" aria-hidden="true"></div>
+              <div class="relative">
+                <div class="w-12 h-12 rounded-2xl bg-white/10 text-orange-200 bp-li bp-li-lg flex items-center justify-center ring-1 ring-white/15"><i data-lucide="sparkles"></i></div>
+                <h3 class="mt-6 text-2xl font-black">未来为什么会爆炸？</h3>
+                <p class="mt-4 text-sm text-blue-100/78 leading-relaxed">当 AI 能听懂一句话、生成可玩的原型、理解玩家偏好、实时改剧情和规则，游戏就从“少数团队生产内容”变成“每个人生产自己的世界”。</p>
+                <p class="mt-4 text-sm text-blue-100/78 leading-relaxed">那时 AI 游戏机的价值不是性能参数，而是把灵感立即变成可玩的作品：孩子想做一关恐龙跑酷，情侣想做一段纪念日冒险或把新婚照落成可回访的婚礼纪念世界，朋友想把今天的笑话变成派对小游戏，都可以当场发生。</p>
+              </div>
+            </article>
+          </div>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-slate-100/80">
+              <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-700 bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="wrench"></i></div>
+              <p class="text-xs font-bold text-slate-500">阶段 1 · 工具提效</p>
+              <h3 class="mt-2 font-bold text-slate-900">AI 先成为开发助手</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">像“更聪明的 Photoshop + 程序员助手”：帮美术出草图、帮程序员补代码、帮策划整理文档。玩家还感知不强，但开发效率开始被改变。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-blue-100/80">
+              <div class="w-11 h-11 rounded-xl bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="image-plus"></i></div>
+              <p class="text-xs font-bold text-fuse-blue">阶段 2 · 素材爆发</p>
+              <h3 class="mt-2 font-bold text-slate-900">文字、图片、语音都能生成</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">一句“做一个赛博猫咪老板”就能得到角色设定、头像、台词和配音。小团队也能做出过去需要多人协作的内容量。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-cyan-100/80">
+              <div class="w-11 h-11 rounded-xl bg-cyan-100 text-cyan-700 bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="blocks"></i></div>
+              <p class="text-xs font-bold text-cyan-700">阶段 3 · 原型可玩</p>
+              <h3 class="mt-2 font-bold text-slate-900">一句想法变成小游戏雏形</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">比如“做一个妈妈小时候街机风格的消消乐”，AI 不只是给图，而是生成规则、关卡、UI 和可操作 Demo，创意从文档变成可玩。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-orange-100/80">
+              <div class="w-11 h-11 rounded-xl bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="gamepad-2"></i></div>
+              <p class="text-xs font-bold text-amber-700">阶段 4 · AI 原生游戏</p>
+              <h3 class="mt-2 font-bold text-slate-900">游戏开始实时理解玩家</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">NPC 不再只会重复台词，队友能听懂你的战术，敌人会学习你的打法，剧情会根据你的选择继续长出来。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-violet-100/80">
+              <div class="w-11 h-11 rounded-xl bg-violet-100 text-fuse-purple bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="orbit"></i></div>
+              <p class="text-xs font-bold text-violet-700">阶段 5 · 世界持续演化</p>
+              <h3 class="mt-2 font-bold text-slate-900">每个人拥有不同的游戏世界</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">同一款游戏在不同玩家手里变成不同故事：有人养成宠物宇宙，有人做解谜剧场，有人把朋友聚会变成多人闯关。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-emerald-100/80">
+              <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="tablet-smartphone"></i></div>
+              <p class="text-xs font-bold text-emerald-700">阶段 6 · 人人创造入口</p>
+              <h3 class="mt-2 font-bold text-slate-900">AI 游戏机成为创意终端</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">未来大家想要的可能不是“一台能玩更多游戏的设备”，而是一台能随时把脑海里的游戏做出来、分享出去、一起玩的设备。</p>
+            </article>
+          </div>
+          <div class="mt-8 rounded-3xl bg-gradient-to-r from-blue-50 via-white to-orange-50 p-6 md:p-8 border border-white shadow-glass">
+            <h3 class="font-bold text-slate-900">关键判断：创造游戏的快乐，会超过单纯玩游戏</h3>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">过去游戏行业的核心是“谁能做出好游戏给大家玩”；AI 时代的核心会变成“谁能让每个人把自己的想法变成游戏”。当创作门槛足够低，游戏机就从娱乐硬件升级为随身创意硬件，用户买它不是只为了消耗时间，而是为了把灵感变成可玩的世界。</p>
           </div>
         </div>
       </section>
@@ -1761,7 +1955,7 @@
             <div>
               <p class="section-kicker mb-2 text-slate-500">PART 07 · FUSE STORE</p>
               <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">Fuse Store：商业模式如何跑起来</h2>
-              <p class="mt-4 text-slate-600 text-sm md:text-base max-w-4xl leading-relaxed">一句话概括：Fuse Store 把 AI 创作、官方 IP 二创、移动端分发、Token 消耗和收益分成放进同一个交易闭环。掌机负责高粘性体验，普通手机移动端手游同步兼容，扩大用户盘子与商业天花板。</p>
+              <p class="mt-4 text-slate-600 text-sm md:text-base max-w-4xl leading-relaxed">一句话概括：Fuse Store 把用户创作、官方 IP 游戏创作、移动端分发、Token 消耗和收益分成放进同一个交易闭环。掌机负责高粘性体验，普通手机移动端手游同步兼容，扩大用户盘子与商业天花板。</p>
             </div>
           </div>
         </div>
@@ -1781,7 +1975,7 @@
                 <div class="rounded-2xl bg-white/10 border border-white/10 p-4">
                   <div class="w-10 h-10 rounded-xl bg-orange-400/20 text-orange-100 bp-li bp-li-md flex items-center justify-center mb-3" aria-hidden="true"><i data-lucide="sparkles"></i></div>
                   <p class="font-bold">1 · 创作供给</p>
-                  <p class="mt-2 text-white/68 leading-relaxed">官方游戏、一创、二创、N 创共同供给内容。</p>
+                  <p class="mt-2 text-white/68 leading-relaxed">用户创作与官方 IP 游戏双轨供给，一创、二创、N 创共同扩张内容。</p>
                 </div>
                 <div class="rounded-2xl bg-white/10 border border-white/10 p-4">
                   <div class="w-10 h-10 rounded-xl bg-blue-400/20 text-blue-100 bp-li bp-li-md flex items-center justify-center mb-3" aria-hidden="true"><i data-lucide="store"></i></div>
@@ -1823,7 +2017,7 @@
             <article class="glass rounded-3xl p-5 shadow-glass card-hover border border-violet-100/70">
               <p class="section-kicker text-violet-500">MOAT</p>
               <h3 class="mt-3 font-black text-slate-900">壁垒如何沉淀</h3>
-              <p class="mt-3 text-sm text-slate-600 leading-relaxed">每个作品保留来源、版本树和分成关系，官方游戏二创、玩家二创、N 创不断沉淀成平台资产。</p>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">每个作品保留来源、版本树和分成关系，用户作品与官方 IP 游戏的一创、二创、N 创不断沉淀成平台资产。</p>
             </article>
           </div>
         </div>
@@ -1832,7 +2026,7 @@
             <div class="lg:col-span-4">
               <p class="section-kicker text-orange-500">AI TOKEN ENGINE</p>
               <h3 class="mt-3 text-2xl font-black text-slate-900">AI 订阅收入：创造越快乐，Token 消耗越自然</h3>
-              <p class="mt-4 text-sm text-slate-600 leading-relaxed">Fuse Store 的高价值收入不是只靠卖游戏，而是让用户在“生成、修改、再生成”的过程中持续购买 Token。游戏一创、官方游戏二创、N 创接力都会触发 AI 调用，形成高频、可复购、可订阅的服务收入。</p>
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">Fuse Store 的高价值收入不是只靠卖游戏，而是让用户在“生成、修改、再生成”的过程中持续购买 Token。用户创作与官方 IP 游戏的一创、二创、N 创接力都会触发 AI 调用，形成高频、可复购、可订阅的服务收入。</p>
             </div>
             <div class="lg:col-span-8 grid md:grid-cols-3 gap-4">
               <article class="rounded-2xl bg-white/85 border border-orange-100 p-5 shadow-sm">
@@ -1855,15 +2049,15 @@
           <div class="mt-6 grid md:grid-cols-4 gap-3 text-sm">
             <div class="rounded-2xl bg-slate-950 text-white p-4">
               <p class="font-bold text-orange-100">一创消耗</p>
-              <p class="mt-2 text-white/68 leading-relaxed">从一句话生成可玩原型，消耗基础 Token。</p>
+              <p class="mt-2 text-white/68 leading-relaxed">用户从零生成作品，官方 IP 生成首发游戏和模板，都会消耗基础 Token。</p>
             </div>
             <div class="rounded-2xl bg-slate-950 text-white p-4">
               <p class="font-bold text-blue-100">二创消耗</p>
-              <p class="mt-2 text-white/68 leading-relaxed">基于官方游戏改剧情、关卡、NPC 和玩法，消耗进阶 Token。</p>
+              <p class="mt-2 text-white/68 leading-relaxed">基于用户作品或官方 IP 游戏改剧情、关卡、NPC 和玩法，消耗进阶 Token。</p>
             </div>
             <div class="rounded-2xl bg-slate-950 text-white p-4">
               <p class="font-bold text-violet-100">N 创消耗</p>
-              <p class="mt-2 text-white/68 leading-relaxed">社区不断 remix、测试、发布，带来长尾 Token 消费。</p>
+              <p class="mt-2 text-white/68 leading-relaxed">用户作品链与官方 IP 游戏链持续 remix、测试、发布，带来长尾 Token 消费。</p>
             </div>
             <div class="rounded-2xl bg-slate-950 text-white p-4">
               <p class="font-bold text-emerald-100">平台收入</p>
@@ -1878,14 +2072,27 @@
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-6">
           <div>
             <p class="section-kicker mb-2">PART 08 · GAMEPLAY SCENARIOS</p>
-            <h2 class="text-2xl md:text-[2rem] font-extrabold text-gradient tracking-tight">游戏一创：从零生成一款新游戏</h2>
+            <h2 class="text-2xl md:text-[2rem] font-extrabold text-gradient tracking-tight">游戏一创：用户一创 + 官方 IP 游戏一创</h2>
+            <p class="mt-3 max-w-3xl text-sm md:text-base text-slate-600 leading-relaxed">一创不是单一路径，而是两条内容源头：用户从生活、情绪和脑洞生成个人游戏；官方围绕 Fuse IP 生成高品质首发游戏、玩法模板和世界观资产。</p>
           </div>
           <div class="flex flex-wrap gap-2">
             <button type="button" id="game1-expand-all" class="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-slate-700 shadow-sm hover:bg-slate-900 hover:text-white transition">展开全部</button>
             <button type="button" id="game1-collapse-all" class="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-slate-700 shadow-sm hover:bg-slate-100 transition">收起全部</button>
           </div>
         </div>
-        <div class="grid md:grid-cols-2 gap-6 mt-10">
+        <div class="grid md:grid-cols-2 gap-5 mt-10">
+          <article class="rounded-3xl bg-white/80 border border-orange-100 p-6 shadow-glass">
+            <p class="section-kicker text-orange-500">USER ORIGINAL</p>
+            <h3 class="mt-3 font-black text-slate-900">用户一创</h3>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">玩家用照片、故事、关系和兴趣，从零生成专属可玩原型，上架后可继续被二创和 N 创。</p>
+          </article>
+          <article class="rounded-3xl bg-white/80 border border-violet-100 p-6 shadow-glass">
+            <p class="section-kicker text-violet-500">OFFICIAL IP ORIGINAL</p>
+            <h3 class="mt-3 font-black text-slate-900">官方 IP 游戏一创</h3>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">官方基于角色、世界观、美术风格和核心玩法生成首发游戏、DLC 原型与模板包，作为平台品质锚点。</p>
+          </article>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6 mt-6">
           <article class="game-card glass rounded-2xl p-6 md:p-7 shadow-glass card-hover border border-white/60">
             <div class="flex items-start gap-3"><span class="shrink-0 w-11 h-11 rounded-xl bg-rose-50 text-rose-500 bp-li bp-li-lg flex items-center justify-center mt-0.5 ring-1 ring-rose-100" aria-hidden="true"><i data-lucide="heart"></i></span><div><h3 class="font-bold text-slate-900">亲子时光</h3><p class="text-xs text-slate-500 mt-1">将爱与陪伴融入专属游戏</p></div></div>
             <details class="mt-4 group">
@@ -1903,6 +2110,7 @@
               <ul class="mt-4 space-y-3 text-sm text-slate-600 list-disc pl-5">
               <li><strong class="text-slate-800">情侣旅行照定制：</strong>上传打卡照，生成恋爱跑酷、约会闯关小游戏。</li>
               <li><strong class="text-slate-800">恋爱梗游戏：</strong>输入小约定与小故事，生成解谜，剧情尽是专属回忆。</li>
+              <li><strong class="text-slate-800">新婚拍照·婚礼世界：</strong>以婚纱照、婚礼现场与誓言等为素材，生成可漫步、可互动、可重温仪式的专属结婚纪念场景（广义上的游戏世界）；作品归档后，下次打开即可回到同一时空，回味当日光影与情绪。</li>
             </ul>
             </details>
           </article>
@@ -1932,8 +2140,20 @@
       <!-- GAME 2 CREATE -->
       <section id="s-game-2" class="section-pad bg-white/40">
         <div class="max-w-7xl mx-auto">
-          <h2 class="text-2xl md:text-4xl font-bold text-slate-900 text-center mb-4">游戏二创：基于官方游戏/IP 改造世界</h2>
-          <p class="max-w-3xl mx-auto text-center text-sm md:text-base text-slate-600 leading-relaxed mb-12">官方先发布高品质基础游戏，玩家再用 AI 改剧情、关卡、NPC 和玩法规则；每一次官方游戏二创都能回到 Fuse Store 分发、交易和继续被 N 创。</p>
+          <h2 class="text-2xl md:text-4xl font-bold text-slate-900 text-center mb-4">游戏二创：用户作品二创 + 官方 IP 游戏二创</h2>
+          <p class="max-w-3xl mx-auto text-center text-sm md:text-base text-slate-600 leading-relaxed mb-8">二创同样分两条链：一条基于用户一创作品继续改造，一条基于官方 IP 游戏/IP 模板改剧情、关卡、NPC 和玩法规则；每一次二创都能回到 Fuse Store 分发、交易并继续被 N 创。</p>
+          <div class="grid md:grid-cols-2 gap-5 mb-10">
+            <article class="rounded-3xl bg-white/80 border border-blue-100 p-6 shadow-glass">
+              <p class="section-kicker text-blue-500">USER REMIX</p>
+              <h3 class="mt-3 font-black text-slate-900">用户作品二创</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">社区基于其他玩家的一创作品改关卡、素材、叙事和规则，创作者按版本树获得分润。</p>
+            </article>
+            <article class="rounded-3xl bg-white/80 border border-violet-100 p-6 shadow-glass">
+              <p class="section-kicker text-violet-500">OFFICIAL IP REMIX</p>
+              <h3 class="mt-3 font-black text-slate-900">官方 IP 游戏二创</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">玩家基于官方首发游戏、角色与模板生成分支剧情、特殊关卡和新玩法，官方 IP 获得持续授权收益。</p>
+            </article>
+          </div>
           <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <article class="game-secondary glass rounded-2xl p-6 card-hover border-t-4 border-fuse-blue cursor-pointer hover:shadow-xl transition [&:focus-within]:ring-2 [&:focus-within]:ring-fuse-blue">
               <div class="w-10 h-10 rounded-lg bg-fuse-blue text-white bp-li bp-li-md flex items-center justify-center mb-4 shadow-md"><i data-lucide="scroll-text"></i></div>
@@ -1975,8 +2195,20 @@
       <!-- GAME N -->
       <section id="s-game-n" class="section-pad max-w-7xl mx-auto relative">
         <p class="section-kicker mb-2 text-slate-500">PART 10 · LOOP STORYBOARD</p>
-        <h2 class="text-2xl md:text-[2rem] font-extrabold text-gradient mb-6">游戏 N 创：玩家接力扩散的内容链条</h2>
-        <p id="game-n-hint" class="mb-8 max-w-3xl text-sm text-slate-600 leading-relaxed">官方游戏或优秀 UGC → 玩家二创 → 社区继续 N 创 → 新版本回到 Fuse Store 分发，内容链条可无限延伸。</p>
+        <h2 class="text-2xl md:text-[2rem] font-extrabold text-gradient mb-6">游戏 N 创：用户作品链 + 官方 IP 游戏链持续扩散</h2>
+        <p id="game-n-hint" class="mb-8 max-w-3xl text-sm text-slate-600 leading-relaxed">优秀用户作品或官方 IP 游戏 → 玩家二创 → 社区继续 N 创 → 新版本回到 Fuse Store 分发，用户链与官方 IP 链都可无限延伸。</p>
+        <div class="grid md:grid-cols-2 gap-5 mb-10">
+          <article class="rounded-3xl bg-white/80 border border-emerald-100 p-6 shadow-glass">
+            <p class="section-kicker text-emerald-600">USER VERSION TREE</p>
+            <h3 class="mt-3 font-black text-slate-900">用户作品 N 创</h3>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">一个玩家作品被多人继续改造，形成玩法、素材、剧情和难度的多分支版本树，长尾内容持续回流 Store。</p>
+          </article>
+          <article class="rounded-3xl bg-white/80 border border-violet-100 p-6 shadow-glass">
+            <p class="section-kicker text-violet-500">OFFICIAL IP VERSION TREE</p>
+            <h3 class="mt-3 font-black text-slate-900">官方 IP 游戏 N 创</h3>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">官方 IP 游戏从首发内容延伸出社区赛季、联名玩法和角色分支，官方持续获得授权、模板和交易收益。</p>
+          </article>
+        </div>
         <div class="hidden xl:block absolute top-1/2 left-[8%] right-[8%] h-0.5 bg-gradient-to-r from-fuse-blue via-fuse-orange to-fuse-purple opacity-20 pointer-events-none" style="margin-top:-2rem"></div>
         <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-6 relative z-10">
           <article class="fw-node glass rounded-2xl p-6 text-center card-hover cursor-pointer hover:-translate-y-1 ring-2 ring-transparent transition" tabindex="0" role="button" data-fw="0">
@@ -2178,45 +2410,118 @@
         </div>
       </section>
 
+      <section id="gate-ecosystem" class="section-pad max-w-5xl mx-auto" data-quest-gate="ecosystem">
+        <div class="quest-gate">
+          <p class="text-[10px] tracking-[0.28em] text-amber-200 font-black">MODULE 02 CLEAR CHECK</p>
+          <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+            <div>
+              <h2 class="text-2xl md:text-3xl font-black">产品生态模块结束</h2>
+              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完硬件入口、Fuse Store、一创/二创/N 创循环和官方 IP 内容线。闯关模式下，完成生态消消乐，把「掌机入口、Store 分发、AI 一创、二创/N 创、官方 IP」连成闭环。</p>
+            </div>
+            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="ecosystem">挑战 02 · 生态消消乐</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY SUCCESS -->
+      <section id="s-why-success" class="section-pad bg-white/40 relative overflow-hidden">
+        <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(30,107,255,0.12),transparent_36%),radial-gradient(circle_at_86%_72%,rgba(245,158,11,0.13),transparent_34%)]" aria-hidden="true"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+          <div class="flex flex-col lg:flex-row lg:items-end gap-8 mb-12">
+            <div class="flex flex-1 gap-4 items-start min-w-0">
+              <span class="bp-title-dot shrink-0 mt-1 hidden sm:block"></span>
+              <div>
+                <p class="section-kicker mb-2 text-slate-500">PART 11 · WHY FUSE WINS</p>
+                <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">为什么成功：不是单点产品，而是方法、模式、时机与团队的叠加</h2>
+                <p class="mt-4 text-slate-600 text-sm md:text-base max-w-4xl leading-relaxed">Fuse 的成功逻辑不是赌一台硬件爆款，而是把追觅已验证的方法论、AI Native 的商业模式、产业窗口期和后续人才组织能力放到同一个增长系统里。</p>
+              </div>
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-blue-100/70">
+              <div class="w-12 h-12 rounded-xl bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="route"></i></div>
+              <p class="section-kicker text-blue-500">METHOD</p>
+              <h3 class="mt-3 font-black text-slate-900">追觅方法论</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">用全包围试错找到有效组合，用 N+1 压制建立可感知优势，再用全球渠道和供应链快速放大。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-violet-100/70">
+              <div class="w-12 h-12 rounded-xl bg-violet-100 text-fuse-purple bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="repeat-2"></i></div>
+              <p class="section-kicker text-violet-500">BUSINESS</p>
+              <h3 class="mt-3 font-black text-slate-900">AI Native 的商业模式</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">收入不只来自硬件售卖，而是来自 AI 生成、内容交易、平台分成和 IP 模板复用形成的持续消费。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-orange-100/70">
+              <div class="w-12 h-12 rounded-xl bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="clock-3"></i></div>
+              <p class="section-kicker text-orange-500">TIMING</p>
+              <h3 class="mt-3 font-black text-slate-900">时机</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">AI 游戏生成处于爆发前夜，融资热度和技术能力同时上行；AI 游戏掌机与生成标准仍是空白，先进入者有机会定义品类。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-emerald-100/70">
+              <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="users-round"></i></div>
+              <p class="section-kicker text-emerald-600">TEAM</p>
+              <h3 class="mt-3 font-black text-slate-900">人才团队</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">追觅清华系平台人才库提供底座，Fuse 创始人 Silong 是资深 AI 专家，也是超级个体实践开拓者。</p>
+            </article>
+          </div>
+          <div class="mt-8 rounded-3xl bg-slate-900 text-white p-6 md:p-8 shadow-xl shadow-slate-900/18">
+            <p class="text-xs tracking-[0.28em] text-amber-200 font-black">ONE SENTENCE</p>
+            <h3 class="mt-3 text-xl md:text-2xl font-black">追觅负责把机会做成规模，Fuse 负责把 AI 游戏机会做成生态。</h3>
+            <p class="mt-4 text-sm text-blue-100/78 leading-relaxed max-w-4xl"></p>
+          </div>
+        </div>
+      </section>
+
       <!-- DREAME MODEL -->
       <section id="s-dreame-model" class="section-pad max-w-7xl mx-auto">
         <div class="flex flex-col lg:flex-row lg:items-end gap-8 mb-10">
           <div class="flex flex-1 gap-4 items-start min-w-0">
             <span class="bp-title-dot shrink-0 mt-1 hidden sm:block"></span>
             <div>
-              <p class="section-kicker mb-2 text-slate-500">PART 07 · DREAME MODEL</p>
-              <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">追觅方法论：成功可复制，世界的本质是垄断</h2>
-              <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl">核心不是低成本试错，而是用「顶级对标 + 高端品牌 + 全球渠道 + 供应链效率」快速吸附行业资源，在新赛道里形成压制性增长。</p>
+              <p class="section-kicker mb-2 text-slate-500">WHY SUCCESS · 01 · DREAME MODEL</p>
+              <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">追觅方法论：成功可复制，全包围试错 + N+1 压制</h2>
+              <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl">核心不是坐在办公室里找「唯一答案」，而是用全包围把品类与国家覆盖拉开，用 N+1 在竞品能力边界上逐项压过，再用高端品牌、全球渠道与供应链效率把试出来的组合快速放大。</p>
             </div>
           </div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-5 mb-8">
+          <article class="glass rounded-3xl p-6 md:p-8 shadow-glass card-hover ring-1 ring-blue-100/80 border border-blue-100/60">
+            <div class="w-12 h-12 rounded-xl bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="layout-grid"></i></div>
+            <h3 class="text-lg md:text-xl font-bold text-slate-900">全包围打法</h3>
+            <p class="mt-4 text-sm text-slate-600 leading-relaxed">推出所有品类，并在所有国家进行售卖尝试。机会是试出来的，不是想出来的：不断尝试产品、渠道与区域市场的搭配组合，找到真正有效的组合。市场覆盖永远是不充分的，惊喜往往藏在尚未覆盖的排列组合里。</p>
+          </article>
+          <article class="glass rounded-3xl p-6 md:p-8 shadow-glass card-hover ring-1 ring-orange-100/80 border border-orange-100/60">
+            <div class="w-12 h-12 rounded-xl bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="trending-up"></i></div>
+            <h3 class="text-lg md:text-xl font-bold text-slate-900">N+1 打法</h3>
+            <p class="mt-4 text-sm text-slate-600 leading-relaxed">在竞品已经做到的「N」之上，把关键体验与能力逐项做得比对手更好一点：不是单点炫技，而是整体领先，从而形成对竞品的全面压制。</p>
+          </article>
         </div>
         <div class="grid lg:grid-cols-12 gap-8 items-stretch">
           <article class="lg:col-span-5 glass rounded-3xl p-7 md:p-8 shadow-glass card-hover ring-1 ring-white/80">
             <div class="w-14 h-14 rounded-full bg-slate-900 text-white bp-li bp-li-xl flex items-center justify-center mb-6 shadow-lg shadow-slate-900/20" aria-hidden="true"><i data-lucide="rocket"></i></div>
-            <h3 class="text-xl font-bold text-slate-900">成功关键：把马太效应用到极致</h3>
-            <p class="mt-5 text-sm text-slate-600 leading-relaxed">商业世界的基本运行规律是垄断。追觅方法论的关键，是从一开始就高举高打，对标当下行业第一，把技术、渠道、品牌、供应链和资本资源快速集中到一个方向上，形成压制比打法。</p>
-            <p class="mt-4 text-sm text-slate-600 leading-relaxed"><strong class="text-slate-900">对应到 Fuse：</strong>不是做一台普通掌机，而是在 AI 游戏硬件与内容生态里直接对标头部玩家，借追觅体系的供应链、渠道和品牌能力，抢占新一代行业第一的位置。</p>
+            <h3 class="text-xl font-bold text-slate-900">成功关键：先试对组合，再规模化放大</h3>
+            <p class="mt-5 text-sm text-slate-600 leading-relaxed">全包围回答「机会在哪里」：用足够多的品类 × 国家 × 渠道组合去试，把有效答案从市场里捞出来。N+1 回答「凭什么赢」：在对手已验证的需求与能力边界上，每一项都再强一点，形成可感知的整体优势。</p>
+            <p class="mt-4 text-sm text-slate-600 leading-relaxed"><strong class="text-slate-900">对应到 Fuse：</strong>不是做一台普通掌机，而是在 AI 游戏硬件与内容生态里做宽试点、做强对比，借追觅体系的供应链、渠道与品牌，把验证过的组合快速推向全球。</p>
           </article>
           <div class="lg:col-span-7 grid sm:grid-cols-2 gap-5">
-            <article class="glass rounded-2xl p-6 shadow-glass card-hover border border-blue-100/70">
-              <div class="w-11 h-11 rounded-xl bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="flask-conical"></i></div>
-              <h3 class="font-bold text-slate-900">1 · 马太效应的极致应用</h3>
-              <p class="mt-3 text-sm text-slate-600 leading-relaxed">商业竞争最终走向垄断。追觅方法论选择高举高打，直接对标行业第一，把行业内关键资源都吸过来，用压制比打法成为新的行业第一。</p>
-            </article>
             <article class="glass rounded-2xl p-6 shadow-glass card-hover border border-orange-100/70">
               <div class="w-11 h-11 rounded-xl bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="factory"></i></div>
-              <h3 class="font-bold text-slate-900">2 · 高端品牌与全球渠道</h3>
+              <h3 class="font-bold text-slate-900">1 · 高端品牌与全球渠道</h3>
               <p class="mt-3 text-sm text-slate-600 leading-relaxed">通过高端品牌定位进入高价值人群，再依托全球成熟销售渠道无死角铺开，实现新品类快速上量。</p>
             </article>
             <article class="glass rounded-2xl p-6 shadow-glass card-hover border border-violet-100/70">
               <div class="w-11 h-11 rounded-xl bg-violet-100 text-fuse-purple bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="badge-check"></i></div>
-              <h3 class="font-bold text-slate-900">3 · 超高资产管理效率</h3>
+              <h3 class="font-bold text-slate-900">2 · 超高资产管理效率</h3>
               <p class="mt-3 text-sm text-slate-600 leading-relaxed">以首驱为例，去年 10 月产品上线，半年时间已经单月销售额破亿，完全跑赢资产自然贬值速度（10%/年）。</p>
             </article>
             <article class="glass rounded-2xl p-6 shadow-glass card-hover border border-emerald-100/70">
               <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="globe-2"></i></div>
-              <h3 class="font-bold text-slate-900">4 · 强大的供应链能力</h3>
+              <h3 class="font-bold text-slate-900">3 · 强大的供应链能力</h3>
               <p class="mt-3 text-sm text-slate-600 leading-relaxed">追觅体系具备从研发、量产、质量控制到全球交付的供应链能力，能把产品机会快速转化成规模化销售结果。</p>
+            </article>
+            <article class="glass rounded-2xl p-6 shadow-glass card-hover border border-slate-200/80 bg-slate-50/40">
+              <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="gauge"></i></div>
+              <h3 class="font-bold text-slate-900">4 · 规模放大与资源倾斜（补充视角）</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">当组合被验证、增长跑起来后，人才、渠道与供应链等资源会更愿意向优势方倾斜，这是许多品类的常见现象。它更像放大器：前提仍然是你用全包围找到有效组合、用 N+1 建立领先，而不是反过来把「资源集中」当成起点叙事。</p>
             </article>
           </div>
         </div>
@@ -2226,113 +2531,201 @@
         </div>
       </section>
 
-      <!-- AI EVOLUTION -->
-      <section id="s-ai-evolution" class="section-pad bg-white/40">
-        <div class="max-w-7xl mx-auto">
-          <h2 class="text-2xl md:text-4xl font-bold text-slate-900">AI 游戏的进化：从辅助到创造</h2>
-          <p class="mt-3 text-slate-600">回顾过去，立足现在，展望未来</p>
-          <div class="grid lg:grid-cols-3 gap-8 mt-12">
-            <article class="glass rounded-3xl p-8 shadow-glass card-hover">
-              <div class="w-12 h-12 rounded-full bg-fuse-blue text-white bp-li bp-li-lg flex items-center justify-center mb-5" aria-hidden="true"><i data-lucide="wrench"></i></div>
-              <p class="text-fuse-blue font-bold text-sm">过去 2 年</p>
-              <h3 class="text-lg font-bold text-slate-900 mt-2">AI 辅助游戏开发</h3>
-              <p class="mt-4 text-sm text-slate-600 leading-relaxed">AI 用于美术素材、代码补全与 Bug 修复等辅助环节；核心逻辑与玩法仍由人类主导。</p>
-              <p class="mt-6 text-xs px-3 py-2 rounded-lg bg-blue-50 text-fuse-blue inline-block">辅助工具 · 效率 · 素材生成</p>
-            </article>
-            <article class="glass rounded-3xl p-8 shadow-glass card-hover">
-              <div class="w-12 h-12 rounded-full bg-fuse-blue text-white bp-li bp-li-lg flex items-center justify-center mb-5" aria-hidden="true"><i data-lucide="circuit-board"></i></div>
-              <p class="text-fuse-blue font-bold text-sm">现在</p>
-              <h3 class="text-lg font-bold text-slate-900 mt-2">AI 生成游戏</h3>
-              <p class="mt-4 text-sm text-slate-600 leading-relaxed">据自然语言描述自动生成含逻辑、美术、音效的完整可玩游戏，显著降低创作技术门槛。</p>
-              <p class="mt-6 text-xs px-3 py-2 rounded-lg bg-blue-50 text-fuse-blue inline-block">自然语言 · 完整成品 · 门槛降低</p>
-            </article>
-            <article class="glass rounded-3xl p-8 shadow-glass card-hover border-fuse-orange/30">
-              <div class="w-12 h-12 rounded-full bg-fuse-orange text-white bp-li bp-li-lg flex items-center justify-center mb-5 spin-lucide" aria-hidden="true"><i data-lucide="infinity"></i></div>
-              <p class="text-fuse-orange font-bold text-sm">未来 2～3 年</p>
-              <h3 class="text-lg font-bold text-slate-900 mt-2">AI 自主创造与演化游戏</h3>
-              <p class="mt-4 text-sm text-slate-600 leading-relaxed">自主设计数值平衡、生成动态剧情、与玩家实时互动，提供独一无二的体验。</p>
-              <p class="mt-6 text-xs px-3 py-2 rounded-lg bg-orange-50 text-amber-700 inline-block">自主创造 · 动态演化 · 个性体验</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- MOAT: 技术壁垒 -->
-      <section id="s-moat" class="section-pad max-w-7xl mx-auto">
+      <!-- AI NATIVE BUSINESS MODEL -->
+      <section id="s-ai-native-business" class="section-pad max-w-7xl mx-auto">
         <div class="flex flex-col lg:flex-row lg:items-end gap-6 mb-12">
           <div class="flex flex-1 gap-4 items-start min-w-0">
             <span class="bp-title-dot shrink-0 mt-1 hidden sm:block"></span>
             <div>
-              <p class="section-kicker mb-2 text-slate-500">MOAT · DEFENSIBILITY</p>
-              <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">技术壁垒 · 可持续竞争优势</h2>
-              <p class="mt-3 text-slate-600 font-semibold text-fuse-blue">自研引擎、UGC 生态、行业标准、独占 IP 四位一体</p>
+              <p class="section-kicker mb-2 text-slate-500">WHY SUCCESS · 02 · AI NATIVE BUSINESS</p>
+              <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">AI Native 的商业模式</h2>
+              <p class="mt-3 text-slate-600 font-semibold text-fuse-blue">入口、平台、内容三位一体，把 AI 生成能力变成可持续交易系统</p>
             </div>
           </div>
         </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <article class="moat-tilt tilt-wrap glass rounded-2xl p-6 shadow-glass card-hover ring-1 ring-white/80 flex flex-col h-full">
-            <div class="w-12 h-12 rounded-xl bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="cpu"></i></div>
-            <h3 class="font-bold text-slate-900 text-lg">自研AI游戏引擎</h3>
-            <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-1">定向优化游戏代码的理解与生成逻辑，Fuse 掌机/手机触摸屏双适配操作，为内容创作提供坚实的技术底座。</p>
+        <div class="rounded-3xl bg-slate-900 text-white p-6 md:p-8 shadow-xl shadow-slate-900/18 mb-8">
+          <p class="text-xs tracking-[0.28em] text-amber-200 font-black">CORE LOGIC</p>
+          <h3 class="mt-3 text-xl md:text-2xl font-black leading-snug">Fuse 不是“AI 做游戏工具”，而是 AI 时代的游戏生态交易所。</h3>
+          <p class="mt-4 text-sm text-blue-100/78 leading-relaxed max-w-4xl">掌机和手机负责触达用户，Fuse Store 负责把创作、分发、交易和分成标准化，官方 IP 负责提供可持续创作的内容母体。用户作品与官方 IP 游戏的一创、二创、N 创，都会同时产生 AI Token 消耗、内容上架交易、平台抽成和 IP 资产沉淀。</p>
+        </div>
+        <div class="grid lg:grid-cols-3 gap-6">
+          <article class="glass rounded-3xl p-6 md:p-7 shadow-glass card-hover border border-blue-100/70">
+            <div class="w-12 h-12 rounded-xl bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="tablet-smartphone"></i></div>
+            <p class="section-kicker text-blue-500">01 · ENTRANCE</p>
+            <h3 class="mt-3 font-black text-slate-900 text-lg">入口层：掌机高粘性，手机放大规模</h3>
+            <p class="mt-4 text-sm text-slate-600 leading-relaxed">Fuse 掌机承接沉浸式 AI 游戏体验和高价值用户，普通手机移动端承接更大的手游用户盘子。硬件不只是收入项，更是 AI 游戏生成标准、交互方式和内容消费场景的入口。</p>
           </article>
-          <article class="moat-tilt tilt-wrap glass rounded-2xl p-6 shadow-glass card-hover ring-1 ring-white/80 flex flex-col h-full">
-            <div class="w-12 h-12 rounded-xl bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="network"></i></div>
-            <h3 class="font-bold text-slate-900 text-lg">UGC平台生态</h3>
-            <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-1">快速积累亿级 UGC 游戏模板与活跃创作者，形成强大的正向网络效应，壁垒持续加深，构建繁荣的内容生态。</p>
+          <article class="glass rounded-3xl p-6 md:p-7 shadow-glass card-hover border border-orange-100/70">
+            <div class="w-12 h-12 rounded-xl bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="store"></i></div>
+            <p class="section-kicker text-orange-500">02 · PLATFORM</p>
+            <h3 class="mt-3 font-black text-slate-900 text-lg">平台层：Fuse Store 分发可二创游戏种子</h3>
+            <p class="mt-4 text-sm text-slate-600 leading-relaxed">传统商店分发“开发完成的游戏”，Fuse Store 分发“可继续被 AI 改造的游戏种子”。创作工作台、内容商店、创作者后台、审核上架和收益分成在同一平台闭环内完成。</p>
           </article>
-          <article class="moat-tilt tilt-wrap glass rounded-2xl p-6 shadow-glass card-hover ring-1 ring-white/80 flex flex-col h-full">
-            <div class="w-12 h-12 rounded-xl bg-violet-100 text-fuse-purple bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="calendar-search"></i></div>
-            <h3 class="font-bold text-slate-900 text-lg">AI游戏行业标准</h3>
-            <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-1">抢先定义 AI 时代下，AI 游戏的开发、分发与交互标准，构建开发者与玩家的正向循环，形成强大的行业标准壁垒。</p>
+          <article class="glass rounded-3xl p-6 md:p-7 shadow-glass card-hover border border-violet-100/70">
+            <div class="w-12 h-12 rounded-xl bg-violet-100 text-fuse-purple bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="orbit"></i></div>
+            <p class="section-kicker text-violet-500">03 · CONTENT</p>
+            <h3 class="mt-3 font-black text-slate-900 text-lg">内容层：官方 IP 是可复用创作母体</h3>
+            <p class="mt-4 text-sm text-slate-600 leading-relaxed">官方 IP 提供角色、世界观、美术风格和核心玩法模板，玩家用 AI 改剧情、关卡、NPC、规则和任务。官方负责品质锚点，社区负责规模化扩展，最终沉淀长期内容资产。</p>
           </article>
-          <article class="moat-tilt tilt-wrap glass rounded-2xl p-6 shadow-glass card-hover ring-1 ring-white/80 flex flex-col h-full">
-            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="gamepad-2"></i></div>
-            <h3 class="font-bold text-slate-900 text-lg">独占IP</h3>
-            <p class="mt-4 text-sm text-slate-600 leading-relaxed flex-1">官方打造高质量独占 IP 游戏内容，用户可通过 AI 自由改造关卡、NPC 与规则，实现「官方搭台，玩家唱戏」的无限内容生态。</p>
-          </article>
+        </div>
+        <div class="mt-8 rounded-[2rem] bg-gradient-to-br from-orange-50 via-white to-blue-50 border border-orange-100/80 p-6 md:p-8 shadow-glass">
+          <div class="grid lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-4">
+              <p class="section-kicker text-orange-500">REVENUE STACK</p>
+              <h3 class="mt-3 text-2xl font-black text-slate-900">五层收入，不是单点变现</h3>
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">前文的硬件、Store、一创/二创/N 创和 IP 计划，最终合成一套收入栈：先用入口获得用户，再用 AI 创作和内容流通持续变现。</p>
+            </div>
+            <div class="lg:col-span-8 grid sm:grid-cols-2 lg:grid-cols-5 gap-3 text-sm">
+              <div class="rounded-2xl bg-slate-950 text-white p-4">
+                <p class="font-bold text-blue-100">硬件收入</p>
+                <p class="mt-2 text-white/68 leading-relaxed">掌机销售建立高价值入口。</p>
+              </div>
+              <div class="rounded-2xl bg-slate-950 text-white p-4">
+                <p class="font-bold text-violet-100">官方内容</p>
+                <p class="mt-2 text-white/68 leading-relaxed">买断游戏、DLC、皮肤、关卡包。</p>
+              </div>
+              <div class="rounded-2xl bg-slate-950 text-white p-4">
+                <p class="font-bold text-orange-100">AI 服务</p>
+                <p class="mt-2 text-white/68 leading-relaxed">Token 充值、会员订阅、优先算力。</p>
+              </div>
+              <div class="rounded-2xl bg-slate-950 text-white p-4">
+                <p class="font-bold text-emerald-100">平台抽成</p>
+                <p class="mt-2 text-white/68 leading-relaxed">游戏、模板、素材、二创交易分成。</p>
+              </div>
+              <div class="rounded-2xl bg-slate-950 text-white p-4">
+                <p class="font-bold text-cyan-100">IP 资产</p>
+                <p class="mt-2 text-white/68 leading-relaxed">衍生品、授权联名、跨媒介内容。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12 rounded-3xl bg-white/50 border border-white shadow-glass p-6 md:p-8 relative overflow-hidden">
+          <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(30,107,255,0.10),transparent_40%),radial-gradient(circle_at_90%_80%,rgba(251,146,60,0.11),transparent_38%)]"></div>
+          <div class="relative z-10">
+            <p class="section-kicker mb-2 text-slate-500">AI NATIVE LOOP</p>
+            <h3 class="text-2xl md:text-[2rem] font-extrabold text-gradient">商业飞轮：硬件入口带动内容，内容反哺硬件</h3>
+            <div class="mt-6 flex flex-col sm:flex-row sm:items-stretch gap-3">
+              <p id="flywheel-caption" class="flex-1 glass rounded-2xl border border-blue-100/80 px-5 py-4 text-sm text-slate-700 font-medium leading-relaxed min-h-[3.75rem]">Fuse 掌机建立高粘性入口 → 用户创作与官方 IP 游戏双轨供给内容 → Fuse Store 分发交易 → Token、抽成和 IP 收益反哺模型、硬件与下一批内容。</p>
+              <button type="button" id="flywheel-reset" class="sm:self-start shrink-0 rounded-full bg-slate-900 text-white text-xs px-4 py-2.5 font-bold hover:bg-fuse-orange transition">复位</button>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-6 mt-10">
+              <article class="flywheel-node fw-node glass rounded-2xl p-6 flex gap-4 card-hover cursor-pointer ring-2 ring-transparent" tabindex="0" role="button" data-fw-loop="0">
+                <div class="w-14 h-14 rounded-full bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center shrink-0 shadow-sm"><i data-lucide="gamepad-2"></i></div>
+                <div><h3 class="font-bold text-slate-900">掌机硬件入口</h3><p class="text-sm text-slate-600 mt-2">高粘性掌机体验承接核心玩家，手机端同步放大用户规模。</p></div>
+              </article>
+              <article class="flywheel-node fw-node glass rounded-2xl p-6 flex gap-4 card-hover cursor-pointer ring-2 ring-transparent" tabindex="0" role="button" data-fw-loop="1">
+                <div class="w-14 h-14 rounded-full bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center shrink-0 shadow-sm"><i data-lucide="wand-sparkles"></i></div>
+                <div><h3 class="font-bold text-slate-900">用户创作 + 官方 IP 游戏</h3><p class="text-sm text-slate-600 mt-2">用户作品和官方 IP 游戏都进入一创、二创、N 创链条，持续扩写内容供给。</p></div>
+              </article>
+              <article class="flywheel-node fw-node glass rounded-2xl p-6 flex gap-4 card-hover cursor-pointer ring-2 ring-transparent" tabindex="0" role="button" data-fw-loop="2">
+                <div class="w-14 h-14 rounded-full bg-violet-100 text-fuse-purple bp-li bp-li-lg flex items-center justify-center shrink-0 shadow-sm"><i data-lucide="store"></i></div>
+                <div><h3 class="font-bold text-slate-900">Store 分发交易</h3><p class="text-sm text-slate-600 mt-2">作品、模板、素材和版本树上架交易，平台抽成并给创作者分润。</p></div>
+              </article>
+              <article class="flywheel-node fw-node glass rounded-2xl p-6 flex gap-4 card-hover cursor-pointer ring-2 ring-transparent" tabindex="0" role="button" data-fw-loop="3">
+                <div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-700 bp-li bp-li-lg flex items-center justify-center shrink-0 shadow-sm"><i data-lucide="refresh-cw"></i></div>
+                <div><h3 class="font-bold text-slate-900">收入反哺硬件与生态</h3><p class="text-sm text-slate-600 mt-2">数据和现金流继续升级 AI 模型、掌机硬件、工具链和下一批官方内容。</p></div>
+              </article>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section id="gate-ecosystem" class="section-pad max-w-5xl mx-auto" data-quest-gate="ecosystem">
+      <!-- TIMING -->
+      <section id="s-timing" class="section-pad bg-white/40">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col lg:flex-row lg:items-end gap-8">
+            <div class="flex flex-1 gap-4 items-start min-w-0">
+              <span class="bp-title-dot shrink-0 mt-1 hidden sm:block"></span>
+              <div>
+                <p class="section-kicker mb-2 text-slate-500">WHY SUCCESS · 03 · TIMING</p>
+                <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">时机很合适</h2>
+                <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl">AI 游戏生成处于爆发前夜，融资和技术都在加速。AI 游戏掌机与生成标准仍是空白，先进入者有机会定义品类。</p>
+              </div>
+            </div>
+          </div>
+          <div class="grid lg:grid-cols-2 gap-6 mt-10">
+            <article class="glass rounded-3xl p-6 md:p-7 shadow-glass card-hover border border-orange-100/70">
+              <div class="w-12 h-12 rounded-xl bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="flame"></i></div>
+              <p class="section-kicker text-orange-500">01 · EXPLOSION WINDOW</p>
+              <h3 class="mt-3 font-black text-slate-900 text-lg">AI 游戏生成处于爆发期前夜</h3>
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">技术能力正在快速演进，AI游戏的融资热度已初现端倪，未来一年会急速推进。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 md:p-7 shadow-glass card-hover border border-blue-100/70">
+              <div class="w-12 h-12 rounded-xl bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="flag"></i></div>
+              <p class="section-kicker text-blue-500">02 · STANDARD VACUUM</p>
+              <h3 class="mt-3 font-black text-slate-900 text-lg">AI 游戏掌机与AI游戏生成标准仍是空白</h3>
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">形态、交互、生成、分发和二创标准尚未固化，谁先进入谁就会成为标准定义者。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 md:p-7 shadow-glass card-hover border border-violet-100/70">
+              <div class="w-12 h-12 rounded-xl bg-violet-100 text-fuse-purple bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="route"></i></div>
+              <p class="section-kicker text-violet-500">03 · SMART ENTRY</p>
+              <h3 class="mt-3 font-black text-slate-900 text-lg">游戏掌机的绝佳切入点</h3>
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">不直接卷 AI 眼镜、手机、手表、机器人等红海，而是用游戏掌机这一稀缺标的承接 AI 创造力。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 md:p-7 shadow-glass card-hover border border-emerald-100/70">
+              <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="crown"></i></div>
+              <p class="section-kicker text-emerald-600">04 · LEADERSHIP GAP</p>
+              <h3 class="mt-3 font-black text-slate-900 text-lg">AI 新时代下，游戏掌机市场缺少新领导者</h3>
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">AI 时代的掌机不只是硬件，而是生成能力、内容生态和创作入口。新范式还没有领导者。</p>
+            </article>
+          </div>
+          <div class="mt-8 rounded-3xl bg-slate-900 text-white p-6 md:p-8 shadow-xl shadow-slate-900/18">
+            <p class="text-xs tracking-[0.28em] text-amber-200 font-black">WHY NOW</p>
+            <h3 class="mt-3 text-xl md:text-2xl font-black leading-snug">窗口期的本质：技术开始成熟，标准尚未形成，市场领导者还没有出现。</h3>
+            <p class="mt-4 text-sm text-blue-100/78 leading-relaxed max-w-4xl">Fuse 要抓住的不只是AI游戏掌机这个入口，而是 AI 游戏生成标准和下一代AI实体入口及生态。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TEAM -->
+      <section id="s-team" class="section-pad max-w-7xl mx-auto">
+        <div class="flex flex-col lg:flex-row lg:items-end gap-8">
+          <div class="flex flex-1 gap-4 items-start min-w-0">
+            <span class="bp-title-dot shrink-0 mt-1 hidden sm:block"></span>
+            <div>
+              <p class="section-kicker mb-2 text-slate-500">WHY SUCCESS · 04 · TEAM</p>
+              <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">人才团队</h2>
+              <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl"> 追觅清华系平台人才库，以及 Fuse 创始人 Silong 的 AI 专家背景、超级个体与个人愿景。</p>
+            </div>
+          </div>
+        </div>
+        <div class="grid lg:grid-cols-12 gap-8 mt-10 items-stretch">
+          <article class="lg:col-span-7 rounded-3xl bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-900 text-white p-7 md:p-8 shadow-glass overflow-hidden relative">
+            <div class="absolute -right-20 -top-20 w-56 h-56 rounded-full bg-emerald-400/18 blur-3xl" aria-hidden="true"></div>
+            <div class="absolute -left-20 -bottom-20 w-56 h-56 rounded-full bg-blue-500/18 blur-3xl" aria-hidden="true"></div>
+            <div class="relative">
+              <div class="w-14 h-14 rounded-2xl bg-white/10 text-emerald-200 bp-li bp-li-xl flex items-center justify-center ring-1 ring-white/15"><i data-lucide="brain-circuit"></i></div>
+              <p class="mt-7 text-xs tracking-[0.28em] text-emerald-100/72 font-black">FOUNDER VISION</p>
+              <h3 class="mt-3 text-2xl md:text-3xl font-black leading-tight">AI 时代下，让每个人都可以成为超级个体</h3>
+              <p class="mt-5 text-sm text-emerald-50/76 leading-relaxed">Fuse 创始人 Silong 是资深 AI 专家，也是超级个体实践的开拓者。个人的AI时代愿景，是用 AI 放大每个人的创造力。</p>
+            </div>
+          </article>
+          <div class="lg:col-span-5 grid gap-5">
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-emerald-100/70">
+              <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="graduation-cap"></i></div>
+              <p class="section-kicker text-emerald-600">TALENT BASE</p>
+              <h3 class="mt-3 font-black text-slate-900">追觅清华系平台人才库</h3>
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">背靠追觅清华系平台的人才库，为项目提供人才基础。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-blue-100/70">
+              <div class="w-12 h-12 rounded-xl bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="cpu"></i></div>
+              <p class="section-kicker text-blue-500">FOUNDER</p>
+              <h3 class="mt-3 font-black text-slate-900">Silong：AI 专家 + 超级个体实践者</h3>
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">行业 AI 专家、超级个体实践开拓者，以及“让每个人成为超级个体”的愿景。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="gate-success" class="section-pad max-w-5xl mx-auto" data-quest-gate="success">
         <div class="quest-gate">
-          <p class="text-[10px] tracking-[0.28em] text-amber-200 font-black">MODULE 02 CLEAR CHECK</p>
+          <p class="text-[10px] tracking-[0.28em] text-amber-200 font-black">MODULE 03 CLEAR CHECK</p>
           <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
             <div>
-              <h2 class="text-2xl md:text-3xl font-black">产品与生态模块结束</h2>
-              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完硬件入口、AI 生成能力、一创/二创/N 创内容循环。闯关模式下，完成 UGC 消消乐，点亮生态飞轮。</p>
+              <h2 class="text-2xl md:text-3xl font-black">成功理由模块结束</h2>
+              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完追觅方法论、AI Native 商业模式、时机窗口和人才团队。闯关模式下，用「愤怒的小鸟」把四个成功理由打进增长堡垒。</p>
             </div>
-            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="ecosystem">挑战 02 · UGC 消消乐</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- FLYWHEEL -->
-      <section id="s-flywheel" class="section-pad bg-white/40 relative overflow-hidden">
-        <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(30,107,255,0.11),transparent_40%),radial-gradient(circle_at_90%_80%,rgba(251,146,60,0.12),transparent_38%)]"></div>
-        <div class="max-w-5xl mx-auto relative z-10">
-          <p class="section-kicker mb-2 text-slate-500">PART 11 · LOOP</p>
-          <h2 class="text-2xl md:text-[2rem] font-extrabold text-gradient">生态飞轮</h2>
-          <div class="mt-6 flex flex-col sm:flex-row sm:items-stretch gap-3">
-            <p id="flywheel-caption" class="flex-1 glass rounded-2xl border border-blue-100/80 px-5 py-4 text-sm text-slate-700 font-medium leading-relaxed min-h-[3.75rem]">AI 降低创作门槛 → 内容与硬件增长 → 付费与分润 → 反哺模型与下一代硬件。</p>
-            <button type="button" id="flywheel-reset" class="sm:self-start shrink-0 rounded-full bg-slate-900 text-white text-xs px-4 py-2.5 font-bold hover:bg-fuse-orange transition">复位</button>
-          </div>
-          <div class="grid sm:grid-cols-2 gap-6 mt-10">
-            <article class="flywheel-node fw-node glass rounded-2xl p-6 flex gap-4 card-hover cursor-pointer ring-2 ring-transparent" tabindex="0" role="button" data-fw-loop="0">
-              <div class="w-14 h-14 rounded-full bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center shrink-0 shadow-sm"><i data-lucide="bot"></i></div>
-              <div><h3 class="font-bold text-slate-900">AI 降低创作门槛</h3><p class="text-sm text-slate-600 mt-2">非专业用户也能成为创作者。</p></div>
-            </article>
-            <article class="flywheel-node fw-node glass rounded-2xl p-6 flex gap-4 card-hover cursor-pointer ring-2 ring-transparent" tabindex="0" role="button" data-fw-loop="1">
-              <div class="w-14 h-14 rounded-full bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center shrink-0 shadow-sm"><i data-lucide="gamepad-2"></i></div>
-              <div><h3 class="font-bold text-slate-900">海量优质游戏诞生</h3><p class="text-sm text-slate-600 mt-2">丰富内容吸引玩家购买硬件。</p></div>
-            </article>
-            <article class="flywheel-node fw-node glass rounded-2xl p-6 flex gap-4 card-hover cursor-pointer ring-2 ring-transparent" tabindex="0" role="button" data-fw-loop="2">
-              <div class="w-14 h-14 rounded-full bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center shrink-0 shadow-sm"><i data-lucide="credit-card"></i></div>
-              <div><h3 class="font-bold text-slate-900">玩家付费与价值交换</h3><p class="text-sm text-slate-600 mt-2">平台与创作者共享增长红利。</p></div>
-            </article>
-            <article class="flywheel-node fw-node glass rounded-2xl p-6 flex gap-4 card-hover cursor-pointer ring-2 ring-transparent" tabindex="0" role="button" data-fw-loop="3">
-              <div class="w-14 h-14 rounded-full bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center shrink-0 shadow-sm"><i data-lucide="wrench"></i></div>
-              <div><h3 class="font-bold text-slate-900">资源反哺 AI 与硬件</h3><p class="text-sm text-slate-600 mt-2">收益与数据再投入研发，开启下一轮增长。</p></div>
-            </article>
+            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="success">挑战 03 · 成功理由小鸟</button>
           </div>
         </div>
       </section>
@@ -2638,13 +3031,13 @@
 
       <section id="gate-finance" class="section-pad max-w-5xl mx-auto" data-quest-gate="finance">
         <div class="quest-gate">
-          <p class="text-[10px] tracking-[0.28em] text-amber-200 font-black">MODULE 03 FINAL CHECK</p>
+          <p class="text-[10px] tracking-[0.28em] text-amber-200 font-black">MODULE 04 CLEAR CHECK</p>
           <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
             <div>
-              <h2 class="text-2xl md:text-3xl font-black">Pre-A 融资节点已确认</h2>
-              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完整条增长路径、财务预测与 Pre-A 计划。向下即可继续阅读任天堂对标、Demo 与最终愿景；也可在此试玩「估值跳一跳」计入闯关进度。</p>
+              <h2 class="text-2xl md:text-3xl font-black">增长融资节点已确认</h2>
+              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完短期里程碑、六年路径、财务预测与 Pre-A 计划。闯关模式下，完成「Pre-A 资金配平」，把资金用途比例与章节计划对齐。</p>
             </div>
-            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="finance">挑战 03 · 估值跳一跳</button>
+            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="finance">挑战 04 · Pre-A 资金配平</button>
           </div>
         </div>
       </section>
@@ -2695,49 +3088,20 @@
                 </div>
               </article>
             </div>
-            <div class="mt-8 rounded-2xl bg-slate-950 p-5 md:p-6 text-white flex flex-col md:flex-row md:items-center md:justify-between gap-5" data-quest-ui>
-              <div>
-                <p class="text-[10px] tracking-[0.28em] text-red-200 font-black">FINAL BOSS</p>
-                <p class="mt-2 text-lg md:text-xl font-black">挑战任天堂 Boss · 飞机大战</p>
-                <p class="mt-2 text-sm text-white/68 leading-relaxed">击穿封闭内容生态的护盾，通关后直接打开完整最终愿景页。</p>
-              </div>
-              <button type="button" class="start-btn-primary shrink-0" data-open-challenge="boss">开始挑战 Boss</button>
-            </div>
           </div>
         </div>
       </section>
 
-      <!-- DEMO -->
-      <section id="s-demo" class="section-pad max-w-4xl mx-auto">
-        <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-8">Demo</h2>
-        <div class="glass rounded-3xl p-8 shadow-glass">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-fuse-blue to-indigo-600 text-white flex items-center justify-center shadow-lg bp-li bp-li-lg shrink-0" aria-hidden="true"><i data-lucide="smartphone"></i></span>
-            <span class="text-xl font-bold text-fuse-blue">安装</span>
+      <section id="gate-boss" class="section-pad max-w-5xl mx-auto" data-quest-gate="boss">
+        <div class="quest-gate">
+          <p class="text-[10px] tracking-[0.28em] text-red-200 font-black">FINAL BOSS</p>
+          <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+            <div>
+              <h2 class="text-2xl md:text-3xl font-black">对标愿景 Boss · 飞机大战</h2>
+              <p class="mt-3 text-sm text-white/78 leading-relaxed">读完任天堂对标后，击穿封闭内容生态的护盾，通关后直接打开完整最终愿景页。Boss 关作为「对标与愿景」模块的触发节点。</p>
+            </div>
+            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="boss">挑战 05 · Boss 飞机大战</button>
           </div>
-          <div class="grid md:grid-cols-3 gap-8 md:gap-6 lg:gap-10">
-            <div class="flex flex-col gap-3 min-w-0">
-              <p class="text-sm font-bold text-slate-800">Lingguang</p>
-              <a href="https://play.google.com/store/apps/details?id=com.lingguang.app" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-fuse-blue text-white p-5 hover:brightness-110 transition shadow-lg text-center">
-                <span class="text-xs opacity-90">Play 商店</span>              </a>
-              <p class="flex gap-2 items-start text-[11px] font-mono text-slate-600 break-all min-w-0"><span class="flex-1 min-w-0" id="u1">https://play.google.com/store/apps/details?id=com.lingguang.app</span><button type="button" class="copy-btn shrink-0 px-2 py-0.5 rounded bg-slate-200 hover:bg-slate-300 text-xs" data-copy="u1">复制</button></p>
-            </div>
-            <div class="flex flex-col gap-3 min-w-0">
-              <p class="text-sm font-bold text-slate-800">GameArena</p>
-              <a href="https://play.google.com/store/apps/details?id=com.gamearena.app" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-fuse-blue text-white p-5 hover:brightness-110 transition shadow-lg text-center">
-                <span class="text-xs opacity-90">Play 商店</span>
-              </a>
-              <p class="flex gap-2 items-start text-[11px] font-mono text-slate-600 break-all min-w-0"><span class="flex-1 min-w-0" id="u2">https://play.google.com/store/apps/details?id=com.gamearena.app</span><button type="button" class="copy-btn shrink-0 px-2 py-0.5 rounded bg-slate-200 hover:bg-slate-300 text-xs" data-copy="u2">复制</button></p>
-            </div>
-            <div class="flex flex-col gap-3 min-w-0">
-              <p class="text-sm font-bold text-slate-800">iOS</p>
-              <a href="https://testflight.apple.com/join/vUwSEdmh" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-fuse-orange text-white p-5 hover:brightness-110 transition shadow-lg text-center">
-                <span class="text-xs opacity-90">TestFlight</span>
-              </a>
-              <p class="flex gap-2 items-start text-[11px] font-mono text-slate-600 break-all min-w-0"><span class="flex-1 min-w-0" id="u3">https://testflight.apple.com/join/vUwSEdmh</span><button type="button" class="copy-btn shrink-0 px-2 py-0.5 rounded bg-slate-200 hover:bg-slate-300 text-xs" data-copy="u3">复制</button></p>
-            </div>
-          </div>
-          <p class="text-center text-xs text-fuse-orange mt-8">Attention：个人实验产品，仅发挥目前大模型 10% 能力。</p>
         </div>
       </section>
 
@@ -2827,6 +3191,52 @@
         </div>
       </section>
 
+      <!-- DEMO EGG COMMAND -->
+      <section id="s-demo-code" class="section-pad secret-command-section">
+        <div class="secret-arrow-cluster" role="group" aria-label="方向键">
+          <span class="secret-spacer" aria-hidden="true"></span>
+          <button type="button" class="secret-arrow-key" data-secret-dir="ArrowUp" aria-label="向上">↑</button>
+          <span class="secret-spacer" aria-hidden="true"></span>
+          <button type="button" class="secret-arrow-key" data-secret-dir="ArrowLeft" aria-label="向左">←</button>
+          <button type="button" class="secret-arrow-key" data-secret-dir="ArrowDown" aria-label="向下">↓</button>
+          <button type="button" class="secret-arrow-key" data-secret-dir="ArrowRight" aria-label="向右">→</button>
+        </div>
+      </section>
+
+      <!-- DEMO -->
+      <section id="s-demo" class="section-pad max-w-4xl mx-auto">
+        <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-8">Demo</h2>
+        <div class="glass rounded-3xl p-8 shadow-glass">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-fuse-blue to-indigo-600 text-white flex items-center justify-center shadow-lg bp-li bp-li-lg shrink-0" aria-hidden="true"><i data-lucide="smartphone"></i></span>
+            <span class="text-xl font-bold text-fuse-blue">安装</span>
+          </div>
+          <div class="grid md:grid-cols-3 gap-8 md:gap-6 lg:gap-10">
+            <div class="flex flex-col gap-3 min-w-0">
+              <p class="text-sm font-bold text-slate-800">Lingguang</p>
+              <a href="https://play.google.com/store/apps/details?id=com.lingguang.app" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-fuse-blue text-white p-5 hover:brightness-110 transition shadow-lg text-center">
+                <span class="text-xs opacity-90">Play 商店</span>              </a>
+              <p class="flex gap-2 items-start text-[11px] font-mono text-slate-600 break-all min-w-0"><span class="flex-1 min-w-0" id="u1">https://play.google.com/store/apps/details?id=com.lingguang.app</span><button type="button" class="copy-btn shrink-0 px-2 py-0.5 rounded bg-slate-200 hover:bg-slate-300 text-xs" data-copy="u1">复制</button></p>
+            </div>
+            <div class="flex flex-col gap-3 min-w-0">
+              <p class="text-sm font-bold text-slate-800">GameArena</p>
+              <a href="https://play.google.com/store/apps/details?id=com.gamearena.app" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-fuse-blue text-white p-5 hover:brightness-110 transition shadow-lg text-center">
+                <span class="text-xs opacity-90">Play 商店</span>
+              </a>
+              <p class="flex gap-2 items-start text-[11px] font-mono text-slate-600 break-all min-w-0"><span class="flex-1 min-w-0" id="u2">https://play.google.com/store/apps/details?id=com.gamearena.app</span><button type="button" class="copy-btn shrink-0 px-2 py-0.5 rounded bg-slate-200 hover:bg-slate-300 text-xs" data-copy="u2">复制</button></p>
+            </div>
+            <div class="flex flex-col gap-3 min-w-0">
+              <p class="text-sm font-bold text-slate-800">iOS</p>
+              <a href="https://testflight.apple.com/join/vUwSEdmh" target="_blank" rel="noopener noreferrer" class="block rounded-xl bg-fuse-orange text-white p-5 hover:brightness-110 transition shadow-lg text-center">
+                <span class="text-xs opacity-90">TestFlight</span>
+              </a>
+              <p class="flex gap-2 items-start text-[11px] font-mono text-slate-600 break-all min-w-0"><span class="flex-1 min-w-0" id="u3">https://testflight.apple.com/join/vUwSEdmh</span><button type="button" class="copy-btn shrink-0 px-2 py-0.5 rounded bg-slate-200 hover:bg-slate-300 text-xs" data-copy="u3">复制</button></p>
+            </div>
+          </div>
+          <p class="text-center text-xs text-fuse-orange mt-8">Attention：个人实验产品，仅发挥目前大模型 10% 能力。</p>
+        </div>
+      </section>
+
     </main>
 
     <div id="challenge-modal" class="quest-modal" role="dialog" aria-modal="true" aria-labelledby="challenge-title">
@@ -2871,31 +3281,46 @@
                 <span id="match-score" class="match-pill" aria-live="polite"><span class="match-dots" id="match-dots" aria-hidden="true"></span></span>
                 <span class="match-pill"><span class="match-pill-ico-swap" aria-hidden="true"></span><span>拖动交换</span></span>
               </div>
-              <div id="match-board" class="mini-board match-board" aria-label="UGC 消消乐棋盘"></div>
+              <div id="match-board" class="mini-board match-board" aria-label="生态消消乐棋盘"></div>
             </div>
           </div>
           <p id="match-status" class="mt-4 text-center text-sm text-amber-100 font-bold">横向或纵向连成 3 个以上即消除。</p>
         </div>
 
-        <div id="mini-finance" class="mini-panel mt-8">
+        <div id="mini-success" class="mini-panel mt-8">
           <div class="mini-stage">
-            <div class="jump-character" aria-hidden="true"></div>
-            <div class="jump-steps mb-5" id="jump-steps" aria-label="估值跳一跳进度">
-              <div class="jump-step is-on"><span class="jump-step-ico" aria-hidden="true"></span><span class="jump-step-txt">种子</span></div>
-              <div class="jump-step"><span class="jump-step-ico" aria-hidden="true"></span><span class="jump-step-txt">Pre-A</span></div>
-              <div class="jump-step"><span class="jump-step-ico" aria-hidden="true"></span><span class="jump-step-txt">量产</span></div>
-              <div class="jump-step"><span class="jump-step-ico" aria-hidden="true"></span><span class="jump-step-txt">IPO</span></div>
+            <div class="angry-hud" aria-live="polite">
+              <span id="angry-bird-label">当前小鸟：追觅方法论</span>
+              <span id="angry-hit-label">命中 0/4</span>
+              <span>拖动弹弓蓄力 · 松手发射</span>
             </div>
-            <div class="jump-track" aria-hidden="true">
-              <span class="jump-zone"></span>
-              <span id="jump-power" class="jump-power"></span>
+            <div class="angry-arena">
+              <canvas id="angry-canvas" width="640" height="360" aria-label="成功理由愤怒的小鸟"></canvas>
             </div>
             <div class="mt-5 flex flex-wrap justify-center gap-3">
-              <button type="button" id="jump-action" class="start-btn-primary">起跳</button>
-              <button type="button" id="jump-reset" class="mini-control">重来</button>
+              <button type="button" id="angry-reset" class="mini-control">重来</button>
             </div>
           </div>
-          <p id="jump-status" class="mt-4 text-center text-sm text-amber-100 font-bold">指针尖对齐绿色带时按下起跳（支持空格）。</p>
+          <p id="angry-status" class="mt-4 text-center text-sm text-amber-100 font-bold">把四只小鸟分别打进方法、模式、时机、团队堡垒。</p>
+        </div>
+
+        <div id="mini-finance" class="mini-panel mt-8">
+          <div class="mini-stage">
+            <div class="finance-alloc-hud" aria-live="polite">
+              <span id="finance-budget-label">已分配 0%</span>
+              <span id="finance-match-label">匹配 0/6</span>
+              <span>每次调整 5%，总计必须 100%</span>
+            </div>
+            <div class="finance-alloc-arena">
+              <div class="finance-budget-track" aria-hidden="true"><div id="finance-budget-fill" class="finance-budget-fill"></div></div>
+              <div id="finance-alloc-grid" class="finance-alloc-grid" aria-label="Pre-A 资金分配面板"></div>
+            </div>
+            <div class="mt-5 flex flex-wrap justify-center gap-3">
+              <button type="button" id="finance-alloc-check" class="start-btn-primary">确认配平</button>
+              <button type="button" id="finance-alloc-reset" class="mini-control">重来</button>
+            </div>
+          </div>
+          <p id="finance-alloc-status" class="mt-4 text-center text-sm text-amber-100 font-bold">按 Pre-A 计划把 1 亿美元资金分到六类用途。</p>
         </div>
 
         <div id="mini-boss" class="mini-panel mt-8">
@@ -2964,43 +3389,80 @@
     requestAnimationFrame(drawMesh);
   }
 
-  var NAV = [
-    ['封面', '#s-hero'],
-    ['百年变局', '#s-market-opportunity'],
-    ['全球掌机', '#s-market-global'],
-    ['破局点', '#s-market-vs'],
-    ['模式对比', '#s-model-compare'],
-    ['解决方案', '#s-solution'],
-    ['Fuse 掌机', '#s-hardware'],
-    ['Fuse Store', '#s-fuse-store-reserved'],
-    ['一创', '#s-game-1'],
-    ['二创', '#s-game-2'],
-    ['N创', '#s-game-n'],
-    ['IP计划', '#s-ip-plan-reserved'],
-    ['追觅方法论', '#s-dreame-model'],
-    ['AI演进', '#s-ai-evolution'],
-    ['技术壁垒', '#s-moat'],
-    ['飞轮', '#s-flywheel'],
-    ['里程碑', '#s-milestones'],
-    ['六年路径', '#s-fiveyear'],
-    ['财务预测', '#s-finance'],
-    ['Pre-A', '#s-pre-a'],
-    ['任天堂对标', '#s-nintendo'],
-    ['Demo', '#s-demo'],
-    ['愿景', '#s-vision']
+  var NAV_GROUPS = [
+    { title: '00 封面', items: [
+      ['封面', '#s-hero']
+    ] },
+    { title: '01 市场与破局', items: [
+      ['百年变局', '#s-market-opportunity'],
+      ['AI演进', '#s-ai-evolution'],
+      ['全球掌机', '#s-market-global'],
+      ['破局点', '#s-market-vs'],
+      ['模式对比', '#s-model-compare']
+    ] },
+    { title: '02 产品生态', items: [
+      ['解决方案', '#s-solution'],
+      ['Fuse 掌机', '#s-hardware'],
+      ['Fuse Store', '#s-fuse-store-reserved'],
+      ['一创', '#s-game-1'],
+      ['二创', '#s-game-2'],
+      ['N创', '#s-game-n'],
+      ['Fuse IP', '#s-ip-plan-reserved']
+    ] },
+    { title: '03 成功理由', items: [
+      ['为什么成功', '#s-why-success'],
+      ['追觅', '#s-dreame-model'],
+      ['AI Native商业模式', '#s-ai-native-business'],
+      ['时机', '#s-timing'],
+      ['人才团队', '#s-team']
+    ] },
+    { title: '04 增长与融资', items: [
+      ['里程碑', '#s-milestones'],
+      ['六年路径', '#s-fiveyear'],
+      ['财务预测', '#s-finance'],
+      ['Pre-A', '#s-pre-a']
+    ] },
+    { title: '05 对标与愿景', items: [
+      ['任天堂对标', '#s-nintendo'],
+      ['愿景', '#s-vision'],
+      ['Demo', '#s-demo', 'demo-nav-link']
+    ] }
   ];
+  var NAV = [];
+  var NAV_INDEX = {};
+  NAV_GROUPS.forEach(function (group) {
+    group.items.forEach(function (item) {
+      NAV_INDEX[item[1]] = NAV.length;
+      NAV.push([item[0], item[1], group.title]);
+    });
+  });
   var navEl = document.getElementById('bp-nav');
   var navMob = document.getElementById('bp-nav-mobile');
   var bpMobileMenu = document.getElementById('bp-mobile-menu');
-  NAV.forEach(function (item) {
-    var a = document.createElement('a');
-    a.href = item[1];
-    a.textContent = item[0];
-    a.className = 'nav-dot text-[10px] px-2 py-1.5 rounded-lg text-slate-600 hover:bg-white/60 hover:text-fuse-blue whitespace-nowrap block';
-    navEl.appendChild(a);
-    var a2 = a.cloneNode(true);
-    navMob.appendChild(a2);
-  });
+  function renderNav(container) {
+    if (!container) return;
+    var idx = 0;
+    NAV_GROUPS.forEach(function (group) {
+      var wrap = document.createElement('div');
+      wrap.className = 'nav-group';
+      var title = document.createElement('div');
+      title.className = 'nav-group-title';
+      title.textContent = group.title;
+      wrap.appendChild(title);
+      group.items.forEach(function (item) {
+        var a = document.createElement('a');
+        a.href = item[1];
+        a.textContent = item[0];
+        a.setAttribute('data-nav-index', String(idx));
+        a.className = 'nav-dot nav-child text-[10px] px-2 py-1.5 rounded-lg text-slate-600 hover:bg-white/60 hover:text-fuse-blue whitespace-nowrap block' + (item[2] ? ' ' + item[2] : '');
+        wrap.appendChild(a);
+        idx++;
+      });
+      container.appendChild(wrap);
+    });
+  }
+  renderNav(navEl);
+  renderNav(navMob);
   if (navMob && bpMobileMenu) {
     navMob.addEventListener('click', function (e) {
       if (e.target && e.target.closest('a')) bpMobileMenu.open = false;
@@ -3012,7 +3474,6 @@
   var modeGate = document.getElementById('mode-gate');
   var gateNormal = document.getElementById('gate-normal-btn');
   var gateStart = document.getElementById('gate-start-btn');
-  var gateDemo = document.getElementById('gate-demo-btn');
   var questTitle = document.getElementById('quest-title');
   var questPercent = document.getElementById('quest-percent');
   var questFill = document.getElementById('quest-progress-fill');
@@ -3020,13 +3481,14 @@
   var achievementText = document.getElementById('achievement-text');
   var unlocked = {};
   var currentMode = 'idle';
-  var completedModules = { market: false, ecosystem: false, finance: false, boss: false };
+  var completedModules = { market: false, ecosystem: false, success: false, finance: false, boss: false };
   var challengeAutoShown = {};
   var questModules = [
     { key: 'market', gate: '#gate-market', next: '#s-solution', title: '模块一：市场裂缝', done: '市场裂缝通关：AI 创作力已经推开垄断缺口。' },
-    { key: 'ecosystem', gate: '#gate-ecosystem', next: '#s-flywheel', title: '模块二：产品与生态', done: '产品生态通关：UGC 供给飞轮已经点亮。' },
-    { key: 'finance', gate: '#gate-finance', next: '#s-nintendo', title: '模块三：飞轮与融资', done: '飞轮融资通关：估值节奏与融资路径已对齐。' },
-    { key: 'boss', gate: '#s-nintendo', next: '#s-vision', title: '最终彩蛋：任天堂 Boss', done: 'Boss 通关：完整最终愿景已打开。' }
+    { key: 'ecosystem', gate: '#gate-ecosystem', next: '#s-why-success', title: '模块二：产品生态', done: '产品生态通关：掌机入口、Store 分发、创作循环与官方 IP 已连成闭环。' },
+    { key: 'success', gate: '#gate-success', next: '#s-milestones', title: '模块三：成功理由', done: '成功理由通关：方法、模式、时机与团队已经打进增长堡垒。' },
+    { key: 'finance', gate: '#gate-finance', next: '#s-nintendo', title: '模块四：增长与融资', done: '增长融资通关：Pre-A 资金分配与增长路径已对齐。' },
+    { key: 'boss', gate: '#gate-boss', next: '#s-vision', title: '模块五：对标与愿景 Boss', done: '对标愿景通关：完整最终愿景已打开。' }
   ];
 
   function showAchievement(text) {
@@ -3066,7 +3528,7 @@
       document.body.classList.toggle('quest-finance-unlocked', !!completedModules.finance);
       document.body.classList.toggle('quest-vision-unlocked', !!completedModules.boss);
     }
-    if (mode === 'quest') showAchievement('闯关模式已启动：完成 Pre-A 后估值跳一跳，再挑战任天堂 Boss 解锁最终愿景。');
+    if (mode === 'quest') showAchievement('闯关模式已启动：按二级目录完成五个模块，最后挑战 Boss 解锁最终愿景。');
     else showAchievement('普通模式已开启：可直接完整阅读 BP。');
     syncQuestBadges();
     if (targetSelector) {
@@ -3081,7 +3543,6 @@
   if (heroNormal) heroNormal.addEventListener('click', function () { beginNormal('#s-market-opportunity'); });
   if (gateNormal) gateNormal.addEventListener('click', function () { beginNormal('#s-market-opportunity'); });
   if (gateStart) gateStart.addEventListener('click', function () { beginQuest('#s-market-opportunity'); });
-  if (gateDemo) gateDemo.addEventListener('click', function () { beginNormal('#s-demo'); });
 
   document.querySelectorAll('#s-hero .reveal, #mode-gate .reveal').forEach(function (el, i) {
     el.style.transitionDelay = (0.06 * i) + 's';
@@ -3103,7 +3564,10 @@
   });
 
   var sections = NAV.map(function (x) { return document.querySelector(x[1]); }).filter(Boolean);
-  var dots = navEl.querySelectorAll('a');
+  var dots = document.querySelectorAll('#bp-nav a, #bp-nav-mobile a');
+  function isNavTargetVisible(el) {
+    return !!(el && el.offsetParent !== null);
+  }
   /** 文档坐标系顶部位置（offsetTop 对 main 内 section 与 #s-hero 不可比，会误判当前节） */
   function navAnchorDocTop(el) {
     if (!el) return 0;
@@ -3114,9 +3578,13 @@
     var y = window.scrollY + window.innerHeight * 0.25;
     var idx = 0;
     sections.forEach(function (s, i) {
+      if (!isNavTargetVisible(s)) return;
       if (s && navAnchorDocTop(s) <= y) idx = i;
     });
-    dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+    dots.forEach(function (d) {
+      var navIdx = parseInt(d.getAttribute('data-nav-index'), 10);
+      d.classList.toggle('active', navIdx === idx);
+    });
     syncQuestProgress(idx);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -3124,27 +3592,30 @@
 
   function syncQuestProgress(idx) {
     var pct = Math.round((idx / Math.max(1, NAV.length - 1)) * 100);
-    if (questTitle) questTitle.textContent = currentMode === 'quest' ? ('当前关卡：' + NAV[idx][0]) : '普通阅读模式';
+    var currentNav = NAV[idx] || NAV[0];
+    if (questTitle) questTitle.textContent = currentMode === 'quest' ? (currentNav[2] + ' / ' + currentNav[0]) : '普通阅读模式';
     if (questPercent) questPercent.textContent = pct + '%';
     if (questFill) questFill.style.width = pct + '%';
-    document.querySelectorAll('#bp-nav a, #bp-nav-mobile a').forEach(function (a, i) {
-      a.classList.toggle('quest-done', currentMode === 'quest' && i <= idx && idx > 0);
+    document.querySelectorAll('#bp-nav a, #bp-nav-mobile a').forEach(function (a) {
+      var navIdx = parseInt(a.getAttribute('data-nav-index'), 10);
+      a.classList.toggle('quest-done', currentMode === 'quest' && navIdx <= idx && idx > 0);
     });
     syncQuestBadges();
     var bossMeter = document.getElementById('boss-meter');
     var bossLabel = document.getElementById('boss-meter-label');
-    if (currentMode === 'quest' && idx >= 16 && completedModules.finance && !completedModules.boss && bossLabel) {
+    var bossTriggerIdx = NAV_INDEX['#s-nintendo'] || 0;
+    if (currentMode === 'quest' && idx >= bossTriggerIdx && completedModules.finance && !completedModules.boss && bossLabel) {
       bossLabel.textContent = 'Boss 关已发现';
     }
   }
 
   function syncQuestBadges() {
-    ['market', 'ecosystem', 'finance'].forEach(function (key) {
+    ['market', 'ecosystem', 'success', 'finance'].forEach(function (key) {
       document.querySelectorAll('[data-quest-badge="' + key + '"]').forEach(function (b) {
         b.classList.toggle('is-on', !!completedModules[key]);
       });
     });
-    var allDone = completedModules.market && completedModules.ecosystem && completedModules.finance;
+    var allDone = completedModules.market && completedModules.ecosystem && completedModules.success && completedModules.finance;
     var finalDone = allDone && completedModules.boss;
     document.querySelectorAll('[data-quest-badge="egg"]').forEach(function (b) {
       b.classList.toggle('is-on', finalDone);
@@ -3167,20 +3638,24 @@
   var activeChallenge = null;
   var challengeCopy = {
     market: {
-      title: '挑战 01 · 破局推箱子',
+      title: '挑战 01 · 市场破局推箱子',
       desc: '用方向键或按钮绕行「柱」障碍，把文字「AI」推到「裂缝」格。这个小游戏对应模块一：用新供给撬开旧垄断。'
     },
     ecosystem: {
-      title: '挑战 02 · UGC 消消乐',
-      desc: '交换相邻棋子，横向或纵向连成 3 个以上就会消除。这个小游戏对应模块二：创作者、作品、玩家、引擎、商店在生态里持续碰撞。'
+      title: '挑战 02 · 生态消消乐',
+      desc: '交换相邻棋子，横向或纵向连成 3 个以上就会消除。这个小游戏对应模块二：掌机入口、Fuse Store、一创、二创/N 创、官方 IP 持续互相驱动。'
+    },
+    success: {
+      title: '挑战 03 · 成功理由小鸟',
+      desc: '拖动弹弓发射四只小鸟，分别命中方法、模式、时机、团队堡垒。这个小游戏对应模块三：四个成功理由共同击穿增长阻力。'
     },
     finance: {
-      title: '挑战 03 · 估值跳一跳',
-      desc: '在能量条进入绿色窗口时起跳，连续跨过 Pre-A、量产、IPO。与前几关相同：通关会计入任务进度，下方正文可随时继续翻阅。'
+      title: '挑战 04 · Pre-A 资金配平',
+      desc: '把 1 亿美元融资按 Pre-A 计划分到六类用途：硬件 20%、平台 15%、市场 5%、AI 引擎 15%、内容 30%、团队 15%。配平后计入任务进度。'
     },
     boss: {
-      title: '最终彩蛋 · 挑战任天堂 Boss',
-      desc: '操控 Fuse 飞机击穿垄断护盾。方向键或拖动移动，空格或按钮发射；命中 8 次后直接打开完整最终愿景页。'
+      title: '挑战 05 · 对标愿景 Boss',
+      desc: '操控 Fuse 飞机击穿垄断护盾。方向键或拖动移动，空格或按钮发射；命中 8 次后直接打开「对标与愿景」模块的完整最终愿景页。'
     }
   };
 
@@ -3202,13 +3677,14 @@
     challengeModal.classList.add('is-open');
     if (key === 'market') resetSokoban();
     if (key === 'ecosystem') resetMatchGame();
-    if (key === 'finance') resetJumpGame();
+    if (key === 'success') resetAngryGame();
+    if (key === 'finance') resetFinanceAllocGame();
     if (key === 'boss') resetBossGame();
   }
 
   function closeChallenge() {
     if (challengeModal) challengeModal.classList.remove('is-open');
-    stopJumpMeter();
+    stopAngryGame();
     stopBossGame();
     activeChallenge = null;
   }
@@ -3366,7 +3842,7 @@
     sokoPlayer = sokoParsed.startPlayer;
     sokoBox = sokoParsed.startBox;
     sokoTarget = sokoParsed.target;
-    if (sokoStatus) sokoStatus.textContent = '把「AI」推进「裂缝」，注意柱子和拐角（可用方向键）。';
+    if (sokoStatus) sokoStatus.textContent = '把「AI」推进「裂缝」，完成「市场与破局」模块触发节点。';
     renderSokoban();
   }
   function moveSokoban(dir) {
@@ -3401,7 +3877,7 @@
     sokoPlayer = next;
     renderSokoban();
     if (sokoBox === sokoTarget) {
-      if (sokoStatus) sokoStatus.textContent = 'AI 已入裂缝，模块一通关。';
+      if (sokoStatus) sokoStatus.textContent = 'AI 已入裂缝，市场与破局模块通关。';
       setTimeout(function () { completeModule('market'); }, 420);
     }
   }
@@ -3410,11 +3886,11 @@
   });
 
   var matchKinds = [
-    { type: 'creator', aria: '创作者' },
-    { type: 'game', aria: '游戏' },
-    { type: 'player', aria: '玩家' },
-    { type: 'engine', aria: '引擎' },
-    { type: 'store', aria: '商店' }
+    { type: 'hardware', aria: '掌机' },
+    { type: 'store', aria: 'Store' },
+    { type: 'first', aria: '一创' },
+    { type: 'remix', aria: '二创' },
+    { type: 'ip', aria: 'IP' }
   ];
   var matchSize = 5;
   var matchGrid = [];
@@ -3438,14 +3914,14 @@
     pickedMatch = null;
     matchedCount = 0;
     matchGrid = [
-      ['creator', 'game', 'creator', 'creator', 'store'],
-      ['store', 'creator', 'game', 'player', 'engine'],
-      ['engine', 'store', 'player', 'game', 'player'],
-      ['player', 'engine', 'store', 'creator', 'game'],
-      ['game', 'player', 'engine', 'store', 'creator']
+      ['hardware', 'store', 'hardware', 'hardware', 'ip'],
+      ['ip', 'hardware', 'store', 'first', 'remix'],
+      ['remix', 'ip', 'first', 'store', 'first'],
+      ['first', 'remix', 'ip', 'hardware', 'store'],
+      ['store', 'first', 'remix', 'ip', 'hardware']
     ];
     renderMatchGame();
-    updateMatchStatus('拖动或点选相邻棋子交换。');
+    updateMatchStatus('把掌机、Store、一创、二创、IP 连成产品生态闭环。');
   }
   function kindAria(type) {
     for (var i = 0; i < matchKinds.length; i++) {
@@ -3563,7 +4039,7 @@
     return total;
   }
   function refillMatchGrid(marks) {
-    var cycle = ['creator', 'game', 'player', 'engine', 'store'];
+    var cycle = ['hardware', 'store', 'first', 'remix', 'ip'];
     for (var c = 0; c < matchSize; c++) {
       var kept = [];
       for (var r = matchSize - 1; r >= 0; r--) {
@@ -3603,7 +4079,7 @@
       refillMatchGrid(marks);
       renderMatchGame();
       if (matchedCount >= 3) {
-        updateMatchStatus('三次消除完成，本关通关。');
+        updateMatchStatus('三次消除完成，产品生态模块通关。');
         setTimeout(function () { completeModule('ecosystem'); }, 520);
       }
     }, 420);
@@ -3635,76 +4111,263 @@
     setTimeout(function () { resolveMatchAfterSwap(prev, next); }, 140);
   }
 
-  var jumpPower = 0;
-  var jumpStep = 0;
-  var jumpRaf = null;
-  var jumpMeterT0 = 0;
-  var jumpHalfMs = 1050;
-  var jumpPowerEl = document.getElementById('jump-power');
-  var jumpStatus = document.getElementById('jump-status');
-  var jumpAction = document.getElementById('jump-action');
-  var jumpReset = document.getElementById('jump-reset');
-  function jumpMeterTick() {
-    var t = Date.now() - jumpMeterT0;
-    var cycle = jumpHalfMs * 2;
-    var u = (t % cycle) / jumpHalfMs;
-    jumpPower = u <= 1 ? u * 100 : (2 - u) * 100;
-    if (jumpPowerEl) jumpPowerEl.style.width = Math.max(8, jumpPower) + '%';
-    jumpRaf = requestAnimationFrame(jumpMeterTick);
+  var angryCanvas = document.getElementById('angry-canvas');
+  var angryCtx = angryCanvas ? angryCanvas.getContext('2d') : null;
+  var angryStatus = document.getElementById('angry-status');
+  var angryBirdLabel = document.getElementById('angry-bird-label');
+  var angryHitLabel = document.getElementById('angry-hit-label');
+  var angryResetBtn = document.getElementById('angry-reset');
+  var angryRaf = null;
+  var angryState = null;
+  var angryBirds = [
+    { label: '追觅方法论', target: '方法', color: '#60a5fa' },
+    { label: 'AI Native 商业模式', target: '模式', color: '#a78bfa' },
+    { label: '时机窗口', target: '时机', color: '#fb923c' },
+    { label: '人才团队', target: '团队', color: '#34d399' }
+  ];
+  function angryTargetFor(i) {
+    return { x: 430 + (i % 2) * 92, y: 248 - Math.floor(i / 2) * 74 };
   }
-  function startJumpMeter() {
-    stopJumpMeter();
-    jumpMeterT0 = Date.now();
-    jumpRaf = requestAnimationFrame(jumpMeterTick);
-  }
-  function stopJumpMeter() {
-    if (jumpRaf) {
-      cancelAnimationFrame(jumpRaf);
-      jumpRaf = null;
+  function drawAngryGame() {
+    if (!angryCtx || !angryCanvas || !angryState) return;
+    var w = angryCanvas.width;
+    var h = angryCanvas.height;
+    angryCtx.clearRect(0, 0, w, h);
+    var sky = angryCtx.createLinearGradient(0, 0, 0, h);
+    sky.addColorStop(0, '#1d4ed8');
+    sky.addColorStop(.62, '#0f172a');
+    sky.addColorStop(1, '#020617');
+    angryCtx.fillStyle = sky;
+    angryCtx.fillRect(0, 0, w, h);
+    angryCtx.fillStyle = 'rgba(255,255,255,.16)';
+    for (var s = 0; s < 28; s++) {
+      angryCtx.fillRect((s * 87 + 20) % w, (s * 43 + 18) % 150, s % 3 === 0 ? 2 : 1, s % 3 === 0 ? 2 : 1);
+    }
+    angryCtx.fillStyle = 'rgba(15,23,42,.88)';
+    angryCtx.fillRect(0, h - 42, w, 42);
+    angryCtx.strokeStyle = '#92400e';
+    angryCtx.lineWidth = 8;
+    angryCtx.beginPath();
+    angryCtx.moveTo(92, 282);
+    angryCtx.lineTo(112, 220);
+    angryCtx.lineTo(134, 282);
+    angryCtx.stroke();
+    var bird = angryBirds[Math.min(angryState.step, angryBirds.length - 1)];
+    if (!angryState.flying && angryState.drag) {
+      angryCtx.strokeStyle = 'rgba(254,240,138,.8)';
+      angryCtx.lineWidth = 3;
+      angryCtx.beginPath();
+      angryCtx.moveTo(112, 225);
+      angryCtx.lineTo(angryState.bird.x, angryState.bird.y);
+      angryCtx.stroke();
+    }
+    angryBirds.forEach(function (b, i) {
+      var t = angryTargetFor(i);
+      var hit = angryState.hit[i];
+      angryCtx.fillStyle = hit ? 'rgba(16,185,129,.35)' : 'rgba(251,191,36,.88)';
+      angryCtx.beginPath();
+      angryCtx.roundRect(t.x - 32, t.y - 26, 64, 52, 10);
+      angryCtx.fill();
+      angryCtx.fillStyle = hit ? '#bbf7d0' : '#422006';
+      angryCtx.font = '900 15px sans-serif';
+      angryCtx.textAlign = 'center';
+      angryCtx.fillText(hit ? '已破' : b.target, t.x, t.y + 5);
+    });
+    if (angryState.step < angryBirds.length) {
+      angryCtx.fillStyle = bird.color;
+      angryCtx.beginPath();
+      angryCtx.arc(angryState.bird.x, angryState.bird.y, 17, 0, Math.PI * 2);
+      angryCtx.fill();
+      angryCtx.fillStyle = '#fff';
+      angryCtx.beginPath();
+      angryCtx.arc(angryState.bird.x - 5, angryState.bird.y - 4, 4, 0, Math.PI * 2);
+      angryCtx.arc(angryState.bird.x + 7, angryState.bird.y - 4, 4, 0, Math.PI * 2);
+      angryCtx.fill();
+      angryCtx.fillStyle = '#111827';
+      angryCtx.beginPath();
+      angryCtx.arc(angryState.bird.x - 4, angryState.bird.y - 3, 1.8, 0, Math.PI * 2);
+      angryCtx.arc(angryState.bird.x + 8, angryState.bird.y - 3, 1.8, 0, Math.PI * 2);
+      angryCtx.fill();
     }
   }
-  function renderJumpSteps() {
-    document.querySelectorAll('#jump-steps .jump-step').forEach(function (el, i) {
-      el.classList.toggle('is-on', i <= jumpStep);
-    });
+  function updateAngryHud() {
+    var bird = angryBirds[Math.min(angryState ? angryState.step : 0, angryBirds.length - 1)];
+    if (angryBirdLabel) angryBirdLabel.textContent = '当前小鸟：' + bird.label;
+    if (angryHitLabel) angryHitLabel.textContent = '命中 ' + (angryState ? angryState.step : 0) + '/' + angryBirds.length;
   }
-  function resetJumpGame() {
-    jumpPower = 0;
-    jumpStep = 0;
-    renderJumpSteps();
-    if (jumpStatus) jumpStatus.textContent = '指针尖对齐绿色带时按下起跳（支持空格）。';
-    if (jumpPowerEl) jumpPowerEl.style.width = '8%';
-    startJumpMeter();
+  function resetAngryBirdPosition() {
+    if (!angryState) return;
+    angryState.bird = { x: 112, y: 225, vx: 0, vy: 0 };
+    angryState.drag = false;
+    angryState.flying = false;
   }
-  function jumpOnce() {
-    if (jumpPower >= 62 && jumpPower <= 86) {
-      jumpStep++;
-      renderJumpSteps();
-      if (jumpStatus) jumpStatus.textContent = ['命中，前进一格。', '再中一次。', '终局命中，通关。'][jumpStep - 1] || '命中。';
-      if (jumpStep >= 3) {
-        stopJumpMeter();
-        setTimeout(function () { completeModule('finance'); }, 520);
+  function resetAngryGame() {
+    stopAngryGame();
+    angryState = { step: 0, hit: [false, false, false, false], bird: { x: 112, y: 225, vx: 0, vy: 0 }, drag: false, flying: false, last: 0 };
+    if (angryStatus) angryStatus.textContent = '拖动小鸟向后蓄力，松手命中当前成功理由堡垒。';
+    updateAngryHud();
+    drawAngryGame();
+  }
+  function stopAngryGame() {
+    if (angryRaf) {
+      cancelAnimationFrame(angryRaf);
+      angryRaf = null;
+    }
+    if (angryState) angryState.flying = false;
+  }
+  function launchAngryBird() {
+    if (!angryState || angryState.flying || angryState.step >= angryBirds.length) return;
+    var dx = 112 - angryState.bird.x;
+    var dy = 225 - angryState.bird.y;
+    if (Math.abs(dx) + Math.abs(dy) < 18) {
+      if (angryStatus) angryStatus.textContent = '向后拖动更远一点再松手。';
+      resetAngryBirdPosition();
+      drawAngryGame();
+      return;
+    }
+    angryState.bird.vx = dx * 0.13;
+    angryState.bird.vy = dy * 0.13;
+    angryState.flying = true;
+    angryState.drag = false;
+    angryState.last = performance.now();
+    angryRaf = requestAnimationFrame(angryLoop);
+  }
+  function angryLoop(now) {
+    if (!angryState || !angryState.flying) return;
+    var dt = Math.min(34, now - angryState.last) / 16.67;
+    angryState.last = now;
+    angryState.bird.x += angryState.bird.vx * dt;
+    angryState.bird.y += angryState.bird.vy * dt;
+    angryState.bird.vy += 0.16 * dt;
+    var target = angryTargetFor(angryState.step);
+    var hit = Math.abs(angryState.bird.x - target.x) < 54 && Math.abs(angryState.bird.y - target.y) < 48;
+    if (hit) {
+      angryState.hit[angryState.step] = true;
+      angryState.step++;
+      if (angryStatus) angryStatus.textContent = angryState.step >= angryBirds.length ? '四个成功理由全部命中，模块通关。' : '命中，下一只小鸟继续攻击。';
+      if (angryState.step >= angryBirds.length) {
+        updateAngryHud();
+        drawAngryGame();
+        setTimeout(function () { completeModule('success'); }, 520);
+        return;
       }
-    } else {
-      jumpStep = Math.max(0, jumpStep - 1);
-      renderJumpSteps();
-      if (jumpStatus) jumpStatus.textContent = '未中窗口，回退一步。';
+      resetAngryBirdPosition();
+      updateAngryHud();
+      drawAngryGame();
+      return;
     }
+    if (angryState.bird.x > angryCanvas.width + 30 || angryState.bird.y > angryCanvas.height + 30 || angryState.bird.x < -30) {
+      if (angryStatus) angryStatus.textContent = '差一点，重新拉弓命中「' + angryBirds[angryState.step].target + '」。';
+      resetAngryBirdPosition();
+      drawAngryGame();
+      return;
+    }
+    drawAngryGame();
+    angryRaf = requestAnimationFrame(angryLoop);
   }
-  if (jumpAction) {
-    jumpAction.addEventListener('pointerdown', function (e) {
-      if (e.button !== 0) return;
-      e.preventDefault();
-      jumpOnce();
+  if (angryCanvas) {
+    angryCanvas.addEventListener('pointerdown', function (ev) {
+      if (!angryState || angryState.flying || angryState.step >= angryBirds.length) return;
+      ev.preventDefault();
+      angryState.drag = true;
+      try { angryCanvas.setPointerCapture(ev.pointerId); } catch (err) {}
     }, { passive: false });
-    jumpAction.addEventListener('keydown', function (e) {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      e.preventDefault();
-      e.stopPropagation();
-      jumpOnce();
+    angryCanvas.addEventListener('pointermove', function (ev) {
+      if (!angryState || !angryState.drag || angryState.flying) return;
+      var r = angryCanvas.getBoundingClientRect();
+      var x = (ev.clientX - r.left) / r.width * angryCanvas.width;
+      var y = (ev.clientY - r.top) / r.height * angryCanvas.height;
+      angryState.bird.x = Math.max(52, Math.min(150, x));
+      angryState.bird.y = Math.max(190, Math.min(285, y));
+      drawAngryGame();
+    });
+    angryCanvas.addEventListener('pointerup', function (ev) {
+      if (!angryState || !angryState.drag) return;
+      try { angryCanvas.releasePointerCapture(ev.pointerId); } catch (err2) {}
+      launchAngryBird();
+    });
+    angryCanvas.addEventListener('pointercancel', function () {
+      if (!angryState) return;
+      resetAngryBirdPosition();
+      drawAngryGame();
     });
   }
-  if (jumpReset) jumpReset.addEventListener('click', resetJumpGame);
+  if (angryResetBtn) angryResetBtn.addEventListener('click', resetAngryGame);
+
+  var FIN_ALLOC_ITEMS = [
+    { key: 'hardware', name: '硬件研发与生产', target: 20 },
+    { key: 'platform', name: '平台建设与运营', target: 15 },
+    { key: 'market', name: '市场推广与品牌', target: 5 },
+    { key: 'engine', name: 'AI 引擎研发', target: 15 },
+    { key: 'content', name: '内容生态建设', target: 30 },
+    { key: 'team', name: '团队建设与运营', target: 15 }
+  ];
+  var financeAllocValues = [];
+  var financeAllocGrid = document.getElementById('finance-alloc-grid');
+  var financeBudgetLabel = document.getElementById('finance-budget-label');
+  var financeMatchLabel = document.getElementById('finance-match-label');
+  var financeBudgetFill = document.getElementById('finance-budget-fill');
+  var financeAllocStatus = document.getElementById('finance-alloc-status');
+  var financeAllocCheck = document.getElementById('finance-alloc-check');
+  var financeAllocReset = document.getElementById('finance-alloc-reset');
+  function financeAllocTotal() {
+    return financeAllocValues.reduce(function (sum, v) { return sum + v; }, 0);
+  }
+  function financeAllocMatched() {
+    var n = 0;
+    FIN_ALLOC_ITEMS.forEach(function (item, i) {
+      if (financeAllocValues[i] === item.target) n++;
+    });
+    return n;
+  }
+  function renderFinanceAllocGame() {
+    if (!financeAllocGrid) return;
+    financeAllocGrid.innerHTML = '';
+    FIN_ALLOC_ITEMS.forEach(function (item, i) {
+      var card = document.createElement('div');
+      card.className = 'finance-alloc-card' + (financeAllocValues[i] === item.target ? ' is-ok' : '');
+      card.innerHTML = '<div class="finance-alloc-name">' + item.name + '</div><div class="finance-alloc-target">目标 ' + item.target + '%</div><div class="finance-alloc-controls"><button type="button" class="finance-alloc-btn" data-fin-alloc="' + i + '" data-delta="-5">-</button><span class="finance-alloc-value">' + financeAllocValues[i] + '%</span><button type="button" class="finance-alloc-btn" data-fin-alloc="' + i + '" data-delta="5">+</button></div>';
+      financeAllocGrid.appendChild(card);
+    });
+    var total = financeAllocTotal();
+    var matched = financeAllocMatched();
+    if (financeBudgetLabel) financeBudgetLabel.textContent = '已分配 ' + total + '%';
+    if (financeMatchLabel) financeMatchLabel.textContent = '匹配 ' + matched + '/' + FIN_ALLOC_ITEMS.length;
+    if (financeBudgetFill) financeBudgetFill.style.width = Math.min(100, total) + '%';
+  }
+  function resetFinanceAllocGame() {
+    financeAllocValues = [15, 10, 10, 20, 25, 20];
+    if (financeAllocStatus) financeAllocStatus.textContent = '按 Pre-A 计划把 1 亿美元资金分到六类用途。';
+    renderFinanceAllocGame();
+  }
+  function checkFinanceAllocGame() {
+    var total = financeAllocTotal();
+    var matched = financeAllocMatched();
+    if (total !== 100) {
+      if (financeAllocStatus) financeAllocStatus.textContent = '当前合计 ' + total + '%，需要正好 100%。';
+      return;
+    }
+    if (matched < FIN_ALLOC_ITEMS.length) {
+      if (financeAllocStatus) financeAllocStatus.textContent = '总额正确，但还有用途比例未对齐 Pre-A 资金计划。';
+      return;
+    }
+    if (financeAllocStatus) financeAllocStatus.textContent = '资金配平完成：硬件、平台、市场、AI、内容、团队全部对齐。';
+    setTimeout(function () { completeModule('finance'); }, 520);
+  }
+  if (financeAllocGrid) {
+    financeAllocGrid.addEventListener('click', function (ev) {
+      var btn = ev.target && ev.target.closest('[data-fin-alloc]');
+      if (!btn) return;
+      var i = parseInt(btn.getAttribute('data-fin-alloc'), 10);
+      var delta = parseInt(btn.getAttribute('data-delta'), 10);
+      if (isNaN(i) || isNaN(delta)) return;
+      financeAllocValues[i] = Math.max(0, Math.min(60, financeAllocValues[i] + delta));
+      if (financeAllocStatus) financeAllocStatus.textContent = '调整中：目标来自 Pre-A 资金用途比例。';
+      renderFinanceAllocGame();
+    });
+  }
+  if (financeAllocCheck) financeAllocCheck.addEventListener('click', checkFinanceAllocGame);
+  if (financeAllocReset) financeAllocReset.addEventListener('click', resetFinanceAllocGame);
 
   var bossCanvas = document.getElementById('boss-canvas');
   var bossCtx = bossCanvas ? bossCanvas.getContext('2d') : null;
@@ -3898,7 +4561,7 @@
       bullets: [],
       enemyBullets: []
     };
-    if (bossStatus) bossStatus.textContent = '击中 Boss 8 次，打开完整最终愿景页。';
+    if (bossStatus) bossStatus.textContent = '击中 Boss 8 次，打开「对标与愿景」模块的完整最终愿景页。';
     updateBossHud();
     drawBossGame();
     bossRaf = requestAnimationFrame(bossLoop);
@@ -3939,10 +4602,13 @@
         moveSokoban(keyMap[ev.key]);
       }
     }
-    if (activeChallenge === 'finance' && (ev.key === ' ' || ev.key === 'Enter')) {
-      if (ev.target === jumpAction || (jumpAction && jumpAction.contains(ev.target))) return;
+    if (activeChallenge === 'success' && ev.key === 'r') {
       ev.preventDefault();
-      jumpOnce();
+      resetAngryGame();
+    }
+    if (activeChallenge === 'finance' && (ev.key === ' ' || ev.key === 'Enter')) {
+      ev.preventDefault();
+      checkFinanceAllocGame();
     }
     if (activeChallenge === 'boss') {
       var step = 18;
@@ -4066,6 +4732,82 @@
           }
           return sc;
         })()
+      }
+    });
+  }
+
+  if (typeof Chart !== 'undefined' && document.getElementById('chart-ai-impact')) {
+    var isMobileAiImpact = bpChartIsMobile();
+    window.BP_CHARTS.aiImpact = new Chart(document.getElementById('chart-ai-impact'), {
+      type: 'line',
+      data: {
+        labels: ['2017前', '2020', '2022', '2023', '2024', '2025', '2026E', '2027E'],
+        datasets: [{
+          label: 'AI 对游戏创造的影响力指数',
+          data: [0.05, 0.12, 0.8, 3.5, 12, 32, 68, 100],
+          borderColor: '#F97316',
+          backgroundColor: 'rgba(249,115,22,0.12)',
+          fill: true,
+          tension: 0.26,
+          pointRadius: isMobileAiImpact ? 3 : 5,
+          pointHoverRadius: isMobileAiImpact ? 5 : 7,
+          pointBackgroundColor: '#fff',
+          pointBorderColor: '#F97316',
+          pointBorderWidth: 2,
+          borderWidth: 3
+        }, {
+          label: 'AI 行业跃迁节点',
+          data: [0.05, null, 0.8, 3.5, 12, 32, 68, 100],
+          showLine: false,
+          pointRadius: isMobileAiImpact ? 4 : 7,
+          pointHoverRadius: isMobileAiImpact ? 6 : 9,
+          pointBackgroundColor: '#111827',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        layout: { padding: isMobileAiImpact ? { top: 4, right: 0, bottom: 0, left: 0 } : 4 },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) {
+                var notes = [
+                  'AIGC 前：规则编辑器、传统引擎和少量辅助工具，游戏创作长期贴地缓慢前进',
+                  'GPT-3 早期大模型：语言能力出现，但对游戏创造仍以辅助为主',
+                  '2022 跃迁：扩散模型 + ChatGPT 让自然语言成为创作入口',
+                  '2023 跃迁：GPT-4 / 代码生成让复杂逻辑与原型能力明显增强',
+                  '2024 跃迁：多模态、视频生成、实时语音让内容生产从图文扩展到动态世界',
+                  '2025 加速：Agent 与推理模型把“生成素材”推进到“生成可玩流程”',
+                  '2026E 爆发：世界模型、端侧多模态与 AI 原生游戏让剧情和规则实时演化',
+                  '2027E 人人创造：AI 游戏机成为随身创意终端，把想法直接变成可玩的现实'
+                ];
+                return (ctx.datasetIndex === 1 ? '跃迁节点：' : '') + (notes[ctx.dataIndex] || ctx.dataset.label);
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 100,
+            grid: { color: 'rgba(15,23,42,0.06)' },
+            ticks: { display: !isMobileAiImpact, callback: function (v) { return v + 'x'; }, maxTicksLimit: 6 },
+            title: { display: !isMobileAiImpact, text: '影响力指数（跃迁示意）' }
+          },
+          x: {
+            grid: { display: false },
+            ticks: {
+              font: { size: isMobileAiImpact ? 10 : 12 },
+              maxRotation: isMobileAiImpact ? 35 : 0,
+              minRotation: isMobileAiImpact ? 35 : 0
+            }
+          }
+        }
       }
     });
   }
@@ -4433,6 +5175,7 @@
     var idx = 0;
     for (var i = 0; i < NAV.length; i++) {
       var sec = sections[i];
+      if (!isNavTargetVisible(sec)) continue;
       if (sec && sec.offsetTop <= y) idx = i;
     }
     return idx;
@@ -4442,6 +5185,10 @@
     if (document.body.classList.contains('mode-gate-open')) return;
     var i = sectionIndexByScroll() + delta;
     i = Math.max(0, Math.min(NAV.length - 1, i));
+    while (NAV[i] && !isNavTargetVisible(document.querySelector(NAV[i][1]))) {
+      i += delta >= 0 ? 1 : -1;
+      if (i < 0 || i >= NAV.length) return;
+    }
     var el = document.querySelector(NAV[i][1]);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -4463,12 +5210,10 @@
     if (e.key === 'k' || e.key === 'K') { e.preventDefault(); goSection(-1); }
   });
 
-  /* 愿景解锁逻辑已改为直接展示正文 */
-  var eggDemo = document.getElementById('egg-demo');
+  /* 愿景由 Boss 解锁；Demo 需要单独输入隐藏指令才展示 */
   var eggFinance = document.getElementById('egg-finance');
-  function allQuestModulesDone() {
-    return completedModules.market && completedModules.ecosystem && completedModules.finance && completedModules.boss;
-  }
+  var secretSeq = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'];
+  var secretKeys = [];
   function openCreatorEgg() {
     completedModules.boss = true;
     syncQuestBadges();
@@ -4483,34 +5228,48 @@
       }, 500);
     }
   }
-  function handleSecretTrigger() {
-    if (currentMode === 'quest' && !allQuestModulesDone()) {
-      showAchievement('彩蛋线索已记录：先完成 Pre-A 后的估值跳一跳，并击破任天堂 Boss。');
-      return;
-    }
-    openCreatorEgg();
+  function resetSecretInput() {
+    secretKeys = [];
   }
-  if (eggDemo) eggDemo.addEventListener('click', function () {
-    if (currentMode === 'quest') document.body.classList.add('quest-vision-unlocked');
-    var vision = document.getElementById('s-vision');
-    if (vision) vision.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+  function unlockDemoEgg(source) {
+    var alreadyUnlocked = document.body.classList.contains('demo-egg-unlocked');
+    document.body.classList.add('demo-egg-unlocked');
+    resetSecretInput();
+    showAchievement(alreadyUnlocked ? 'Demo 已经解锁。' : 'Demo 已解锁：试玩入口已经出现。');
+    var demo = document.getElementById('s-demo');
+    if (demo && source !== 'silent') {
+      setTimeout(function () { demo.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 420);
+    }
+  }
+  function handleSecretTrigger() {
+    unlockDemoEgg();
+  }
   if (eggFinance) eggFinance.addEventListener('click', function () {
     var fin = document.getElementById('s-pre-a') || document.getElementById('s-finance');
     if (fin) fin.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  var secretSeq = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'];
-  var secretKeys = [];
+  function pushSecretKey(key) {
+    if (secretSeq.indexOf(key) === -1) return;
+    var expected = secretSeq[secretKeys.length];
+    if (key === expected) {
+      secretKeys.push(key);
+    } else {
+      secretKeys = key === secretSeq[0] ? [key] : [];
+    }
+    if (secretKeys.length === secretSeq.length) handleSecretTrigger();
+  }
   document.addEventListener('keydown', function (e) {
     var tag = document.activeElement && document.activeElement.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-    secretKeys.push(e.key);
-    if (secretKeys.length > secretSeq.length) secretKeys.shift();
-    if (secretSeq.every(function (k, i) { return secretKeys[i] === k; })) {
-      secretKeys = [];
-      handleSecretTrigger();
-    }
+    pushSecretKey(e.key);
+  });
+  document.querySelectorAll('[data-secret-dir]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.classList.add('is-pressed');
+      setTimeout(function () { btn.classList.remove('is-pressed'); }, 150);
+      pushSecretKey(btn.getAttribute('data-secret-dir'));
+    });
   });
 
   var secretLogo = document.getElementById('fuse-secret-logo');
@@ -4709,13 +5468,13 @@
   });
 
   /* 飞轮闭环 */
-  var FW_CAP_DEFAULT = 'AI 降低创作门槛 → 内容与硬件增长 → 付费与分润 → 反哺模型与下一代硬件。';
+  var FW_CAP_DEFAULT = 'Fuse 掌机建立高粘性入口 → 用户创作与官方 IP 游戏双轨供给内容 → Fuse Store 分发交易 → Token、抽成和 IP 收益反哺模型、硬件与下一批内容。';
   var cap = document.getElementById('flywheel-caption');
   var loopTexts = [
-    '从 AI 降门槛开始：更多人能创作 → 作品供给指数级上升。',
-    '供给上升 → 玩家侧内容可选面扩大 → 硬件作为「最佳体验入口」被持续购买。',
-    '玩家付费与平台分润提升 → 现金流与数据回流到模型与硬件研发。',
-    '更强的模型与硬件 → 再次降低创作门槛：飞轮自我加速。'
+    'Fuse 掌机承接高粘性沉浸体验，手机端同步扩大用户盘子，硬件先把入口占住。',
+    '用户作品与官方 IP 游戏都进入一创、二创、N 创链条，角色、世界观、玩法规则和模板不断扩写内容供给。',
+    '作品、模板、素材和版本树回到 Fuse Store 分发交易，平台抽成，创作者分润。',
+    'Token、抽成和 IP 收益反哺 AI 模型、掌机硬件、工具链和下一批官方内容，生态继续变厚。'
   ];
   var loopNodes = document.querySelectorAll('.flywheel-node[data-fw-loop]');
   var stepIdx = 0;
@@ -4735,8 +5494,8 @@
       loopNodes.forEach(function (n) { n.classList.remove('fw-on'); });
       if (stepIdx >= order.length) {
         clearInterval(loopTimer); loopTimer = null;
-        if (cap) cap.textContent = '飞轮闭环已激活：AI 创作、内容供给、硬件增长与分润反哺完成一次循环。';
-        showAchievement('飞轮激活成功：Fuse 进入自增长循环。');
+        if (cap) cap.textContent = '商业飞轮已激活：硬件入口、AI 内容供给、Store 交易与硬件生态反哺完成一次循环。';
+        showAchievement('AI Native 商业飞轮激活成功。');
         return;
       }
       var ix = order[stepIdx];
