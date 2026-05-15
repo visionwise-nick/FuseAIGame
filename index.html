@@ -807,7 +807,7 @@
     .match-dot { width: .55rem; height: .55rem; border-radius: 999px; background: rgba(255,255,255,.22); border: 1px solid rgba(255,255,255,.2); transition: background .2s ease, transform .2s ease; }
     .match-dot.is-on { background: linear-gradient(145deg, #fbbf24, #f59e0b); border-color: rgba(251,191,36,.8); transform: scale(1.15); box-shadow: 0 0 12px rgba(251,191,36,.45); }
     .angry-arena,
-    .finance-alloc-arena {
+    .finance-breakout-arena {
       width: min(100%, 680px); margin: 0 auto; border-radius: 1.6rem; overflow: hidden; position: relative;
       border: 1px solid rgba(255,255,255,.18);
       box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 24px 68px rgba(0,0,0,.28);
@@ -815,24 +815,32 @@
     .angry-arena { background: linear-gradient(180deg, rgba(30,107,255,.22), rgba(15,23,42,.86)); }
     #angry-canvas { display: block; width: 100%; height: auto; touch-action: none; cursor: crosshair; }
     .angry-hud,
-    .finance-alloc-hud {
+    .finance-breakout-hud {
       display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin-bottom: .8rem;
       color: rgba(255,255,255,.86); font-size: .75rem; font-weight: 900;
     }
     .angry-hud span,
-    .finance-alloc-hud span { border-radius: 999px; padding: .4rem .7rem; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); }
-    .finance-alloc-arena { padding: 1rem; background: linear-gradient(145deg, rgba(15,23,42,.88), rgba(30,41,59,.72)); }
-    .finance-budget-track { height: .65rem; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.12); box-shadow: inset 0 1px 6px rgba(0,0,0,.32); }
-    .finance-budget-fill { height: 100%; width: 0%; border-radius: inherit; background: linear-gradient(90deg,#3B82F6,#F59E0B,#10B981); transition: width .22s ease; }
-    .finance-alloc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; margin-top: 1rem; }
-    .finance-alloc-card { border-radius: 1rem; padding: .78rem; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.13); }
-    .finance-alloc-card.is-ok { background: rgba(16,185,129,.18); border-color: rgba(110,231,183,.45); }
-    .finance-alloc-name { font-size: .72rem; font-weight: 900; color: rgba(255,255,255,.92); line-height: 1.25; }
-    .finance-alloc-target { margin-top: .18rem; font-size: .62rem; font-weight: 800; color: rgba(191,219,254,.78); }
-    .finance-alloc-value { font-size: 1.05rem; font-weight: 1000; color: #fbbf24; font-variant-numeric: tabular-nums; }
-    .finance-alloc-controls { display: flex; align-items: center; justify-content: space-between; gap: .45rem; margin-top: .55rem; }
-    .finance-alloc-btn { width: 2rem; height: 2rem; border-radius: .7rem; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.16); color: #fff; font-weight: 1000; }
-    .finance-alloc-btn:hover { background: rgba(255,255,255,.2); }
+    .finance-breakout-hud span { border-radius: 999px; padding: .4rem .7rem; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); }
+    .finance-breakout-arena {
+      background:
+        radial-gradient(circle at 18% 16%, rgba(56,189,248,.28), transparent 28%),
+        radial-gradient(circle at 82% 0%, rgba(251,191,36,.24), transparent 32%),
+        radial-gradient(circle at 50% 100%, rgba(139,92,246,.18), transparent 42%),
+        linear-gradient(180deg, rgba(15,23,42,.96), rgba(2,6,23,.98));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        inset 0 0 42px rgba(56,189,248,.08),
+        0 24px 68px rgba(0,0,0,.28),
+        0 0 0 1px rgba(56,189,248,.08);
+    }
+    .finance-breakout-arena::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), transparent 18% 82%, rgba(56,189,248,.1)),
+        repeating-linear-gradient(180deg, rgba(255,255,255,.035) 0 1px, transparent 1px 5px);
+      mix-blend-mode: screen; opacity: .7;
+    }
+    #finance-breakout-canvas { display: block; width: 100%; height: auto; touch-action: none; cursor: none; }
     .boss-arena {
       width: min(100%, 680px); margin: 0 auto; border-radius: 1.6rem; overflow: hidden; position: relative;
       border: 1px solid rgba(255,255,255,.18); background: radial-gradient(circle at 50% 0%, rgba(239,68,68,.32), transparent 38%), #020617;
@@ -1200,9 +1208,6 @@
         width: 1.35rem;
         height: 1.35rem;
         border-radius: 0.45rem;
-      }
-      .finance-alloc-grid {
-        grid-template-columns: 1fr;
       }
       .boss-hud {
         justify-content: flex-start;
@@ -3035,9 +3040,9 @@
           <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
             <div>
               <h2 class="text-2xl md:text-3xl font-black">增长融资节点已确认</h2>
-              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完短期里程碑、六年路径、财务预测与 Pre-A 计划。闯关模式下，完成「Pre-A 资金配平」，把资金用途比例与章节计划对齐。</p>
+              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完短期里程碑、六年路径、财务预测与 Pre-A 计划。闯关模式下，完成「Pre-A 资金打砖块」，把六类资金用途全部击穿。</p>
             </div>
-            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="finance">挑战 04 · Pre-A 资金配平</button>
+            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="finance">挑战 04 · Pre-A 打砖块</button>
           </div>
         </div>
       </section>
@@ -3301,26 +3306,25 @@
               <button type="button" id="angry-reset" class="mini-control">重来</button>
             </div>
           </div>
-          <p id="angry-status" class="mt-4 text-center text-sm text-amber-100 font-bold">把四只小鸟分别打进方法、模式、时机、团队堡垒。</p>
+          <p id="angry-status" class="mt-4 text-center text-sm text-amber-100 font-bold">把四只小鸟分别打向方法、模式、时机、团队动物关卡目标。</p>
         </div>
 
         <div id="mini-finance" class="mini-panel mt-8">
           <div class="mini-stage">
-            <div class="finance-alloc-hud" aria-live="polite">
-              <span id="finance-budget-label">已分配 0%</span>
-              <span id="finance-match-label">匹配 0/6</span>
-              <span>每次调整 5%，总计必须 100%</span>
+            <div class="finance-breakout-hud" aria-live="polite">
+              <span id="finance-lives-label">生命 3</span>
+              <span id="finance-bricks-label">资金砖块 0/6</span>
+              <span id="finance-ball-label">空格发球 · 方向键移动</span>
             </div>
-            <div class="finance-alloc-arena">
-              <div class="finance-budget-track" aria-hidden="true"><div id="finance-budget-fill" class="finance-budget-fill"></div></div>
-              <div id="finance-alloc-grid" class="finance-alloc-grid" aria-label="Pre-A 资金分配面板"></div>
+            <div class="finance-breakout-arena">
+              <canvas id="finance-breakout-canvas" width="640" height="360" aria-label="Pre-A 资金打砖块"></canvas>
             </div>
             <div class="mt-5 flex flex-wrap justify-center gap-3">
-              <button type="button" id="finance-alloc-check" class="start-btn-primary">确认配平</button>
+              <button type="button" id="finance-launch" class="start-btn-primary">发球</button>
               <button type="button" id="finance-alloc-reset" class="mini-control">重来</button>
             </div>
           </div>
-          <p id="finance-alloc-status" class="mt-4 text-center text-sm text-amber-100 font-bold">按 Pre-A 计划把 1 亿美元资金分到六类用途。</p>
+          <p id="finance-alloc-status" class="mt-4 text-center text-sm text-amber-100 font-bold">移动挡板接住资金球，击碎六类 Pre-A 用途砖块。</p>
         </div>
 
         <div id="mini-boss" class="mini-panel mt-8">
@@ -3647,11 +3651,11 @@
     },
     success: {
       title: '挑战 03 · 成功理由小鸟',
-      desc: '拖动弹弓发射四只小鸟，分别命中方法、模式、时机、团队堡垒。这个小游戏对应模块三：四个成功理由共同击穿增长阻力。'
+      desc: '拖动弹弓发射四只小鸟，分别命中方法、模式、时机、团队动物关卡目标。这个小游戏对应模块三：四个成功理由共同击穿增长阻力。'
     },
     finance: {
-      title: '挑战 04 · Pre-A 资金配平',
-      desc: '把 1 亿美元融资按 Pre-A 计划分到六类用途：硬件 20%、平台 15%、市场 5%、AI 引擎 15%、内容 30%、团队 15%。配平后计入任务进度。'
+      title: '挑战 04 · Pre-A 打砖块',
+      desc: '经典打砖块玩法：移动挡板接住资金球，击碎硬件、平台、市场、AI 引擎、内容、团队六类用途砖块。砖块耐久对应 Pre-A 资金占比。'
     },
     boss: {
       title: '挑战 05 · 对标愿景 Boss',
@@ -3685,6 +3689,7 @@
   function closeChallenge() {
     if (challengeModal) challengeModal.classList.remove('is-open');
     stopAngryGame();
+    stopFinanceAllocGame();
     stopBossGame();
     activeChallenge = null;
   }
@@ -4120,74 +4125,275 @@
   var angryRaf = null;
   var angryState = null;
   var angryBirds = [
-    { label: '追觅方法论', target: '方法', color: '#60a5fa' },
-    { label: 'AI Native 商业模式', target: '模式', color: '#a78bfa' },
-    { label: '时机窗口', target: '时机', color: '#fb923c' },
-    { label: '人才团队', target: '团队', color: '#34d399' }
+    { label: '追觅方法论', target: '方法', animal: '浣熊', color: '#60a5fa', beak: '#facc15', x: 462, y: 244, size: 33 },
+    { label: 'AI Native 商业模式', target: '模式', animal: '狐狸', color: '#a78bfa', beak: '#fb923c', x: 548, y: 226, size: 33 },
+    { label: '时机窗口', target: '时机', animal: '乌龟', color: '#fb923c', beak: '#f59e0b', x: 503, y: 152, size: 34 },
+    { label: '人才团队', target: '团队', animal: '小熊', color: '#34d399', beak: '#fbbf24', x: 584, y: 126, size: 34 }
   ];
   function angryTargetFor(i) {
-    return { x: 430 + (i % 2) * 92, y: 248 - Math.floor(i / 2) * 74 };
+    return angryBirds[i] || angryBirds[0];
+  }
+  function drawAngryLevelScene(w, h) {
+    var sky = angryCtx.createLinearGradient(0, 0, 0, h);
+    sky.addColorStop(0, '#2563eb');
+    sky.addColorStop(.5, '#38bdf8');
+    sky.addColorStop(.78, '#fef3c7');
+    sky.addColorStop(1, '#14532d');
+    angryCtx.fillStyle = sky;
+    angryCtx.fillRect(0, 0, w, h);
+
+    angryCtx.fillStyle = 'rgba(255,255,255,.58)';
+    [[86, 58, 30], [136, 45, 22], [410, 62, 24], [530, 48, 32]].forEach(function (c) {
+      angryCtx.beginPath();
+      angryCtx.arc(c[0], c[1], c[2], 0, Math.PI * 2);
+      angryCtx.arc(c[0] + c[2] * .85, c[1] + 4, c[2] * .78, 0, Math.PI * 2);
+      angryCtx.arc(c[0] - c[2] * .78, c[1] + 7, c[2] * .62, 0, Math.PI * 2);
+      angryCtx.fill();
+    });
+
+    angryCtx.fillStyle = 'rgba(21,128,61,.92)';
+    angryCtx.beginPath();
+    angryCtx.moveTo(0, 310);
+    angryCtx.quadraticCurveTo(110, 278, 232, 306);
+    angryCtx.quadraticCurveTo(352, 333, 470, 296);
+    angryCtx.quadraticCurveTo(565, 268, 640, 294);
+    angryCtx.lineTo(640, h);
+    angryCtx.lineTo(0, h);
+    angryCtx.closePath();
+    angryCtx.fill();
+    angryCtx.fillStyle = '#166534';
+    angryCtx.fillRect(0, h - 32, w, 32);
+    angryCtx.fillStyle = 'rgba(254,240,138,.72)';
+    for (var g = 0; g < 20; g++) {
+      angryCtx.fillRect(18 + g * 33, h - 30 - (g % 4) * 3, 14, 3);
+    }
+
+    drawAngryPlatform(436, 278, 74, 16);
+    drawAngryPlatform(522, 260, 74, 16);
+    drawAngryPlatform(477, 186, 74, 16);
+    drawAngryPlatform(558, 160, 74, 16);
+    drawAngryTower(451, 278, 42);
+    drawAngryTower(537, 260, 42);
+    drawAngryTower(492, 186, 50);
+    drawAngryTower(573, 160, 50);
+  }
+  function drawAngryPlatform(x, y, width, height) {
+    angryCtx.fillStyle = '#854d0e';
+    angryCtx.beginPath();
+    angryCtx.roundRect(x - width / 2, y, width, height, 6);
+    angryCtx.fill();
+    angryCtx.fillStyle = '#facc15';
+    angryCtx.fillRect(x - width / 2 + 6, y + 4, width - 12, 3);
+  }
+  function drawAngryTower(x, y, height) {
+    angryCtx.fillStyle = 'rgba(120,53,15,.82)';
+    angryCtx.beginPath();
+    angryCtx.roundRect(x - 18, y - height, 12, height, 4);
+    angryCtx.roundRect(x + 6, y - height, 12, height, 4);
+    angryCtx.fill();
+  }
+  function drawAngrySlingshot() {
+    angryCtx.strokeStyle = '#78350f';
+    angryCtx.lineWidth = 9;
+    angryCtx.lineCap = 'round';
+    angryCtx.beginPath();
+    angryCtx.moveTo(91, 286);
+    angryCtx.lineTo(112, 220);
+    angryCtx.lineTo(136, 286);
+    angryCtx.stroke();
+    angryCtx.strokeStyle = '#451a03';
+    angryCtx.lineWidth = 4;
+    angryCtx.beginPath();
+    angryCtx.moveTo(112, 224);
+    angryCtx.lineTo(112, 292);
+    angryCtx.stroke();
+  }
+  function drawAngryTarget(b, i, hit) {
+    var t = angryTargetFor(i);
+    var s = t.size;
+    var wobble = Math.sin((angryState.t + i * 140) / 260) * 2;
+    angryCtx.save();
+    angryCtx.translate(t.x, t.y + wobble);
+    angryCtx.globalAlpha = hit ? .46 : 1;
+
+    angryCtx.fillStyle = hit ? 'rgba(16,185,129,.36)' : 'rgba(255,255,255,.92)';
+    angryCtx.beginPath();
+    angryCtx.roundRect(-s - 7, s - 2, s * 2 + 14, 24, 9);
+    angryCtx.fill();
+    angryCtx.fillStyle = hit ? '#bbf7d0' : '#1f2937';
+    angryCtx.font = '900 15px sans-serif';
+    angryCtx.textAlign = 'center';
+    angryCtx.fillText(hit ? '已破' : b.target, 0, s + 15);
+
+    if (b.animal === '狐狸') {
+      angryCtx.fillStyle = hit ? '#d6d3d1' : '#f97316';
+      angryCtx.beginPath();
+      angryCtx.moveTo(-s * .75, -s * .34);
+      angryCtx.lineTo(-s * .45, -s * 1.02);
+      angryCtx.lineTo(-s * .18, -s * .38);
+      angryCtx.moveTo(s * .75, -s * .34);
+      angryCtx.lineTo(s * .45, -s * 1.02);
+      angryCtx.lineTo(s * .18, -s * .38);
+      angryCtx.fill();
+      angryCtx.beginPath();
+      angryCtx.ellipse(0, 0, s * .86, s * .76, 0, 0, Math.PI * 2);
+      angryCtx.fill();
+      angryCtx.fillStyle = '#fff7ed';
+      angryCtx.beginPath();
+      angryCtx.moveTo(-s * .48, s * .08);
+      angryCtx.quadraticCurveTo(0, s * .48, s * .48, s * .08);
+      angryCtx.lineTo(0, s * .72);
+      angryCtx.closePath();
+      angryCtx.fill();
+    } else if (b.animal === '乌龟') {
+      angryCtx.fillStyle = hit ? '#a7f3d0' : '#84cc16';
+      angryCtx.beginPath();
+      angryCtx.ellipse(0, 2, s * .98, s * .68, 0, 0, Math.PI * 2);
+      angryCtx.fill();
+      angryCtx.strokeStyle = 'rgba(63,98,18,.45)';
+      angryCtx.lineWidth = 3;
+      angryCtx.beginPath();
+      angryCtx.moveTo(-s * .48, -s * .2);
+      angryCtx.lineTo(s * .45, s * .34);
+      angryCtx.moveTo(s * .42, -s * .24);
+      angryCtx.lineTo(-s * .38, s * .34);
+      angryCtx.stroke();
+      angryCtx.fillStyle = '#bef264';
+      angryCtx.beginPath();
+      angryCtx.arc(s * .82, -s * .06, s * .3, 0, Math.PI * 2);
+      angryCtx.fill();
+    } else if (b.animal === '小熊') {
+      angryCtx.fillStyle = hit ? '#d6d3d1' : '#a16207';
+      angryCtx.beginPath();
+      angryCtx.arc(-s * .55, -s * .52, s * .28, 0, Math.PI * 2);
+      angryCtx.arc(s * .55, -s * .52, s * .28, 0, Math.PI * 2);
+      angryCtx.ellipse(0, 0, s * .84, s * .78, 0, 0, Math.PI * 2);
+      angryCtx.fill();
+      angryCtx.fillStyle = '#fef3c7';
+      angryCtx.beginPath();
+      angryCtx.ellipse(0, s * .24, s * .36, s * .25, 0, 0, Math.PI * 2);
+      angryCtx.fill();
+    } else {
+      angryCtx.fillStyle = hit ? '#d6d3d1' : '#64748b';
+      angryCtx.beginPath();
+      angryCtx.ellipse(0, 0, s * .88, s * .76, 0, 0, Math.PI * 2);
+      angryCtx.fill();
+      angryCtx.fillStyle = '#f8fafc';
+      angryCtx.beginPath();
+      angryCtx.roundRect(-s * .55, -s * .18, s * 1.1, s * .34, 8);
+      angryCtx.fill();
+      angryCtx.fillStyle = '#334155';
+      angryCtx.beginPath();
+      angryCtx.arc(-s * .26, -s * .02, s * .16, 0, Math.PI * 2);
+      angryCtx.arc(s * .26, -s * .02, s * .16, 0, Math.PI * 2);
+      angryCtx.fill();
+    }
+    angryCtx.fillStyle = '#111827';
+    angryCtx.beginPath();
+    angryCtx.arc(-s * .24, -s * .1, 2.4, 0, Math.PI * 2);
+    angryCtx.arc(s * .24, -s * .1, 2.4, 0, Math.PI * 2);
+    angryCtx.fill();
+    angryCtx.strokeStyle = '#111827';
+    angryCtx.lineWidth = 3;
+    angryCtx.beginPath();
+    angryCtx.moveTo(-s * .42, -s * .34);
+    angryCtx.lineTo(-s * .12, -s * .24);
+    angryCtx.moveTo(s * .42, -s * .34);
+    angryCtx.lineTo(s * .12, -s * .24);
+    angryCtx.stroke();
+    if (hit) {
+      angryCtx.strokeStyle = 'rgba(255,255,255,.82)';
+      angryCtx.lineWidth = 3;
+      angryCtx.beginPath();
+      angryCtx.moveTo(-s, -s);
+      angryCtx.lineTo(s, s);
+      angryCtx.moveTo(s, -s * .9);
+      angryCtx.lineTo(-s * .75, s * .82);
+      angryCtx.stroke();
+    }
+    angryCtx.restore();
+  }
+  function drawAngryBirdSprite(bird, x, y, vx) {
+    var tilt = Math.max(-.7, Math.min(.7, vx * .055));
+    angryCtx.save();
+    angryCtx.translate(x, y);
+    angryCtx.rotate(tilt);
+    angryCtx.shadowColor = 'rgba(15,23,42,.28)';
+    angryCtx.shadowBlur = 10;
+    angryCtx.fillStyle = bird.color;
+    angryCtx.beginPath();
+    angryCtx.ellipse(0, 0, 21, 18, 0, 0, Math.PI * 2);
+    angryCtx.fill();
+    angryCtx.shadowBlur = 0;
+    angryCtx.fillStyle = 'rgba(255,255,255,.32)';
+    angryCtx.beginPath();
+    angryCtx.ellipse(-6, 7, 11, 7, -.2, 0, Math.PI * 2);
+    angryCtx.fill();
+    angryCtx.fillStyle = bird.beak;
+    angryCtx.beginPath();
+    angryCtx.moveTo(18, -1);
+    angryCtx.lineTo(33, 5);
+    angryCtx.lineTo(18, 10);
+    angryCtx.closePath();
+    angryCtx.fill();
+    angryCtx.strokeStyle = '#111827';
+    angryCtx.lineWidth = 3;
+    angryCtx.beginPath();
+    angryCtx.moveTo(-13, -17);
+    angryCtx.lineTo(-3, -10);
+    angryCtx.moveTo(0, -18);
+    angryCtx.lineTo(8, -10);
+    angryCtx.stroke();
+    angryCtx.fillStyle = '#fff';
+    angryCtx.beginPath();
+    angryCtx.arc(-5, -5, 5, 0, Math.PI * 2);
+    angryCtx.arc(8, -5, 5, 0, Math.PI * 2);
+    angryCtx.fill();
+    angryCtx.fillStyle = '#111827';
+    angryCtx.beginPath();
+    angryCtx.arc(-3, -4, 2.2, 0, Math.PI * 2);
+    angryCtx.arc(10, -4, 2.2, 0, Math.PI * 2);
+    angryCtx.fill();
+    angryCtx.strokeStyle = '#111827';
+    angryCtx.lineWidth = 2.4;
+    angryCtx.beginPath();
+    angryCtx.moveTo(-11, -12);
+    angryCtx.lineTo(0, -9);
+    angryCtx.moveTo(4, -9);
+    angryCtx.lineTo(15, -13);
+    angryCtx.stroke();
+    angryCtx.fillStyle = '#7f1d1d';
+    angryCtx.beginPath();
+    angryCtx.moveTo(-19, -2);
+    angryCtx.lineTo(-32, -10);
+    angryCtx.lineTo(-25, 4);
+    angryCtx.closePath();
+    angryCtx.fill();
+    angryCtx.restore();
   }
   function drawAngryGame() {
     if (!angryCtx || !angryCanvas || !angryState) return;
     var w = angryCanvas.width;
     var h = angryCanvas.height;
     angryCtx.clearRect(0, 0, w, h);
-    var sky = angryCtx.createLinearGradient(0, 0, 0, h);
-    sky.addColorStop(0, '#1d4ed8');
-    sky.addColorStop(.62, '#0f172a');
-    sky.addColorStop(1, '#020617');
-    angryCtx.fillStyle = sky;
-    angryCtx.fillRect(0, 0, w, h);
-    angryCtx.fillStyle = 'rgba(255,255,255,.16)';
-    for (var s = 0; s < 28; s++) {
-      angryCtx.fillRect((s * 87 + 20) % w, (s * 43 + 18) % 150, s % 3 === 0 ? 2 : 1, s % 3 === 0 ? 2 : 1);
-    }
-    angryCtx.fillStyle = 'rgba(15,23,42,.88)';
-    angryCtx.fillRect(0, h - 42, w, 42);
-    angryCtx.strokeStyle = '#92400e';
-    angryCtx.lineWidth = 8;
-    angryCtx.beginPath();
-    angryCtx.moveTo(92, 282);
-    angryCtx.lineTo(112, 220);
-    angryCtx.lineTo(134, 282);
-    angryCtx.stroke();
+    angryState.t += 16;
+    drawAngryLevelScene(w, h);
+    drawAngrySlingshot();
     var bird = angryBirds[Math.min(angryState.step, angryBirds.length - 1)];
     if (!angryState.flying && angryState.drag) {
-      angryCtx.strokeStyle = 'rgba(254,240,138,.8)';
+      angryCtx.strokeStyle = 'rgba(69,26,3,.88)';
       angryCtx.lineWidth = 3;
       angryCtx.beginPath();
-      angryCtx.moveTo(112, 225);
+      angryCtx.moveTo(96, 223);
       angryCtx.lineTo(angryState.bird.x, angryState.bird.y);
+      angryCtx.lineTo(130, 223);
       angryCtx.stroke();
     }
     angryBirds.forEach(function (b, i) {
-      var t = angryTargetFor(i);
-      var hit = angryState.hit[i];
-      angryCtx.fillStyle = hit ? 'rgba(16,185,129,.35)' : 'rgba(251,191,36,.88)';
-      angryCtx.beginPath();
-      angryCtx.roundRect(t.x - 32, t.y - 26, 64, 52, 10);
-      angryCtx.fill();
-      angryCtx.fillStyle = hit ? '#bbf7d0' : '#422006';
-      angryCtx.font = '900 15px sans-serif';
-      angryCtx.textAlign = 'center';
-      angryCtx.fillText(hit ? '已破' : b.target, t.x, t.y + 5);
+      drawAngryTarget(b, i, angryState.hit[i]);
     });
     if (angryState.step < angryBirds.length) {
-      angryCtx.fillStyle = bird.color;
-      angryCtx.beginPath();
-      angryCtx.arc(angryState.bird.x, angryState.bird.y, 17, 0, Math.PI * 2);
-      angryCtx.fill();
-      angryCtx.fillStyle = '#fff';
-      angryCtx.beginPath();
-      angryCtx.arc(angryState.bird.x - 5, angryState.bird.y - 4, 4, 0, Math.PI * 2);
-      angryCtx.arc(angryState.bird.x + 7, angryState.bird.y - 4, 4, 0, Math.PI * 2);
-      angryCtx.fill();
-      angryCtx.fillStyle = '#111827';
-      angryCtx.beginPath();
-      angryCtx.arc(angryState.bird.x - 4, angryState.bird.y - 3, 1.8, 0, Math.PI * 2);
-      angryCtx.arc(angryState.bird.x + 8, angryState.bird.y - 3, 1.8, 0, Math.PI * 2);
-      angryCtx.fill();
+      drawAngryBirdSprite(bird, angryState.bird.x, angryState.bird.y, angryState.bird.vx);
     }
   }
   function updateAngryHud() {
@@ -4203,8 +4409,8 @@
   }
   function resetAngryGame() {
     stopAngryGame();
-    angryState = { step: 0, hit: [false, false, false, false], bird: { x: 112, y: 225, vx: 0, vy: 0 }, drag: false, flying: false, last: 0 };
-    if (angryStatus) angryStatus.textContent = '拖动小鸟向后蓄力，松手命中当前成功理由堡垒。';
+    angryState = { step: 0, hit: [false, false, false, false], bird: { x: 112, y: 225, vx: 0, vy: 0 }, drag: false, flying: false, last: 0, t: 0 };
+    if (angryStatus) angryStatus.textContent = '拖动小鸟向后蓄力，松手命中右侧动物关卡目标。';
     updateAngryHud();
     drawAngryGame();
   }
@@ -4240,7 +4446,7 @@
     angryState.bird.y += angryState.bird.vy * dt;
     angryState.bird.vy += 0.16 * dt;
     var target = angryTargetFor(angryState.step);
-    var hit = Math.abs(angryState.bird.x - target.x) < 54 && Math.abs(angryState.bird.y - target.y) < 48;
+    var hit = Math.abs(angryState.bird.x - target.x) < target.size + 30 && Math.abs(angryState.bird.y - target.y) < target.size + 24;
     if (hit) {
       angryState.hit[angryState.step] = true;
       angryState.step++;
@@ -4295,79 +4501,329 @@
   if (angryResetBtn) angryResetBtn.addEventListener('click', resetAngryGame);
 
   var FIN_ALLOC_ITEMS = [
-    { key: 'hardware', name: '硬件研发与生产', target: 20 },
-    { key: 'platform', name: '平台建设与运营', target: 15 },
-    { key: 'market', name: '市场推广与品牌', target: 5 },
-    { key: 'engine', name: 'AI 引擎研发', target: 15 },
-    { key: 'content', name: '内容生态建设', target: 30 },
-    { key: 'team', name: '团队建设与运营', target: 15 }
+    { key: 'hardware', name: '硬件研发', target: 20, color: '#3b82f6' },
+    { key: 'platform', name: '平台运营', target: 15, color: '#06b6d4' },
+    { key: 'market', name: '市场品牌', target: 5, color: '#f97316' },
+    { key: 'engine', name: 'AI 引擎', target: 15, color: '#8b5cf6' },
+    { key: 'content', name: '内容生态', target: 30, color: '#f59e0b' },
+    { key: 'team', name: '团队建设', target: 15, color: '#10b981' }
   ];
-  var financeAllocValues = [];
-  var financeAllocGrid = document.getElementById('finance-alloc-grid');
-  var financeBudgetLabel = document.getElementById('finance-budget-label');
-  var financeMatchLabel = document.getElementById('finance-match-label');
-  var financeBudgetFill = document.getElementById('finance-budget-fill');
+  var financeCanvas = document.getElementById('finance-breakout-canvas');
+  var financeCtx = financeCanvas ? financeCanvas.getContext('2d') : null;
+  var financeLivesLabel = document.getElementById('finance-lives-label');
+  var financeBricksLabel = document.getElementById('finance-bricks-label');
+  var financeBallLabel = document.getElementById('finance-ball-label');
   var financeAllocStatus = document.getElementById('finance-alloc-status');
-  var financeAllocCheck = document.getElementById('finance-alloc-check');
+  var financeLaunchBtn = document.getElementById('finance-launch');
   var financeAllocReset = document.getElementById('finance-alloc-reset');
-  function financeAllocTotal() {
-    return financeAllocValues.reduce(function (sum, v) { return sum + v; }, 0);
+  var financeRaf = null;
+  var financeState = null;
+  function stopFinanceAllocGame() {
+    if (financeRaf) {
+      cancelAnimationFrame(financeRaf);
+      financeRaf = null;
+    }
   }
-  function financeAllocMatched() {
-    var n = 0;
+  function buildFinanceBricks() {
+    var bricks = [];
+    var cols = 3;
+    var bw = 170;
+    var bh = 38;
+    var gap = 18;
+    var startX = (financeCanvas.width - (cols * bw + (cols - 1) * gap)) / 2;
     FIN_ALLOC_ITEMS.forEach(function (item, i) {
-      if (financeAllocValues[i] === item.target) n++;
+      var row = Math.floor(i / cols);
+      var col = i % cols;
+      bricks.push({
+        item: item,
+        x: startX + col * (bw + gap),
+        y: 54 + row * 58,
+        w: bw,
+        h: bh,
+        hp: Math.max(1, Math.ceil(item.target / 10)),
+        maxHp: Math.max(1, Math.ceil(item.target / 10)),
+        alive: true
+      });
     });
-    return n;
+    return bricks;
   }
-  function renderFinanceAllocGame() {
-    if (!financeAllocGrid) return;
-    financeAllocGrid.innerHTML = '';
-    FIN_ALLOC_ITEMS.forEach(function (item, i) {
-      var card = document.createElement('div');
-      card.className = 'finance-alloc-card' + (financeAllocValues[i] === item.target ? ' is-ok' : '');
-      card.innerHTML = '<div class="finance-alloc-name">' + item.name + '</div><div class="finance-alloc-target">目标 ' + item.target + '%</div><div class="finance-alloc-controls"><button type="button" class="finance-alloc-btn" data-fin-alloc="' + i + '" data-delta="-5">-</button><span class="finance-alloc-value">' + financeAllocValues[i] + '%</span><button type="button" class="finance-alloc-btn" data-fin-alloc="' + i + '" data-delta="5">+</button></div>';
-      financeAllocGrid.appendChild(card);
+  function resetFinanceBall() {
+    if (!financeState) return;
+    financeState.ball.x = financeState.paddle.x + financeState.paddle.w / 2;
+    financeState.ball.y = financeState.paddle.y - 11;
+    financeState.ball.vx = 0;
+    financeState.ball.vy = 0;
+    financeState.ball.moving = false;
+  }
+  function financeClearedCount() {
+    if (!financeState) return 0;
+    return financeState.bricks.filter(function (b) { return !b.alive; }).length;
+  }
+  function addFinanceParticles(x, y, color, count) {
+    if (!financeState) return;
+    for (var i = 0; i < count; i++) {
+      var ang = Math.random() * Math.PI * 2;
+      var spd = 1.2 + Math.random() * 2.8;
+      financeState.particles.push({
+        x: x,
+        y: y,
+        vx: Math.cos(ang) * spd,
+        vy: Math.sin(ang) * spd - .5,
+        life: 22 + Math.random() * 18,
+        maxLife: 40,
+        color: color
+      });
+    }
+  }
+  function updateFinanceHud() {
+    if (!financeState) return;
+    if (financeLivesLabel) financeLivesLabel.textContent = '生命 ' + financeState.lives;
+    if (financeBricksLabel) financeBricksLabel.textContent = '资金砖块 ' + financeClearedCount() + '/' + FIN_ALLOC_ITEMS.length;
+    if (financeBallLabel) financeBallLabel.textContent = financeState.ball.moving ? '接球反弹 · 击碎用途' : '空格发球 · 方向键移动';
+  }
+  function drawRoundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+  function drawFinanceAllocGame() {
+    if (!financeCtx || !financeCanvas || !financeState) return;
+    var w = financeCanvas.width;
+    var h = financeCanvas.height;
+    financeCtx.clearRect(0, 0, w, h);
+    var bg = financeCtx.createLinearGradient(0, 0, 0, h);
+    bg.addColorStop(0, '#0f172a');
+    bg.addColorStop(.55, '#111827');
+    bg.addColorStop(1, '#020617');
+    financeCtx.fillStyle = bg;
+    financeCtx.fillRect(0, 0, w, h);
+    var glow = financeCtx.createRadialGradient(w * .5, h * .12, 20, w * .5, h * .25, h * .72);
+    glow.addColorStop(0, 'rgba(56,189,248,.18)');
+    glow.addColorStop(.45, 'rgba(139,92,246,.08)');
+    glow.addColorStop(1, 'rgba(2,6,23,0)');
+    financeCtx.fillStyle = glow;
+    financeCtx.fillRect(0, 0, w, h);
+    financeCtx.strokeStyle = 'rgba(125,211,252,.08)';
+    financeCtx.lineWidth = 1;
+    for (var gx = 0; gx <= w; gx += 32) {
+      financeCtx.beginPath();
+      financeCtx.moveTo(gx, 0);
+      financeCtx.lineTo(gx, h);
+      financeCtx.stroke();
+    }
+    for (var gy = 0; gy <= h; gy += 32) {
+      financeCtx.beginPath();
+      financeCtx.moveTo(0, gy);
+      financeCtx.lineTo(w, gy);
+      financeCtx.stroke();
+    }
+    financeCtx.save();
+    financeCtx.globalAlpha = .24;
+    financeCtx.strokeStyle = '#38bdf8';
+    for (var ring = 0; ring < 4; ring++) {
+      financeCtx.beginPath();
+      financeCtx.ellipse(w / 2, h + 24, 120 + ring * 95, 34 + ring * 28, 0, Math.PI, Math.PI * 2);
+      financeCtx.stroke();
+    }
+    financeCtx.restore();
+    financeState.bricks.forEach(function (brick) {
+      if (!brick.alive) return;
+      var pct = brick.hp / brick.maxHp;
+      financeCtx.save();
+      financeCtx.globalAlpha = .68 + pct * .32;
+      financeCtx.shadowColor = brick.item.color;
+      financeCtx.shadowBlur = 18;
+      drawRoundRect(financeCtx, brick.x, brick.y, brick.w, brick.h, 12);
+      var grd = financeCtx.createLinearGradient(brick.x, brick.y, brick.x + brick.w, brick.y + brick.h);
+      grd.addColorStop(0, brick.item.color);
+      grd.addColorStop(.56, brick.item.color);
+      grd.addColorStop(1, 'rgba(255,255,255,.22)');
+      financeCtx.fillStyle = grd;
+      financeCtx.fill();
+      financeCtx.shadowBlur = 0;
+      financeCtx.fillStyle = 'rgba(255,255,255,.18)';
+      drawRoundRect(financeCtx, brick.x + 8, brick.y + 6, brick.w - 16, 8, 6);
+      financeCtx.fill();
+      financeCtx.strokeStyle = 'rgba(255,255,255,.34)';
+      financeCtx.lineWidth = 1.5;
+      financeCtx.stroke();
+      financeCtx.fillStyle = 'rgba(255,255,255,.95)';
+      financeCtx.font = '900 13px sans-serif';
+      financeCtx.textAlign = 'center';
+      financeCtx.fillText(brick.item.name + ' ' + brick.item.target + '%', brick.x + brick.w / 2, brick.y + 17);
+      financeCtx.font = '800 10px sans-serif';
+      financeCtx.fillStyle = 'rgba(255,255,255,.76)';
+      financeCtx.fillText(Array(brick.hp + 1).join('◆'), brick.x + brick.w / 2, brick.y + 31);
+      financeCtx.restore();
     });
-    var total = financeAllocTotal();
-    var matched = financeAllocMatched();
-    if (financeBudgetLabel) financeBudgetLabel.textContent = '已分配 ' + total + '%';
-    if (financeMatchLabel) financeMatchLabel.textContent = '匹配 ' + matched + '/' + FIN_ALLOC_ITEMS.length;
-    if (financeBudgetFill) financeBudgetFill.style.width = Math.min(100, total) + '%';
+    financeState.particles.forEach(function (pt) {
+      var alpha = Math.max(0, pt.life / pt.maxLife);
+      financeCtx.save();
+      financeCtx.globalAlpha = alpha;
+      financeCtx.fillStyle = pt.color;
+      financeCtx.shadowColor = pt.color;
+      financeCtx.shadowBlur = 10;
+      financeCtx.beginPath();
+      financeCtx.arc(pt.x, pt.y, 2.2 + alpha * 2.4, 0, Math.PI * 2);
+      financeCtx.fill();
+      financeCtx.restore();
+    });
+    var p = financeState.paddle;
+    drawRoundRect(financeCtx, p.x, p.y, p.w, p.h, 12);
+    var paddleGrad = financeCtx.createLinearGradient(p.x, p.y, p.x, p.y + p.h);
+    paddleGrad.addColorStop(0, '#ffffff');
+    paddleGrad.addColorStop(.48, '#bfdbfe');
+    paddleGrad.addColorStop(1, '#1E6BFF');
+    financeCtx.fillStyle = paddleGrad;
+    financeCtx.shadowColor = 'rgba(59,130,246,.62)';
+    financeCtx.shadowBlur = 18;
+    financeCtx.fill();
+    financeCtx.shadowBlur = 0;
+    financeCtx.fillStyle = 'rgba(255,255,255,.72)';
+    drawRoundRect(financeCtx, p.x + 12, p.y + 4, p.w - 24, 4, 4);
+    financeCtx.fill();
+    var ball = financeState.ball;
+    var ballGlow = financeCtx.createRadialGradient(ball.x - 3, ball.y - 4, 1, ball.x, ball.y, ball.r + 10);
+    ballGlow.addColorStop(0, '#fff7ed');
+    ballGlow.addColorStop(.32, '#fbbf24');
+    ballGlow.addColorStop(1, 'rgba(249,115,22,.16)');
+    financeCtx.beginPath();
+    financeCtx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+    financeCtx.fillStyle = ballGlow;
+    financeCtx.shadowColor = 'rgba(251,191,36,.7)';
+    financeCtx.shadowBlur = 18;
+    financeCtx.fill();
+    financeCtx.shadowBlur = 0;
+    if (!ball.moving) {
+      financeCtx.fillStyle = 'rgba(255,255,255,.58)';
+      financeCtx.font = '900 13px sans-serif';
+      financeCtx.textAlign = 'center';
+      financeCtx.fillText('READY', w / 2, h - 36);
+    }
   }
   function resetFinanceAllocGame() {
-    financeAllocValues = [15, 10, 10, 20, 25, 20];
-    if (financeAllocStatus) financeAllocStatus.textContent = '按 Pre-A 计划把 1 亿美元资金分到六类用途。';
-    renderFinanceAllocGame();
+    if (!financeCanvas) return;
+    stopFinanceAllocGame();
+    financeState = {
+      lives: 3,
+      won: false,
+      last: 0,
+      paddle: { x: financeCanvas.width / 2 - 68, y: financeCanvas.height - 34, w: 136, h: 14, speed: 30 },
+      ball: { x: financeCanvas.width / 2, y: financeCanvas.height - 45, vx: 0, vy: 0, r: 8, moving: false },
+      bricks: buildFinanceBricks(),
+      particles: []
+    };
+    resetFinanceBall();
+    if (financeAllocStatus) financeAllocStatus.textContent = '移动挡板接住资金球，击碎六类 Pre-A 用途砖块。';
+    updateFinanceHud();
+    drawFinanceAllocGame();
   }
-  function checkFinanceAllocGame() {
-    var total = financeAllocTotal();
-    var matched = financeAllocMatched();
-    if (total !== 100) {
-      if (financeAllocStatus) financeAllocStatus.textContent = '当前合计 ' + total + '%，需要正好 100%。';
-      return;
-    }
-    if (matched < FIN_ALLOC_ITEMS.length) {
-      if (financeAllocStatus) financeAllocStatus.textContent = '总额正确，但还有用途比例未对齐 Pre-A 资金计划。';
-      return;
-    }
-    if (financeAllocStatus) financeAllocStatus.textContent = '资金配平完成：硬件、平台、市场、AI、内容、团队全部对齐。';
-    setTimeout(function () { completeModule('finance'); }, 520);
+  function launchFinanceBall() {
+    if (!financeState || financeState.won || financeState.ball.moving) return;
+    financeState.ball.moving = true;
+    financeState.ball.vx = 3.8;
+    financeState.ball.vy = -5.35;
+    financeState.last = performance.now();
+    if (financeAllocStatus) financeAllocStatus.textContent = '接住反弹球，优先击碎高占比资金砖块。';
+    updateFinanceHud();
+    financeRaf = requestAnimationFrame(financeLoop);
   }
-  if (financeAllocGrid) {
-    financeAllocGrid.addEventListener('click', function (ev) {
-      var btn = ev.target && ev.target.closest('[data-fin-alloc]');
-      if (!btn) return;
-      var i = parseInt(btn.getAttribute('data-fin-alloc'), 10);
-      var delta = parseInt(btn.getAttribute('data-delta'), 10);
-      if (isNaN(i) || isNaN(delta)) return;
-      financeAllocValues[i] = Math.max(0, Math.min(60, financeAllocValues[i] + delta));
-      if (financeAllocStatus) financeAllocStatus.textContent = '调整中：目标来自 Pre-A 资金用途比例。';
-      renderFinanceAllocGame();
+  function moveFinancePaddle(dx) {
+    if (!financeState || !financeCanvas) return;
+    var p = financeState.paddle;
+    p.x = Math.max(12, Math.min(financeCanvas.width - p.w - 12, p.x + dx));
+    if (!financeState.ball.moving) resetFinanceBall();
+    drawFinanceAllocGame();
+  }
+  function financeLoop(now) {
+    if (!financeState || !financeState.ball.moving || !financeCanvas) return;
+    var dt = Math.min(34, now - financeState.last) / 16.67;
+    financeState.last = now;
+    var ball = financeState.ball;
+    var p = financeState.paddle;
+    ball.x += ball.vx * dt;
+    ball.y += ball.vy * dt;
+    financeState.particles.forEach(function (pt) {
+      pt.x += pt.vx * dt;
+      pt.y += pt.vy * dt;
+      pt.vy += .035 * dt;
+      pt.life -= dt;
     });
+    financeState.particles = financeState.particles.filter(function (pt) { return pt.life > 0; });
+    if (ball.x < ball.r) { ball.x = ball.r; ball.vx = Math.abs(ball.vx); }
+    if (ball.x > financeCanvas.width - ball.r) { ball.x = financeCanvas.width - ball.r; ball.vx = -Math.abs(ball.vx); }
+    if (ball.y < ball.r) { ball.y = ball.r; ball.vy = Math.abs(ball.vy); }
+    if (ball.y + ball.r >= p.y && ball.y - ball.r <= p.y + p.h && ball.x >= p.x && ball.x <= p.x + p.w && ball.vy > 0) {
+      var hitPos = (ball.x - (p.x + p.w / 2)) / (p.w / 2);
+      ball.vx = hitPos * 5.2;
+      ball.vy = -Math.max(4.2, Math.abs(ball.vy) + .08);
+      ball.y = p.y - ball.r - 1;
+    }
+    financeState.bricks.forEach(function (brick) {
+      if (!brick.alive) return;
+      var hit = ball.x + ball.r > brick.x && ball.x - ball.r < brick.x + brick.w && ball.y + ball.r > brick.y && ball.y - ball.r < brick.y + brick.h;
+      if (!hit) return;
+      brick.hp--;
+      addFinanceParticles(ball.x, ball.y, brick.item.color, brick.hp <= 0 ? 18 : 8);
+      if (brick.hp <= 0) brick.alive = false;
+      var fromLeft = Math.abs((ball.x + ball.r) - brick.x);
+      var fromRight = Math.abs((brick.x + brick.w) - (ball.x - ball.r));
+      var fromTop = Math.abs((ball.y + ball.r) - brick.y);
+      var fromBottom = Math.abs((brick.y + brick.h) - (ball.y - ball.r));
+      var minSide = Math.min(fromLeft, fromRight, fromTop, fromBottom);
+      if (minSide === fromLeft || minSide === fromRight) ball.vx *= -1;
+      else ball.vy *= -1;
+    });
+    if (financeClearedCount() >= FIN_ALLOC_ITEMS.length) {
+      financeState.won = true;
+      financeState.ball.moving = false;
+      updateFinanceHud();
+      drawFinanceAllocGame();
+      if (financeAllocStatus) financeAllocStatus.textContent = 'Pre-A 资金砖块全部击碎，增长融资模块通关。';
+      setTimeout(function () { completeModule('finance'); }, 520);
+      return;
+    }
+    if (ball.y > financeCanvas.height + 24) {
+      financeState.lives--;
+      if (financeState.lives <= 0) {
+        if (financeAllocStatus) financeAllocStatus.textContent = '资金球掉落，重开一局。';
+        resetFinanceAllocGame();
+        return;
+      }
+      if (financeAllocStatus) financeAllocStatus.textContent = '掉了一球，还有机会，继续接住资金球。';
+      resetFinanceBall();
+      updateFinanceHud();
+      drawFinanceAllocGame();
+      return;
+    }
+    updateFinanceHud();
+    drawFinanceAllocGame();
+    financeRaf = requestAnimationFrame(financeLoop);
   }
-  if (financeAllocCheck) financeAllocCheck.addEventListener('click', checkFinanceAllocGame);
+  if (financeLaunchBtn) financeLaunchBtn.addEventListener('click', launchFinanceBall);
   if (financeAllocReset) financeAllocReset.addEventListener('click', resetFinanceAllocGame);
+  if (financeCanvas) {
+    financeCanvas.addEventListener('pointermove', function (ev) {
+      if (!financeState) return;
+      var r = financeCanvas.getBoundingClientRect();
+      financeState.paddle.x = Math.max(12, Math.min(financeCanvas.width - financeState.paddle.w - 12, (ev.clientX - r.left) / r.width * financeCanvas.width - financeState.paddle.w / 2));
+      if (!financeState.ball.moving) resetFinanceBall();
+      drawFinanceAllocGame();
+    });
+    financeCanvas.addEventListener('pointerdown', function (ev) {
+      ev.preventDefault();
+      try { financeCanvas.setPointerCapture(ev.pointerId); } catch (err) {}
+      launchFinanceBall();
+    }, { passive: false });
+  }
 
   var bossCanvas = document.getElementById('boss-canvas');
   var bossCtx = bossCanvas ? bossCanvas.getContext('2d') : null;
@@ -4606,9 +5062,11 @@
       ev.preventDefault();
       resetAngryGame();
     }
-    if (activeChallenge === 'finance' && (ev.key === ' ' || ev.key === 'Enter')) {
-      ev.preventDefault();
-      checkFinanceAllocGame();
+    if (activeChallenge === 'finance') {
+      var financeStep = 24;
+      if (ev.key === 'ArrowLeft') { ev.preventDefault(); moveFinancePaddle(-financeStep); }
+      if (ev.key === 'ArrowRight') { ev.preventDefault(); moveFinancePaddle(financeStep); }
+      if (ev.key === ' ' || ev.key === 'Enter') { ev.preventDefault(); launchFinanceBall(); }
     }
     if (activeChallenge === 'boss') {
       var step = 18;
