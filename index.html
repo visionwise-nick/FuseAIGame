@@ -536,57 +536,75 @@
       display: flex; align-items: center; justify-content: center; min-height: 52vh; padding: 2rem 1.5rem;
     }
     body.mode-quest:not(.quest-vision-unlocked) #s-vision .vision-quest-body { display: none !important; }
-    /* 愿景页：中国风与黑神话悟空背景 */
+    /* 愿景页：回归浅色 BP 样式，保留克制的中国印记与 Fuse IP 背景 */
     #s-vision {
-      font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", serif;
-      background-color: #0c0101;
-    }
-    #s-vision h2, #s-vision .vision-phase-title {
-      font-family: "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
+      background-color: #f8fafc;
     }
     .vision-chinese-line {
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #fbbf24, transparent);
-      margin: 2.5rem 0;
-      opacity: 0.6;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(185,28,28,0), rgba(185,28,28,0.34), rgba(245,158,11,0.28), rgba(185,28,28,0));
+      margin: 2rem 0;
     }
     .vision-card {
-      background: rgba(20, 5, 5, 0.65);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(251, 191, 36, 0.2);
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(226, 232, 240, 0.92);
       border-radius: 1.5rem;
       padding: 2rem;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(251, 191, 36, 0.05);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.08);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .vision-card:hover {
-      border-color: rgba(251, 191, 36, 0.5);
-      transform: translateY(-5px);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 20px rgba(251, 191, 36, 0.1);
+      border-color: rgba(185, 28, 28, 0.22);
+      transform: translateY(-4px);
+      box-shadow: 0 26px 70px rgba(15, 23, 42, 0.12);
     }
     .vision-phase-num {
       font-size: 3rem;
       font-weight: 900;
-      color: rgba(251, 191, 36, 0.15);
+      color: rgba(185, 28, 28, 0.1);
       position: absolute;
       top: -1rem;
       right: 1.5rem;
       font-style: italic;
       pointer-events: none;
     }
-    .vision-decoration-ink {
+    .vision-ip-ghost {
       position: absolute;
       pointer-events: none;
-      opacity: 0.4;
-      mix-blend-mode: screen;
+      overflow: hidden;
+      border-radius: 2rem;
+      background: rgba(255,255,255,.3);
+      border: 1px solid rgba(255,255,255,.5);
+      box-shadow: 0 24px 80px rgba(15,23,42,.08);
+    }
+    .vision-ip-ghost img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.72) contrast(.92);
+      opacity: .2;
+    }
+    .vision-seal {
+      border: 1px solid rgba(185,28,28,.42);
+      color: rgba(185,28,28,.68);
+      font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", serif;
+      letter-spacing: .22em;
+      writing-mode: vertical-rl;
+    }
+    .vision-quote-card {
+      background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,247,237,.76));
+      border: 1px solid rgba(254,215,170,.72);
+      box-shadow: 0 18px 50px rgba(124,45,18,.08);
     }
     .vision-title-glow {
-      text-shadow: 0 0 20px rgba(251, 191, 36, 0.5), 0 0 40px rgba(251, 191, 36, 0.2);
+      text-shadow: none;
     }
     .vision-quest-placeholder-card {
       max-width: 28rem; text-align: center; border-radius: 1.25rem; padding: 1.75rem 1.5rem;
-      border: 1px solid rgba(251,191,36,.35); background: rgba(2,6,23,.45); backdrop-filter: blur(8px);
-      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      border: 1px solid rgba(254,202,202,.86); background: rgba(255,255,255,.82); backdrop-filter: blur(8px);
+      box-shadow: 0 18px 50px rgba(15,23,42,.08);
     }
     .quest-gate {
       border-radius: 2rem; padding: 1.25rem;
@@ -1269,7 +1287,7 @@
     <div class="relative z-10 max-w-6xl mx-auto w-full text-center px-2 flex flex-col justify-center min-h-0 flex-1">
       <p class="text-fuse-orange/95 text-[10px] md:text-xs tracking-[0.42em] uppercase font-semibold mb-5 reveal">Fuse AI · Game Ecosystem BP</p>
       <h1 id="mode-gate-title" class="text-[1.65rem] sm:text-4xl md:text-5xl lg:text-[3.35rem] font-extrabold text-white tracking-tight leading-[1.15] reveal" style="transition-delay:.05s">
-        AI时代，用Apple的方式，<br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-200 via-white to-amber-200 bg-clip-text text-transparent">重做游戏生态</span>
+        用Apple的方式，<br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-200 via-white to-amber-200 bg-clip-text text-transparent">重做游戏生态</span>
       </h1>
       <p class="mt-8 text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed reveal" style="transition-delay:.1s">
         全球首款 AI 原生掌机 · Fuse Store UGC · Fuse IP 游戏宇宙。
@@ -1338,7 +1356,7 @@
       <div class="relative z-10 max-w-6xl mx-auto text-center px-2">
         <p id="fuse-secret-logo" class="text-fuse-orange/95 text-[10px] md:text-xs tracking-[0.42em] uppercase font-semibold mb-5 reveal secret-rune" title="也许可以多点几次">Fuse AI · Game Ecosystem BP</p>
         <h1 class="text-[1.65rem] sm:text-4xl md:text-5xl lg:text-[3.35rem] font-extrabold text-white tracking-tight leading-[1.15] reveal" style="transition-delay:.05s">
-          AI时代，用Apple的方式，<br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-200 via-white to-amber-200 bg-clip-text text-transparent">重做游戏生态</span>
+          用Apple的方式，<br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-200 via-white to-amber-200 bg-clip-text text-transparent">重做游戏生态</span>
         </h1>
         <p class="mt-8 text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed reveal" style="transition-delay:.1s">
           全球首款 AI 原生掌机 · Fuse Store UGC · Fuse IP 游戏宇宙。
@@ -2869,7 +2887,7 @@
             <div>
               <p class="section-kicker mb-2 text-slate-500">WHY SUCCESS · 04 · TEAM</p>
               <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">人才团队</h2>
-              <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl"> 追觅清华系平台人才库，以及创始团队的 AI 专家背景、超级个体实践与坚定信念。</p>
+              <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl"> 追觅清华系平台人才库，创始团队的 AI 专家背景、超级个体实践，以及对AI游戏的坚定信念和不懈投入。</p>
             </div>
           </div>
         </div>
@@ -2889,7 +2907,7 @@
               <div class="w-12 h-12 rounded-xl bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="cpu"></i></div>
               <p class="section-kicker text-blue-500">FOUNDER</p>
               <h3 class="mt-3 font-black text-slate-900">Silong：AI 专家 + 超级个体实践者</h3>
-              <p class="mt-4 text-sm text-slate-600 leading-relaxed">行业 AI 专家、超级个体实践开拓者，以及“让每个人成为超级个体”的愿景和坚定信念。</p>
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">行业 AI 专家、超级个体实践开拓者，“让每个人成为AI超级个体”的个人愿景。</p>
             </article>
             <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-emerald-100/70">
               <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="graduation-cap"></i></div>
@@ -3234,6 +3252,34 @@
         <!-- 对齐说明 -->
       </section>
 
+      <!-- SIX YEAR PATH -->
+      <section id="s-fiveyear" class="section-pad bg-white/40">
+        <div class="max-w-7xl mx-auto">
+          <div class="max-w-3xl mb-10">
+            <p class="section-kicker mb-2 text-slate-500">GROWTH PATH · YEAR 1-6</p>
+            <h2 class="text-2xl md:text-4xl font-bold text-slate-900">六年发展路径</h2>
+          </div>
+          <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+            <div class="glass rounded-2xl p-6 card-hover border-l-4 border-fuse-orange">
+              <p class="text-sm font-bold text-fuse-orange">第 1 年 · 从量产到商业闭环</p>
+              <p class="text-sm text-slate-600 mt-3">完成预售、首批量产、Fuse Store平台上线获取非经常性收入、Fuse IP 验证和渠道建设，之后进入正常增长通道。</p>
+            </div>
+            <div class="glass rounded-2xl p-6 card-hover border-l-4 border-violet-500">
+              <p class="text-sm font-bold text-violet-700">第 2-3 年 · 百万用户与规模渠道</p>
+              <p class="text-sm text-slate-600 mt-3">用户数向<strong>百万级</strong>、硬件累计销量<strong>数百万台级</strong>推进；内容供给、创作者分成和平台经常性收入开始拉开增长曲线。</p>
+            </div>
+            <div class="glass rounded-2xl p-6 card-hover border-l-4 border-fuse-blue">
+              <p class="text-sm font-bold text-fuse-blue">第 4 年 · 生态进入千万台通道</p>
+              <p class="text-sm text-slate-600 mt-3">产品与生态进入<strong>千万台累计</strong>通道；硬件、内容、平台三条收入线由同一参数板即时更新，并反馈到财务图表。</p>
+            </div>
+            <div class="glass rounded-2xl p-6 card-hover border-l-4 border-fuse-orange">
+              <p class="text-sm font-bold text-fuse-orange">第 5-6 年 · IPO 窗口</p>
+              <p id="fin-fiveyear-ipo" class="text-sm text-slate-600 mt-3"><!-- recalcBpFinance --></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- FINANCE -->
       <section id="s-finance" class="section-pad max-w-7xl mx-auto">
         <div class="max-w-3xl mb-10">
@@ -3247,24 +3293,24 @@
                 · 各部隐含市值（亿美元·展示值）= <code>分部营收(亿美元)×PS</code>（分部「亿美元」刻度与表中数字一致）<br />
                 · 合计隐含 = <code>Σ 各部隐含</code>；人民币示意 = <code>合计隐含 × USD/CNY</code>（均为「亿人民币」刻度）<br />
                 · 若勾选<strong>校准平台 PS</strong>，则按目标合计反解：<code>PS<sub>平台</sub>=(目标隐含−硬件营收×PS<sub>硬件</sub>−内容营收×PS<sub>内容</sub>)÷平台营收</code><br />
-                · <strong>营收柱状（六年）</strong>：第<strong> 6 </strong>年为参数板分部营收之和；第<strong> 1 </strong>年封顶约<strong> 1 </strong>亿美元以内，第<strong> 2–5 </strong>年按脚本内置形状系数递增至终局。<br />
+                · <strong>营收柱状（六年）</strong>：第<strong> 6 </strong>年为参数板分部营收之和；第<strong> 1 </strong>年封顶约<strong> 0.2 </strong>亿美元（约 2000 万美元），第<strong> 2–5 </strong>年进入正常增长通道并按脚本内置形状系数递增至终局。<br />
                 · <strong>分部隐含合计曲线</strong>：<code>各年 = 终局隐含合计 ×（当年合并营收÷第6年合并营收）</code>（与柱状同比例缩放，用于上图展示）。<br />
                 · <strong>净利（折线）</strong>：<code>第1–5年 = 当年合并营收 × 脚本系数</code>；<strong>第 6 年</strong>：<code>净利 = 第6年合并营收×（「第6年净利占营收%」÷100）</code>
               </p>
               <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 items-end">
                 <label class="block"><span class="text-slate-500 font-semibold">USD/CNY</span><input type="number" step="any" id="fin-inp-fx" class="fin-num-inp mt-1" value="6.8" /></label>
                 <label class="block"><span class="text-slate-500 font-semibold">硬件 ASP（元人民币/台）</span><input type="number" step="any" id="fin-inp-asp-cny" class="fin-num-inp mt-1" value="4000" /></label>
-                <label class="block sm:col-span-2 lg:col-span-1"><span class="text-slate-500 font-semibold">第6年净利占营收(%)</span><input type="number" step="any" id="fin-inp-margin-pct" class="fin-num-inp mt-1" value="5" title="第6年：净利＝终局合并营收×该÷100；第1–5年净利由脚本内固定系数×各年柱状营收得出" /></label>
+                <label class="block sm:col-span-2 lg:col-span-1"><span class="text-slate-500 font-semibold">第6年净利占营收(%)</span><input type="number" step="any" id="fin-inp-margin-pct" class="fin-num-inp mt-1" value="10" title="第6年：净利＝终局合并营收×该÷100；第1–5年净利由脚本内固定系数×各年柱状营收得出" /></label>
               </div>
               <div class="grid sm:grid-cols-3 gap-3 items-end">
-                <label class="block"><span class="text-slate-500 font-semibold">硬件营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-hw" class="fin-num-inp mt-1" value="80" /></label>
-                <label class="block"><span class="text-slate-500 font-semibold">游戏内容营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-ct" class="fin-num-inp mt-1" value="20" /></label>
-                <label class="block"><span class="text-slate-500 font-semibold">平台经常性营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-svc" class="fin-num-inp mt-1" value="120" /></label>
+                <label class="block"><span class="text-slate-500 font-semibold">硬件营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-hw" class="fin-num-inp mt-1" value="60" /></label>
+                <label class="block"><span class="text-slate-500 font-semibold">游戏内容营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-ct" class="fin-num-inp mt-1" value="15" /></label>
+                <label class="block"><span class="text-slate-500 font-semibold">平台经常性营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-svc" class="fin-num-inp mt-1" value="100" /></label>
               </div>
               <div class="grid sm:grid-cols-3 gap-3 items-end">
                 <label class="block"><span class="text-slate-500 font-semibold">分部 PS · 硬件</span><input type="number" step="any" id="fin-inp-ps-hw" class="fin-num-inp mt-1" value="2.5" /></label>
                 <label class="block"><span class="text-slate-500 font-semibold">分部 PS · 内容</span><input type="number" step="any" id="fin-inp-ps-ct" class="fin-num-inp mt-1" value="5" /></label>
-                <label class="block"><span class="text-slate-500 font-semibold">分部 PS · 平台</span><input type="number" step="any" id="fin-inp-ps-svc" class="fin-num-inp mt-1" value="8" /></label>
+                <label class="block"><span class="text-slate-500 font-semibold">分部 PS · 平台</span><input type="number" step="any" id="fin-inp-ps-svc" class="fin-num-inp mt-1" value="10" /></label>
               </div>
               <div class="flex flex-wrap gap-4 items-center">
                 <label class="inline-flex gap-2 items-center cursor-pointer font-semibold text-slate-800">
@@ -3310,29 +3356,13 @@
         </div>
       </section>
 
-      <!-- SIX YEAR + VALUATION -->
-      <section id="s-fiveyear" class="section-pad bg-white/40">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-start">
-          <div>
-            <h2 class="text-2xl md:text-3xl font-bold text-slate-900">六年发展路径</h2>
-            <div class="mt-8 space-y-4">
-              <div class="glass rounded-2xl p-6 card-hover border-l-4 border-fuse-orange">
-                <p class="text-sm font-bold text-fuse-orange">第 1 年</p>
-                <p class="text-sm text-slate-600 mt-3">合并营收按参数板封顶与下方财务图第一根柱状对齐（约 <strong>1 亿美元以内</strong>刻度）；用户数、研发投入与渠道建设按商业计划铺开。</p>
-              </div>
-              <div class="glass rounded-2xl p-6 card-hover border-l-4 border-violet-500">
-                <p class="text-sm font-bold text-violet-700">第 2–3 年</p>
-                <p class="text-sm text-slate-600 mt-3">用户数向<strong>百万级</strong>、硬件累计销量<strong>数百万台级</strong>推进；营收与净利曲线见下方「财务预测」联动输出。</p>
-              </div>
-              <div class="glass rounded-2xl p-6 card-hover border-l-4 border-fuse-blue">
-                <p class="text-sm font-bold text-fuse-blue">第 4 年</p>
-                <p class="text-sm text-slate-600 mt-3">产品与生态进入<strong>千万台累计</strong>通道；分部营收柱状与 KPI 均由同一套参数即时更新。</p>
-              </div>
-              <div class="glass rounded-2xl p-6 card-hover border-l-4 border-fuse-orange">
-                <p class="text-sm font-bold text-fuse-orange">第 5–6 年 · IPO 窗口</p>
-                <p id="fin-fiveyear-ipo" class="text-sm text-slate-600 mt-3"><!-- recalcBpFinance --></p>
-              </div>
-            </div>
+      <!-- VALUATION -->
+      <section id="s-valuation" class="section-pad bg-white/40">
+        <div class="max-w-7xl mx-auto">
+          <div class="max-w-3xl mb-8">
+            <p class="section-kicker mb-2 text-slate-500">VALUATION · IPO WINDOW</p>
+            <h2 class="text-2xl md:text-4xl font-bold text-slate-900">IPO 估值测算</h2>
+            <p class="mt-4 text-sm md:text-[15px] text-slate-600 leading-relaxed">承接上方六年路径与财务预测，以第 6 年分部营收和 PS 参数推导隐含市值，作为后续 Pre-A 融资叙事的长期锚点。</p>
           </div>
           <div class="glass rounded-3xl p-6 md:p-8 shadow-glass overflow-x-auto card-hover">
             <h3 class="text-fuse-blue font-bold text-lg mb-6">估值模型（分部估值法 · 第 6 年 IPO 测算时点）</h3>
@@ -3510,7 +3540,7 @@
           <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
             <div>
               <h2 class="text-2xl md:text-3xl font-black">增长融资节点已确认</h2>
-              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完短期里程碑、六年路径、财务预测与 Pre-A 计划。闯关模式下，完成「Pre-A 资金打砖块」，把六类资金用途全部击穿。</p>
+              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完短期里程碑、六年路径、财务预测、IPO 估值测算与 Pre-A 计划。闯关模式下，完成「Pre-A 资金打砖块」，把六类资金用途全部击穿。</p>
             </div>
             <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="finance">挑战 04 · Pre-A 打砖块</button>
           </div>
@@ -3566,53 +3596,54 @@
       </section>
 
       <!-- VISION -->
-      <section id="s-vision" class="section-pad text-white relative overflow-hidden min-h-[90vh] flex items-center py-24">
-        <!-- 强化后的中国红/墨色背景 -->
-        <div class="absolute inset-0 bg-gradient-to-br from-[#1a0505] via-[#3a0000] to-black pointer-events-none"></div>
-        <!-- 黑神话悟空背景图：使用高品质 Key Art -->
-        <div class="absolute inset-0 opacity-50 bg-[url('https://images8.alphacoders.com/137/1373671.png')] bg-cover bg-center mix-blend-luminosity pointer-events-none"></div>
-        <!-- 动态金粉光效 -->
-        <div class="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_50%_50%,rgba(251,191,36,0.2),transparent_70%)] pointer-events-none"></div>
-        <!-- 装饰性水墨感遮罩 -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60 opacity-90 pointer-events-none"></div>
-        <!-- 额外的水墨纹理装饰 -->
-        <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black to-transparent opacity-80 pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black to-transparent opacity-80 pointer-events-none"></div>
+      <section id="s-vision" class="section-pad text-slate-900 relative overflow-hidden min-h-[90vh] flex items-center py-24">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_12%,rgba(239,68,68,0.1),transparent_32%),radial-gradient(circle_at_85%_78%,rgba(30,107,255,0.11),transparent_38%),linear-gradient(135deg,#fff7ed_0%,#ffffff_42%,#eef6ff_100%)] pointer-events-none"></div>
+        <div class="absolute inset-0 opacity-[0.08] bg-[linear-gradient(90deg,rgba(185,28,28,0.9)_1px,transparent_1px),linear-gradient(0deg,rgba(30,107,255,0.7)_1px,transparent_1px)] bg-[size:56px_56px] pointer-events-none"></div>
+        <div class="vision-ip-ghost w-44 h-44 md:w-64 md:h-64 -left-12 top-16 rotate-[-8deg]">
+          <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1 1%22%3E%3C/svg%3E" data-fuse-asset="duiDui" alt="" aria-hidden="true">
+        </div>
+        <div class="vision-ip-ghost w-48 h-48 md:w-72 md:h-72 right-[-4rem] top-24 rotate-[7deg]">
+          <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1 1%22%3E%3C/svg%3E" data-fuse-asset="shadowLink" alt="" aria-hidden="true">
+        </div>
+        <div class="vision-ip-ghost hidden md:block w-56 h-56 left-[44%] bottom-[-5rem] rotate-[4deg]">
+          <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1 1%22%3E%3C/svg%3E" data-fuse-asset="ceraBot" alt="" aria-hidden="true">
+        </div>
         
         <div class="vision-quest-placeholder max-w-6xl mx-auto relative z-10 w-full px-6" aria-hidden="true">
-          <div class="vision-quest-placeholder-card mx-auto border-amber-500/40 bg-black/60 backdrop-blur-md">
-            <p class="text-[10px] tracking-[0.32em] text-amber-400 font-black">VISION LOCKED</p>
-            <p class="mt-3 text-lg md:text-xl font-black text-white">愿景正文 · 闯关锁定</p>
-            <p class="mt-3 text-sm text-white/75 leading-relaxed">请挑战任天堂 Boss 飞机大战；Boss 通关后会直接打开完整最终愿景页。</p>
+          <div class="vision-quest-placeholder-card mx-auto border-red-200 bg-white/80 backdrop-blur-md">
+            <p class="text-[10px] tracking-[0.32em] text-red-700 font-black">VISION LOCKED</p>
+            <p class="mt-3 text-lg md:text-xl font-black text-slate-900">愿景正文 · 闯关锁定</p>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">请挑战任天堂 Boss 飞机大战；Boss 通关后会直接打开完整最终愿景页。</p>
           </div>
         </div>
         
         <div class="vision-quest-body max-w-6xl mx-auto relative z-10 grid lg:grid-cols-12 gap-14 lg:gap-16 px-6">
           <div class="lg:col-span-5 flex flex-col justify-center">
-            <p class="text-amber-400/90 text-sm tracking-[0.5em] mb-6 font-bold uppercase">愿景 · VISION</p>
+            <p class="text-red-700/80 text-sm tracking-[0.5em] mb-6 font-bold uppercase">愿景 · VISION</p>
             <h2 class="text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-black leading-[1.1] tracking-tighter vision-title-glow">
-              做中国的<br class="hidden sm:block" />
-              <span class="bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-500 bg-clip-text text-transparent italic">任天堂</span>
+              中国的任天堂，<br class="hidden sm:block" />
+              <span class="text-gradient">世界的 Fuse</span>
             </h2>
             
             <div class="vision-chinese-line"></div>
             
             <div class="relative">
-              <div class="absolute -left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-500 via-amber-500/20 to-transparent"></div>
-              <p class="text-lg md:text-xl text-white/95 leading-relaxed font-medium">
+              <div class="absolute -left-6 top-0 bottom-0 w-1 rounded-full bg-gradient-to-b from-red-600 via-orange-300 to-transparent"></div>
+              <span class="vision-seal absolute -right-2 -top-2 hidden sm:inline-flex rounded-lg px-1.5 py-2 text-[10px] font-bold">中国原创</span>
+              <p class="text-lg md:text-xl text-slate-900 leading-relaxed font-semibold">
                 以东方创造力与工程师文化，重写「一方硬件 × 世界级 IP × 代代相传的陪伴」——
               </p>
-              <p class="mt-4 text-base md:text-lg text-amber-100/90 leading-relaxed">
-                让全球玩家想起中国，不再只联想到代工与流量，而是<strong class="text-amber-300 vision-title-glow">原创标准、原创叙事、原创的快乐</strong>。
+              <p class="mt-4 text-base md:text-lg text-slate-600 leading-relaxed">
+                让全球玩家想起中国，不再只联想到代工与流量，而是<strong class="text-red-700">原创标准、原创叙事、原创的快乐</strong>。
               </p>
             </div>
 
-            <div class="mt-10 p-6 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
-              <p class="text-[15px] md:text-lg text-amber-50/90 leading-relaxed font-medium italic">
+            <div class="vision-quote-card mt-10 p-6 rounded-2xl backdrop-blur-sm">
+              <p class="text-[15px] md:text-lg text-slate-900 leading-relaxed font-semibold italic">
                 「未来世界上，人人都应该有一台游戏机。」
               </p>
-              <p class="mt-4 text-sm text-white/70 leading-relaxed">
-                不是奢侈品，也不是少年时代的告别礼——而是像计算设备一样普及的<strong class="text-white">创造性接口</strong>：人人掌心里，都有一块可随时进入、可被 AI 延展、可与世界对话的<strong class="text-white">互动屏幕</strong>。
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">
+                不是奢侈品，也不是少年时代的告别礼——而是像计算设备一样普及的<strong class="text-slate-900">创造性接口</strong>：人人掌心里，都有一块可随时进入、可被 AI 延展、可与世界对话的<strong class="text-slate-900">互动屏幕</strong>。
               </p>
             </div>
           </div>
@@ -3621,8 +3652,8 @@
             <div class="vision-card relative overflow-hidden group">
               <span class="vision-phase-num">01</span>
               <div class="relative z-10">
-                <p class="text-amber-400 font-black tracking-[0.2em] text-xl mb-4 vision-phase-title">启航期 · 破局全球垄断</p>
-                <p class="text-sm md:text-base text-white/80 leading-relaxed">
+                <p class="text-red-700 font-black tracking-[0.2em] text-xl mb-4 vision-phase-title">启航期 · 破局全球垄断</p>
+                <p class="text-sm md:text-base text-slate-600 leading-relaxed">
                   这个世界需要新的挑战者，任天堂已经住在顶峰太久了。Fuse 从第一天起就布局全球，中国拥有最顶尖的工程师、最强大的供应链，拥有最好的 AI 创造力，首发 Fuse AI 掌机。我们不仅是在做硬件，更是在输出中国原创的 AI 游戏生成标准，让世界看到中国团队在硬核科技与文化创意结合点上的统治力。
                 </p>
               </div>
@@ -3631,8 +3662,8 @@
             <div class="vision-card relative overflow-hidden group">
               <span class="vision-phase-num">02</span>
               <div class="relative z-10">
-                <p class="text-amber-400 font-black tracking-[0.2em] text-xl mb-4 vision-phase-title">扩张期 · 输出文化自信</p>
-                <p class="text-sm md:text-base text-white/80 leading-relaxed">
+                <p class="text-red-700 font-black tracking-[0.2em] text-xl mb-4 vision-phase-title">扩张期 · 输出文化自信</p>
+                <p class="text-sm md:text-base text-slate-600 leading-relaxed">
                   Fuse Store 成为全球创作者的沃土。我们通过 AI 技术抹平语言与创作门槛，让中国原创 IP 与全球 UGC 生态深度融合。这不仅是技术的扩张，更是中国游戏梦的全球化表达——让中国定义的「互动屏幕」成为全人类的基础设施。
                 </p>
               </div>
@@ -3641,8 +3672,8 @@
             <div class="vision-card relative overflow-hidden group">
               <span class="vision-phase-num">03</span>
               <div class="relative z-10">
-                <p class="text-amber-400 font-black tracking-[0.2em] text-xl mb-4 vision-phase-title">巅峰期 · 定义文明尺度</p>
-                <p class="text-sm md:text-base text-white/80 leading-relaxed">
+                <p class="text-red-700 font-black tracking-[0.2em] text-xl mb-4 vision-phase-title">巅峰期 · 定义文明尺度</p>
+                <p class="text-sm md:text-base text-slate-600 leading-relaxed">
                   当 Fuse 站在全球 AI 游戏范式制定者的位置，我们实现的不仅是商业的成功，更是中国游戏称霸全球的梦想。从世界模型到人机协同创作，Fuse 将作为这一代中国公司留给行星级别的礼物，打破旧有的垄断格局，让公平、可爱、可被创造的游戏属于地球上的每一个人。
                 </p>
               </div>
@@ -3877,8 +3908,9 @@
     ] },
     { title: '04 增长与融资', items: [
       ['里程碑', '#s-milestones'],
-      ['财务预测', '#s-finance'],
       ['六年路径', '#s-fiveyear'],
+      ['财务预测', '#s-finance'],
+      ['IPO估值', '#s-valuation'],
       ['Pre-A', '#s-pre-a']
     ] },
     { title: '05 对标与愿景', items: [
@@ -5832,12 +5864,12 @@
   }
 
   /* —— BP 财务参数：公式联动（仅页面计算，可调） —— */
-  /** 第 1 年合并营收（柱状）封顶，亿美元刻度；与「亿美金以内量级」对齐。若对齐人民币约 1 亿营收可改为 ~0.15 */
-  var FIN_YEAR1_MERGED_REV_CAP_USD = 1;
+  /** 第 1 年合并营收（柱状）封顶，亿美元刻度；0.2 亿美元约等于 2000 万美元 */
+  var FIN_YEAR1_MERGED_REV_CAP_USD = 0.2;
   /** 第1–5年净利占当年营收（脚本固定）；第6年取输入框「第6年净利占营收%」 */
   var FIN_NET_MARGIN_Y1Y5 = [-0.92, -0.26, -0.055, 0.012, 0.026];
 
-  /** 六年合并营收柱状：终局=y；第1年为 min(封顶, legacy 形状首年系数×y)，末段分两格递增至 y */
+  /** 六年合并营收柱状：终局=y；第1年收窄到早期验证规模，之后进入正常增长通道 */
   function finMergedRevBarsSix(y) {
     var cap = FIN_YEAR1_MERGED_REV_CAP_USD;
     var s = [3.2 / 262, 10 / 262, 30 / 262, 90 / 262];
@@ -5888,14 +5920,14 @@
   window.recalcBpFinance = function recalcBpFinance() {
     var fx = finParseInput('fin-inp-fx', 6.8);
     var asp = finParseInput('fin-inp-asp-cny', 4000);
-    var revHw = finParseInput('fin-inp-rev-hw', 80);
-    var revCt = finParseInput('fin-inp-rev-ct', 20);
-    var revSvc = finParseInput('fin-inp-rev-svc', 120);
+    var revHw = finParseInput('fin-inp-rev-hw', 60);
+    var revCt = finParseInput('fin-inp-rev-ct', 15);
+    var revSvc = finParseInput('fin-inp-rev-svc', 100);
     var psHw = finParseInput('fin-inp-ps-hw', 2.5);
     var psCt = finParseInput('fin-inp-ps-ct', 5);
-    var marginPct = finParseInput('fin-inp-margin-pct', 5);
+    var marginPct = finParseInput('fin-inp-margin-pct', 10);
     var chk = document.getElementById('fin-chk-calib-ps-svc');
-    var tgt = finParseInput('fin-inp-target-implied', 960);
+    var tgt = finParseInput('fin-inp-target-implied', 1225);
     var psIn = document.getElementById('fin-inp-ps-svc');
     var msg = document.getElementById('fin-msg');
     var psSvc;
@@ -5907,7 +5939,7 @@
       if (psIn && isFinite(psSvc)) psIn.value = (Math.round(psSvc * 1e6) / 1e6).toString();
     } else {
       if (psIn) psIn.disabled = false;
-      psSvc = finParseInput('fin-inp-ps-svc', 8);
+      psSvc = finParseInput('fin-inp-ps-svc', 10);
     }
 
     if (msg) {
@@ -5946,7 +5978,7 @@
     }
     var fi = document.getElementById('fin-finance-intro');
     if (fi) {
-      fi.innerHTML = '上方图为<strong>六年</strong>合并营收柱、净利线、隐含合计线；与参数板分部营收、PS、校准目标联动。分部表展示<strong>第 6 年</strong>终局：<strong>' + finFmtMoney(revSum, 2) + ' </strong>亿美元分部营收之和（硬件&nbsp;' + finFmtMoney(revHw, 2) + ' · 游戏内容&nbsp;' + finFmtMoney(revCt, 2) + ' · 平台经常性&nbsp;' + finFmtMoney(revSvc, 2) + '）；柱状第<strong> 1 </strong>年封顶 <strong>' + finFmtMoney(FIN_YEAR1_MERGED_REV_CAP_USD, 2) + '</strong> 亿美元；隐含折线按（当年营收÷终局营收）× 隐含合计<strong> ' + finFmtMoney(impSum, 2) + ' </strong>（亿美元刻度）计算；第<strong> 6 </strong>年净利＝终局营收×<strong>' + finFmtMoney(marginPct, 2) + '%</strong>。';
+      fi.innerHTML = '本图承接上方<strong>六年发展路径</strong>：合并营收柱、净利线、隐含合计线与参数板分部营收、PS、校准目标联动。下方估值表展示<strong>第 6 年</strong>终局：<strong>' + finFmtMoney(revSum, 2) + ' </strong>亿美元分部营收之和（硬件&nbsp;' + finFmtMoney(revHw, 2) + ' · 游戏内容&nbsp;' + finFmtMoney(revCt, 2) + ' · 平台经常性&nbsp;' + finFmtMoney(revSvc, 2) + '）；柱状第<strong> 1 </strong>年封顶 <strong>' + finFmtMoney(FIN_YEAR1_MERGED_REV_CAP_USD, 2) + '</strong> 亿美元；隐含折线按（当年营收÷终局营收）× 隐含合计<strong> ' + finFmtMoney(impSum, 2) + ' </strong>（亿美元刻度）计算；第<strong> 6 </strong>年净利＝终局营收×<strong>' + finFmtMoney(marginPct, 2) + '%</strong>。';
     }
     var fb = document.getElementById('fin-fiveyear-ipo');
     if (fb) {
@@ -6103,7 +6135,7 @@
       var ch = window.BP_CHARTS.finance;
       if (ch) ch.resize();
     }, { passive: true });
-    var secFin = document.getElementById('s-fiveyear');
+    var secFin = document.getElementById('s-finance');
     if (secFin && typeof IntersectionObserver === 'function') {
       var finIo = new IntersectionObserver(function (ents) {
         ents.forEach(function (e) {
