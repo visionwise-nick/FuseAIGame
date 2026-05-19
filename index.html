@@ -48,7 +48,7 @@
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
   <style>
     :root {
       --bg: #f0f4f8;
@@ -1429,13 +1429,6 @@
   </style>
 </head>
 <body class="bg-[var(--bg)] text-slate-800 antialiased font-sans min-h-screen overflow-x-hidden mode-gate-open">
-  <!-- 首屏加载遮罩：在 CSS/JS 未就绪前给用户视觉反馈 -->
-  <div id="page-loading-mask" style="position:fixed;inset:0;z-index:9999;background:#f0f4f8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;">
-    <div style="width:48px;height:48px;border:3px solid #e2e8f0;border-top-color:#1E6BFF;border-radius:50%;animation:spin .8s linear infinite;"></div>
-    <div style="font-size:14px;color:#94a3b8;letter-spacing:.05em;">加载中…</div>
-  </div>
-  <style>#page-loading-mask{transition:opacity .3s ease} @keyframes spin{to{transform:rotate(360deg)}}</style>
-  <script>window.addEventListener('load',function(){var m=document.getElementById('page-loading-mask');if(m){m.style.opacity='0';setTimeout(function(){m.style.display='none'},350);}});</script>
   <img src="/FuseAIGame/wechat-share.jpg" alt="商业计划书-FuseAI（3号-超级个体BU）" width="500" height="500" style="position:absolute;left:-9999px;top:-9999px;width:500px;height:500px;opacity:0.01;" aria-hidden="true" />
   <div id="read-progress" aria-hidden="true"></div>
   <canvas id="mesh-canvas" aria-hidden="true"></canvas>
@@ -13089,21 +13082,6 @@ kaERfkO48q2bnEAn6UnLknaQEXSPdAwhR3k4lloMK3X8KyohSGXdbg++o12PXqW7rbVfl3lEodqv9SZ/
     })();
   </script>
   <!-- FUSE_IP_EMBEDDED_ASSETS_END -->
-  <script>
-    /* Lucide async 兜底：若图标 script 还未执行完，等 load 事件后再创建 */
-    (function () {
-      function tryLucide() {
-        if (window.lucide && typeof lucide.createIcons === 'function') {
-          lucide.createIcons();
-        }
-      }
-      if (window.lucide) {
-        tryLucide();
-      } else {
-        var ls = document.querySelector('script[src*="lucide"]');
-        if (ls) ls.addEventListener('load', tryLucide);
-      }
-    })();
-  </script>
+
 </body>
 </html>
