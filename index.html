@@ -68,8 +68,8 @@
     }
     .section-pad { padding: 4.5rem 1.25rem; }
     @media (min-width: 768px) { .section-pad { padding: 5rem 1.5rem; } }
-    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
-    .reveal.in { opacity: 1; transform: translateY(0); }
+    .reveal { opacity: 1; transform: none; transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.in { opacity: 1; transform: none; }
     .card-hover {
       transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
     }
@@ -4229,10 +4229,15 @@
   document.querySelectorAll('#s-hero .reveal, #mode-gate .reveal').forEach(function (el, i) {
     el.style.transitionDelay = (0.06 * i) + 's';
   });
-  window.addEventListener('load', function () {
+  function revealInitialScreen() {
     if (document.body.classList.contains('mode-gate-open')) window.scrollTo(0, 0);
     document.querySelectorAll('#s-hero .reveal, #mode-gate .reveal').forEach(function (el) { el.classList.add('in'); });
-  });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', revealInitialScreen, { once: true });
+  } else {
+    revealInitialScreen();
+  }
 
   var io = new IntersectionObserver(function (ents) {
     ents.forEach(function (e) {
@@ -13075,10 +13080,44 @@ kaERfkO48q2bnEAn6UnLknaQEXSPdAwhR3k4lloMK3X8KyohSGXdbg++o12PXqW7rbVfl3lEodqv9SZ/
         var node = document.getElementById('fuse-ip-asset-' + key);
         return node ? (node.textContent || '').replace(/\s+/g, '') : '';
       }
-      document.querySelectorAll('[data-fuse-asset]').forEach(function (img) {
+      function hydrateAsset(img) {
         var dataUri = readEmbeddedAsset(img.getAttribute('data-fuse-asset'));
         if (dataUri) img.src = dataUri;
+      }
+      var images = Array.prototype.slice.call(document.querySelectorAll('[data-fuse-asset]'));
+      if (!images.length) return;
+
+      var viewport = window.innerHeight || 800;
+      var priority = [];
+      var deferred = [];
+      images.forEach(function (img) {
+        var rect = img.getBoundingClientRect();
+        if (rect.top < viewport * 1.8) priority.push(img);
+        else deferred.push(img);
       });
+
+      priority.splice(0, 2).forEach(hydrateAsset);
+      var queue = priority.concat(deferred);
+
+      function scheduleNext() {
+        if (!queue.length) return;
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(pump, { timeout: 1000 });
+        } else {
+          window.setTimeout(function () { pump(); }, 80);
+        }
+      }
+
+      function pump(deadline) {
+        var loaded = 0;
+        while (queue.length && loaded < 2 && (!deadline || deadline.timeRemaining() > 6)) {
+          hydrateAsset(queue.shift());
+          loaded += 1;
+        }
+        scheduleNext();
+      }
+
+      scheduleNext();
     })();
   </script>
   <!-- FUSE_IP_EMBEDDED_ASSETS_END -->
