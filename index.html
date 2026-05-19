@@ -1270,6 +1270,140 @@
         padding: 0.5rem 0.65rem;
       }
     }
+    @page {
+      size: A4;
+      margin: 6mm;
+    }
+    @media print {
+      * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        filter: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        animation: none !important;
+        transition: none !important;
+      }
+      html, body {
+        background: #fff !important;
+        overflow: visible !important;
+        font-size: 10.5px !important;
+        line-height: 1.32 !important;
+      }
+      body.mode-gate-open {
+        overflow: visible !important;
+      }
+      #mode-gate,
+      #read-progress,
+      #mesh-canvas,
+      #bp-nav,
+      #bp-mobile-menu,
+      #quest-hud,
+      #achievement-toast,
+      .fab,
+      .mini-control,
+      .secret-arrow-hint,
+      #gate-normal-btn,
+      #gate-start-btn,
+      #hero-normal-btn,
+      #hero-start-btn,
+      .hero-orbs,
+      #hero-parallax,
+      .egg-modal {
+        display: none !important;
+      }
+      .bp-wrap {
+        position: relative !important;
+        z-index: auto !important;
+        width: 100% !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .text-gradient,
+      .bg-clip-text.text-transparent {
+        background: none !important;
+        color: #1E6BFF !important;
+        -webkit-text-fill-color: currentColor !important;
+      }
+      .glass {
+        background: #fff !important;
+        border: 1px solid #e2e8f0 !important;
+      }
+      .section-pad {
+        padding: 0.85rem 0.45rem !important;
+      }
+      header,
+      section {
+        break-inside: auto !important;
+        page-break-inside: auto !important;
+      }
+      header#s-hero {
+        min-height: auto !important;
+        padding: 1.25rem 0.75rem !important;
+      }
+      [class*="min-h-"] {
+        min-height: auto !important;
+      }
+      [class*="max-w-"] {
+        max-width: none !important;
+      }
+      .p-8,
+      .md\:p-8,
+      .md\:p-10,
+      .p-7,
+      .md\:p-7,
+      .p-6,
+      .md\:p-6,
+      .p-5 {
+        padding: 0.65rem !important;
+      }
+      .gap-10,
+      .gap-8,
+      .gap-6,
+      .md\:gap-8,
+      .lg\:gap-10 {
+        gap: 0.65rem !important;
+      }
+      .mt-12,
+      .mt-10,
+      .mt-8,
+      .mt-6 {
+        margin-top: 0.65rem !important;
+      }
+      .mb-10,
+      .mb-8,
+      .mb-6 {
+        margin-bottom: 0.65rem !important;
+      }
+      h1 {
+        font-size: 2.15rem !important;
+        line-height: 1.12 !important;
+      }
+      h2 {
+        font-size: 1.55rem !important;
+        line-height: 1.16 !important;
+      }
+      h3 {
+        font-size: 1.05rem !important;
+        line-height: 1.2 !important;
+      }
+      p,
+      li,
+      td,
+      th {
+        line-height: 1.34 !important;
+      }
+      canvas,
+      svg {
+        max-height: 220px !important;
+      }
+      img {
+        max-height: 260px !important;
+        object-fit: contain !important;
+      }
+    }
   </style>
 </head>
 <body class="bg-[var(--bg)] text-slate-800 antialiased font-sans min-h-screen overflow-x-hidden mode-gate-open">
@@ -1287,10 +1421,10 @@
     <div class="relative z-10 max-w-6xl mx-auto w-full text-center px-2 flex flex-col justify-center min-h-0 flex-1">
       <p class="text-fuse-orange/95 text-[10px] md:text-xs tracking-[0.42em] uppercase font-semibold mb-5 reveal">Fuse AI · Game Ecosystem BP</p>
       <h1 id="mode-gate-title" class="text-[1.65rem] sm:text-4xl md:text-5xl lg:text-[3.35rem] font-extrabold text-white tracking-tight leading-[1.15] reveal" style="transition-delay:.05s">
-        用Apple的方式，<br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-200 via-white to-amber-200 bg-clip-text text-transparent">重做游戏生态</span>
+        <span class="bg-gradient-to-r from-cyan-200 via-white to-amber-200 bg-clip-text text-transparent">这个世界需要更有趣</span>
       </h1>
-      <p class="mt-8 text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed reveal" style="transition-delay:.1s">
-        全球首款 AI 原生掌机 · Fuse Store UGC · Fuse IP 游戏宇宙。
+      <p class="mt-8 text-base md:text-lg text-white/85 font-medium max-w-2xl mx-auto leading-relaxed reveal" style="transition-delay:.1s">
+        Fuse AI 游戏生态 ：全球首款 AI 原生掌机 · Fuse Store UGC · Fuse IP 游戏宇宙。
       </p>
       <p class="mt-6 text-xs md:text-sm text-white/55 max-w-md mx-auto reveal" style="transition-delay:.11s"></p>
       <div class="mt-5 secret-arrow-hint reveal" aria-label="隐藏指令提示：上上下下左右左右" style="transition-delay:.12s">
@@ -1356,10 +1490,10 @@
       <div class="relative z-10 max-w-6xl mx-auto text-center px-2">
         <p id="fuse-secret-logo" class="text-fuse-orange/95 text-[10px] md:text-xs tracking-[0.42em] uppercase font-semibold mb-5 reveal secret-rune" title="也许可以多点几次">Fuse AI · Game Ecosystem BP</p>
         <h1 class="text-[1.65rem] sm:text-4xl md:text-5xl lg:text-[3.35rem] font-extrabold text-white tracking-tight leading-[1.15] reveal" style="transition-delay:.05s">
-          用Apple的方式，<br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-200 via-white to-amber-200 bg-clip-text text-transparent">重做游戏生态</span>
+          <span class="bg-gradient-to-r from-cyan-200 via-white to-amber-200 bg-clip-text text-transparent">这个世界需要更有趣</span>
         </h1>
-        <p class="mt-8 text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed reveal" style="transition-delay:.1s">
-          全球首款 AI 原生掌机 · Fuse Store UGC · Fuse IP 游戏宇宙。
+        <p class="mt-8 text-base md:text-lg text-white/85 font-medium max-w-2xl mx-auto leading-relaxed reveal" style="transition-delay:.1s">
+          Fuse AI 游戏生态 ：全球首款 AI 原生掌机 · Fuse Store UGC · Fuse IP 游戏宇宙。
         </p>
         <div class="mt-6 secret-arrow-hint reveal" aria-label="隐藏指令提示：上上下下左右左右" style="transition-delay:.12s">
           <span>↑</span><span>↑</span><span>↓</span><span>↓</span><span>←</span><span>→</span><span>←</span><span>→</span>
@@ -1704,28 +1838,62 @@
             <p class="mt-4 text-[11px] text-slate-500 leading-relaxed">注：由于 Valve、索尼 Portal 及多数 PC 掌机厂商不完整披露掌机生态收入，本图为基于公开出货、平台收入与行业估算的结构化判断，表述为区间：任天堂约 60%–70%，PC 掌机约 15%–25%，串流与其他合计约 10%–20%。</p>
           </article>
         </div>
-        <div id="panel-global-kpi" class="grid md:grid-cols-3 gap-6 mt-10">
+        <div id="panel-global-kpi" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+
+          <!-- 现状一 -->
           <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-red-100/70">
             <div class="w-11 h-11 rounded-xl bg-red-50 text-red-500 bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="pie-chart"></i></div>
             <p class="text-xs font-bold text-red-500 uppercase tracking-wider">现状一 · 一强格局</p>
-            <h3 class="mt-2 font-bold text-slate-900">任天堂 Switch 生态占约 65% 份额</h3>
-            <p class="mt-3 text-sm text-slate-600 leading-relaxed">掌机市场高度集中，Switch 生态独占约 65%；PC 掌机（Steam Deck 等）从零起步已达约 20%，串流掌机约 7%，市场份额正在缓慢分散。</p>
-            <div class="mt-4 rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-xs text-red-700 font-semibold">趋势：PC 掌机新品类快速扩张，一强格局开始松动</div>
+            <h3 class="mt-2 font-bold text-slate-900">任天堂 Switch 生态独占约 65% 市场</h3>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">掌机市场高度集中，Switch 生态长期把持约三分之二份额，第一方独占内容构筑极深护城河，竞争对手难以正面突破。</p>
+            <div class="mt-4 rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-xs text-red-700 font-semibold">格局：单一平台垄断，行业定价权高度集中</div>
           </article>
+
+          <!-- 现状二 -->
           <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-amber-100/70">
-            <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="timer"></i></div>
-            <p class="text-xs font-bold text-amber-600 uppercase tracking-wider">现状二 · 换代修复期</p>
-            <h3 class="mt-2 font-bold text-slate-900">2022–2024 回落，2025 年进入换代修复</h3>
-            <p class="mt-3 text-sm text-slate-600 leading-relaxed">疫情红利消退叠加 Switch 硬件老化，2022–2024 年市场明显回落。Switch 2 于 2025 年 6 月发售，与 SteamOS 阵营共同推动新一轮周期启动。</p>
-            <div class="mt-4 rounded-xl bg-amber-50 border border-amber-100 px-4 py-3 text-xs text-amber-700 font-semibold">趋势：长期增长重心将从硬件换代转向内容与平台服务</div>
+            <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="trending-up"></i></div>
+            <p class="text-xs font-bold text-amber-600 uppercase tracking-wider">现状二 · 新品类崛起</p>
+            <h3 class="mt-2 font-bold text-slate-900">PC 掌机、串流掌机开始显现增长潜力</h3>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">Steam Deck 打开 PC 掌机品类后，SteamOS 阵营、ROG Ally、Legion Go 等 Windows 掌机及索尼 Portal 串流掌机持续放量，市场不再只由单一厂商定义。</p>
+            <div class="mt-4 rounded-xl bg-amber-50 border border-amber-100 px-4 py-3 text-xs text-amber-700 font-semibold">格局：多品类并行，掌机定义正在被重写</div>
           </article>
+
+          <!-- 现状三 -->
+          <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-sky-100/70">
+            <div class="w-11 h-11 rounded-xl bg-sky-50 text-sky-500 bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="globe"></i></div>
+            <p class="text-xs font-bold text-sky-500 uppercase tracking-wider">现状三 · 渗透率极低</p>
+            <h3 class="mt-2 font-bold text-slate-900">全球掌机用户渗透率不足，潜在空间巨大</h3>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">全球游戏用户已超 30 亿，但专属掌机拥有者不足其中 10%。亚非拉及东南亚市场几乎处于空白，价格、形态与本地内容是核心制约因素。</p>
+            <div class="mt-4 rounded-xl bg-sky-50 border border-sky-100 px-4 py-3 text-xs text-sky-600 font-semibold">格局：低渗透代表巨大增量，谁先破圈谁先赢</div>
+          </article>
+
+          <!-- 现状四 -->
+          <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-violet-100/70">
+            <div class="w-11 h-11 rounded-xl bg-violet-50 text-violet-500 bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="package-open"></i></div>
+            <p class="text-xs font-bold text-violet-500 uppercase tracking-wider">现状四 · 内容瓶颈</p>
+            <h3 class="mt-2 font-bold text-slate-900">内容供给严重依赖专业团队，产能天花板低</h3>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">全球职业游戏开发者不足百万，一款 AA 级掌机游戏动辄需要数十人历时两年以上。内容稀缺直接限制平台活跃度，玩家留存周期越来越短。</p>
+            <div class="mt-4 rounded-xl bg-violet-50 border border-violet-100 px-4 py-3 text-xs text-violet-600 font-semibold">格局：内容供需缺口持续扩大，亟需结构性解法</div>
+          </article>
+
+          <!-- 现状五 -->
+          <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-emerald-100/70">
+            <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="repeat-2"></i></div>
+            <p class="text-xs font-bold text-emerald-600 uppercase tracking-wider">现状五 · 收入结构转型</p>
+            <h3 class="mt-2 font-bold text-slate-900">硬件利润见顶，平台服务成为增长核心</h3>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">硬件溢价空间持续压缩，任天堂 Nintendo Switch Online、微软 Game Pass 等订阅服务已占行业增量收入主体。平台经常性收入（ARR）正成为估值最重要的驱动因素。</p>
+            <div class="mt-4 rounded-xl bg-emerald-50 border border-emerald-100 px-4 py-3 text-xs text-emerald-700 font-semibold">格局：软件即服务模式重塑掌机商业逻辑</div>
+          </article>
+
+          <!-- 现状六 -->
           <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-fuse-blue/20">
-            <div class="w-11 h-11 rounded-xl bg-blue-50 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="users-round"></i></div>
-            <p class="text-xs font-bold text-fuse-blue uppercase tracking-wider">现状三 · 内容供给瓶颈</p>
-            <h3 class="mt-2 font-bold text-slate-900">全球开发者不足百万，内容供给受人力约束</h3>
-            <p class="mt-3 text-sm text-slate-600 leading-relaxed">当前掌机内容几乎全部由专业团队生产，全球职业开发者规模不足百万；而 30 亿玩家仅能被动消费，AI 出现之前，这一结构从未被打破过。</p>
-            <div class="mt-4 rounded-xl bg-blue-50 border border-blue-100 px-4 py-3 text-xs text-fuse-blue font-semibold">趋势：AI 首次让普通玩家具备生产可玩内容的能力</div>
+            <div class="w-11 h-11 rounded-xl bg-blue-50 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="cpu"></i></div>
+            <p class="text-xs font-bold text-fuse-blue uppercase tracking-wider">现状六 · AI 颠覆前夜</p>
+            <h3 class="mt-2 font-bold text-slate-900">AI 正在从根本上重写内容生产的权力结构</h3>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">大模型与实时生成技术的成熟，让"普通人做游戏"第一次变得可行。AI 将把内容生产门槛从百人团队降至个人，掌机平台的竞争维度将彻底改变。</p>
+            <div class="mt-4 rounded-xl bg-blue-50 border border-blue-100 px-4 py-3 text-xs text-fuse-blue font-semibold">格局：AI 创造时代开启，先手优势窗口正在关闭</div>
           </article>
+
         </div>
       </section>
 
@@ -2446,7 +2614,7 @@
               <div>
                 <p class="section-kicker mb-2 text-slate-500">PART 06 · IP ROADMAP</p>
                 <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">Fuse IP：官方 IP 与内容宇宙</h2>
-                <p class="mt-4 text-slate-500 text-sm md:text-base max-w-3xl">官方 IP 不仅是精品内容，更是可被 AI 持续扩写的世界观底座。以下是首批融合东方美学与任天堂式玩法逻辑的核心 IP 角色。</p>
+                <p class="mt-4 text-slate-500 text-sm md:text-base max-w-3xl">官方 IP 不仅是精品内容，更是可被 AI 持续扩写的世界观底座。</p>
               </div>
             </div>
           </div>
@@ -2644,7 +2812,7 @@
               <div class="w-12 h-12 rounded-xl bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="route"></i></div>
               <p class="section-kicker text-blue-500">METHOD</p>
               <h3 class="mt-3 font-black text-slate-900">追觅方法论</h3>
-              <p class="mt-3 text-sm text-slate-600 leading-relaxed">用全包围试错找到有效组合，用 N+1 压制建立可感知优势，再用全球渠道和供应链快速放大。</p>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">用全包围试错找到有效组合，用压制比打法集中资源投入，让对手难以上牌桌，再用全球渠道和供应链放大马太效应。</p>
             </article>
             <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-violet-100/70">
               <div class="w-12 h-12 rounded-xl bg-violet-100 text-fuse-purple bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="repeat-2"></i></div>
@@ -2680,8 +2848,8 @@
             <span class="bp-title-dot shrink-0 mt-1 hidden sm:block"></span>
             <div>
               <p class="section-kicker mb-2 text-slate-500">WHY SUCCESS · 01 · DREAME MODEL</p>
-              <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">追觅方法论：成功可复制，全包围试错 + N+1 压制</h2>
-              <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl">核心不是坐在办公室里找「唯一答案」，而是用全包围把品类与国家覆盖拉开，用 N+1 在竞品能力边界上逐项压过，再用高端品牌、全球渠道与供应链效率把试出来的组合快速放大。</p>
+              <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">追觅方法论：成功可复制，全包围试错 + 压制比打法</h2>
+              <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl">核心不是坐在办公室里找「唯一答案」，而是用全包围把品类与国家覆盖拉开，找到有效战场后用更高资源投入形成压制比，让对手上牌桌的成本越来越高，再用高端品牌、全球渠道与供应链效率把领先快速放大。</p>
             </div>
           </div>
         </div>
@@ -2693,16 +2861,16 @@
           </article>
           <article class="glass rounded-3xl p-6 md:p-8 shadow-glass card-hover ring-1 ring-orange-100/80 border border-orange-100/60">
             <div class="w-12 h-12 rounded-xl bg-orange-100 text-fuse-orange bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="trending-up"></i></div>
-            <h3 class="text-lg md:text-xl font-bold text-slate-900">N+1 打法</h3>
-            <p class="mt-4 text-sm text-slate-600 leading-relaxed">在竞品已经做到的「N」之上，把关键体验与能力逐项做得比对手更好一点：不是单点炫技，而是整体领先，从而形成对竞品的全面压制。</p>
+            <h3 class="text-lg md:text-xl font-bold text-slate-900">压制比打法</h3>
+            <p class="mt-4 text-sm text-slate-600 leading-relaxed">在已经验证有机会的牌桌上，不只追求单点领先，而是通过研发、供应链、渠道、品牌和现金流的持续投入，形成高于对手的资源压制比。目标不是和竞品慢慢拉扯，而是让对手进入同一牌桌的门槛、成本和风险持续抬高。</p>
           </article>
         </div>
         <div class="grid lg:grid-cols-12 gap-8 items-stretch">
           <article class="lg:col-span-5 glass rounded-3xl p-7 md:p-8 shadow-glass card-hover ring-1 ring-white/80">
             <div class="w-14 h-14 rounded-full bg-slate-900 text-white bp-li bp-li-xl flex items-center justify-center mb-6 shadow-lg shadow-slate-900/20" aria-hidden="true"><i data-lucide="rocket"></i></div>
-            <h3 class="text-xl font-bold text-slate-900">成功关键：先试对组合，再规模化放大</h3>
-            <p class="mt-5 text-sm text-slate-600 leading-relaxed">全包围回答「机会在哪里」：用足够多的品类 × 国家 × 渠道组合去试，把有效答案从市场里捞出来。N+1 回答「凭什么赢」：在对手已验证的需求与能力边界上，每一项都再强一点，形成可感知的整体优势。</p>
-            <p class="mt-4 text-sm text-slate-600 leading-relaxed"><strong class="text-slate-900">对应到 Fuse：</strong>不是做一台普通掌机，而是在 AI 游戏硬件与内容生态里做宽试点、做强对比，借追觅体系的供应链、渠道与品牌，把验证过的组合快速推向全球。</p>
+            <h3 class="text-xl font-bold text-slate-900">成功关键：先试对组合，再用资源压制放大</h3>
+            <p class="mt-5 text-sm text-slate-600 leading-relaxed">全包围回答「机会在哪里」：用足够多的品类 × 国家 × 渠道组合去试，把有效答案从市场里捞出来。压制比回答「凭什么持续赢」：一旦机会被验证，就用更高强度的资源投入建立规模、效率和认知优势，让竞争对手越来越难上牌桌。</p>
+            <p class="mt-4 text-sm text-slate-600 leading-relaxed"><strong class="text-slate-900">对应到 Fuse：</strong>不是做一台普通掌机，而是在 AI 游戏硬件与内容生态里做宽试点、做强投入，借追觅体系的供应链、渠道、品牌与资金效率，把验证过的组合快速推向全球，并充分发挥商业世界的马太效应。</p>
           </article>
           <div class="lg:col-span-7 grid sm:grid-cols-2 gap-5">
             <article class="glass rounded-2xl p-6 shadow-glass card-hover border border-orange-100/70">
@@ -2722,14 +2890,14 @@
             </article>
             <article class="glass rounded-2xl p-6 shadow-glass card-hover border border-slate-200/80 bg-slate-50/40">
               <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 bp-li bp-li-lg flex items-center justify-center mb-4"><i data-lucide="gauge"></i></div>
-              <h3 class="font-bold text-slate-900">4 · 规模放大与资源倾斜（补充视角）</h3>
-              <p class="mt-3 text-sm text-slate-600 leading-relaxed">当组合被验证、增长跑起来后，人才、渠道与供应链等资源会更愿意向优势方倾斜，这是许多品类的常见现象。它更像放大器：前提仍然是你用全包围找到有效组合、用 N+1 建立领先，而不是反过来把「资源集中」当成起点叙事。</p>
+              <h3 class="font-bold text-slate-900">4 · 马太效应与资源再投入</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">商业世界里，领先者更容易拿到渠道、人才、供应链和资本信任。追觅方法论的关键，是把这种马太效应前置为主动打法：先用全包围找到机会，再把资源持续投入到高胜率牌桌，形成更强规模、更低成本和更高品牌势能，进一步压制后来者。</p>
             </article>
           </div>
         </div>
         <div class="mt-8 rounded-3xl bg-gradient-to-r from-blue-50 via-white to-orange-50 p-6 md:p-8 border border-white shadow-glass">
           <h3 class="font-bold text-slate-900">为什么这是 Fuse 成功的关键之一</h3>
-          <p class="mt-3 text-sm text-slate-600 leading-relaxed">AI 游戏生态需要一个强硬件入口承载体验，也需要全球化品牌承载信任。本项目属于追觅体系，优势在于可以直接承接追觅模式的高端定位、成熟渠道、供应链效率和资产管理能力，把「AI 原生硬件 + UGC 平台 + IP 内容宇宙」快速推向全球市场。</p>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">AI 游戏生态需要一个强硬件入口承载体验，也需要全球化品牌承载信任。本项目属于追觅体系，优势在于可以直接承接追觅模式的高端定位、成熟渠道、供应链效率、资金投入和资产管理能力，在机会被验证后快速提高资源压制比，把「AI 原生硬件 + UGC 平台 + IP 内容宇宙」推上全球牌桌，并放大领先者的马太效应。</p>
         </div>
       </section>
 
@@ -2862,18 +3030,18 @@
               <div class="w-12 h-12 rounded-xl bg-violet-100 text-fuse-purple bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="route"></i></div>
               <p class="section-kicker text-violet-500">03 · SMART ENTRY</p>
               <h3 class="mt-3 font-black text-slate-900 text-lg">游戏掌机的绝佳切入点</h3>
-              <p class="mt-4 text-sm text-slate-600 leading-relaxed">不直接卷 AI 眼镜、手机、手表、机器人等高热品类，而是用游戏掌机这一稀缺标的承接 AI 创造力，切开窗口。“未来人人都需要一台AI游戏机”</p>
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">不直接卷 AI 眼镜、手机、手表、机器人等红海品类，而是用游戏掌机这一稀缺标的承接 AI 创造力，切开窗口。“未来人人都需要一台AI游戏机”</p>
             </article>
             <article class="glass rounded-3xl p-6 md:p-7 shadow-glass card-hover border border-emerald-100/70">
               <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="crown"></i></div>
               <p class="section-kicker text-emerald-600">04 · LEADERSHIP GAP</p>
-              <h3 class="mt-3 font-black text-slate-900 text-lg">AI 新时代下，游戏掌机市场缺少新领导者</h3>
-              <p class="mt-4 text-sm text-slate-600 leading-relaxed">AI 时代的掌机不只是硬件，而是生成能力、内容生态和创作入口。新范式还没有领导者。</p>
+              <h3 class="mt-3 font-black text-slate-900 text-lg">AI 新时代下，游戏掌机市场需要一位新领导者</h3>
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">AI 时代的掌机不只是硬件，而是生成能力、内容生态和创作入口。新范式还没有领导者，但是需要一位领导者。</p>
             </article>
           </div>
           <div class="mt-8 rounded-3xl bg-slate-900 text-white p-6 md:p-8 shadow-xl shadow-slate-900/18">
             <p class="text-xs tracking-[0.28em] text-amber-200 font-black">WHY NOW</p>
-            <h3 class="mt-3 text-xl md:text-2xl font-black leading-snug">窗口期的本质：技术开始成熟，标准尚未形成，市场领导者还没有出现。</h3>
+            <h3 class="mt-3 text-xl md:text-2xl font-black leading-snug">窗口期的本质：技术开始成熟，标准尚未形成，市场需要一位新领导者。</h3>
             <p class="mt-4 text-sm text-blue-100/78 leading-relaxed max-w-4xl">Fuse 要抓住的不只是AI游戏掌机这个入口，而是 AI 游戏生成标准和下一代AI实体入口及生态。</p>
           </div>
         </div>
@@ -2907,7 +3075,7 @@
               <div class="w-12 h-12 rounded-xl bg-blue-100 text-fuse-blue bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="cpu"></i></div>
               <p class="section-kicker text-blue-500">FOUNDER</p>
               <h3 class="mt-3 font-black text-slate-900">Silong：AI 专家 + 超级个体实践者</h3>
-              <p class="mt-4 text-sm text-slate-600 leading-relaxed">行业 AI 专家、超级个体实践开拓者，“让每个人成为AI超级个体”的个人愿景。</p>
+              <p class="mt-4 text-sm text-slate-600 leading-relaxed">行业 AI 专家、超级个体实践开拓者，“让每个人成为AI超级个体”。</p>
             </article>
             <article class="glass rounded-3xl p-6 shadow-glass card-hover border border-emerald-100/70">
               <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 bp-li bp-li-lg flex items-center justify-center mb-5"><i data-lucide="graduation-cap"></i></div>
@@ -3473,7 +3641,7 @@
                     <div class="w-10 h-10 rounded-lg bg-blue-100 text-fuse-blue flex items-center justify-center shrink-0 bp-li bp-li-md"><i data-lucide="cpu"></i></div>
                     <div class="min-w-0">
                       <p class="font-bold text-fuse-blue">硬件研发与生产</p>
-                      <p class="text-xs font-semibold text-slate-500 mt-0.5">2 亿 · 20%</p>
+                      <p class="text-xs font-semibold text-slate-500 mt-0.5">1 亿 · 10%</p>
                       <p class="text-sm text-slate-600 mt-2 leading-relaxed">用于 Fuse AI 掌机芯片选型、ID/MD 设计、模具开发与小批量量产验证，保障硬件入口领先与可落地性。</p>
                     </div>
                   </div>
@@ -3493,7 +3661,7 @@
                     <div class="w-10 h-10 rounded-lg bg-red-100 text-red-600 flex items-center justify-center shrink-0 bp-li bp-li-md"><i data-lucide="megaphone"></i></div>
                     <div class="min-w-0">
                       <p class="font-bold text-red-600">市场推广与品牌</p>
-                      <p class="text-xs font-semibold text-slate-500 mt-0.5">0.5 亿 · 5%</p>
+                      <p class="text-xs font-semibold text-slate-500 mt-0.5">1.5 亿 · 15%</p>
                       <p class="text-sm text-slate-600 mt-2 leading-relaxed">新品发布、全球投放、KOL 合作与品牌公关，快速建立认知。</p>
                     </div>
                   </div>
@@ -5023,9 +5191,9 @@
   if (angryResetBtn) angryResetBtn.addEventListener('click', resetAngryGame);
 
   var FIN_ALLOC_ITEMS = [
-    { key: 'hardware', name: '硬件研发', target: 20, color: '#3b82f6' },
+    { key: 'hardware', name: '硬件研发', target: 10, color: '#3b82f6' },
     { key: 'platform', name: '平台运营', target: 15, color: '#06b6d4' },
-    { key: 'market', name: '市场品牌', target: 5, color: '#f97316' },
+    { key: 'market', name: '市场品牌', target: 15, color: '#f97316' },
     { key: 'engine', name: 'AI 引擎', target: 15, color: '#8b5cf6' },
     { key: 'content', name: '内容生态', target: 30, color: '#f59e0b' },
     { key: 'team', name: '团队建设', target: 15, color: '#10b981' }
@@ -6153,9 +6321,9 @@
     window.BP_CHARTS.preaAlloc = new Chart(document.getElementById('chart-prea-alloc'), {
       type: 'doughnut',
       data: {
-        labels: ['硬件研发与生产 20%', '平台建设与运营 15%', '市场推广与品牌 5%', 'AI 引擎研发 15%', '内容生态建设 30%', '团队建设与运营 15%'],
+        labels: ['硬件研发与生产 10%', '平台建设与运营 15%', '市场推广与品牌 15%', 'AI 引擎研发 15%', '内容生态建设 30%', '团队建设与运营 15%'],
         datasets: [{
-          data: [20, 15, 5, 15, 30, 15],
+          data: [10, 15, 15, 15, 30, 15],
           backgroundColor: ['#3B82F6', '#059669', '#DC2626', '#8B5CF6', '#F59E0B', '#0891B2'],
           borderWidth: 0
         }]
