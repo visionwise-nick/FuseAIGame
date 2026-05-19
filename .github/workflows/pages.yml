@@ -33,6 +33,7 @@ jobs:
           mkdir -p _site
           cp index.html _site/index.html
           cp share-cover.png _site/share-cover.png
+          cp *.txt _site/ 2>/dev/null || true
           touch _site/.nojekyll
 
       - name: Upload artifact
