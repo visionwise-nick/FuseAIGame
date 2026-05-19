@@ -47,8 +47,6 @@
       }
     };
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
   <style>
     :root {
       --bg: #f0f4f8;
@@ -1465,6 +1463,42 @@
       </p>
     </div>
   </div>
+  <script>
+    (function () {
+      var selectedMode = null;
+
+      function scrollWhenReady(selector) {
+        var tries = 0;
+        function go() {
+          var target = document.querySelector(selector);
+          if (target) {
+            window.scrollTo({ top: Math.max(0, target.getBoundingClientRect().top + window.scrollY), behavior: 'auto' });
+            return;
+          }
+          tries += 1;
+          if (tries < 40) window.setTimeout(go, 100);
+        }
+        go();
+      }
+
+      function chooseMode(mode) {
+        if (selectedMode) return;
+        selectedMode = mode;
+        window.__BP_EARLY_MODE = mode;
+        document.body.classList.remove('mode-gate-open');
+        document.body.classList.toggle('mode-normal', mode === 'normal');
+        document.body.classList.toggle('mode-quest', mode === 'quest');
+        var gate = document.getElementById('mode-gate');
+        if (gate) gate.classList.add('is-dismissed');
+        scrollWhenReady('#s-market-opportunity');
+      }
+
+      var normal = document.getElementById('gate-normal-btn');
+      var quest = document.getElementById('gate-start-btn');
+      if (normal) normal.addEventListener('click', function () { chooseMode('normal'); });
+      if (quest) quest.addEventListener('click', function () { chooseMode('quest'); });
+    })();
+  </script>
 
   <aside id="quest-hud" class="quest-hud" aria-label="BP 游戏化任务进度">
     <div class="flex items-center justify-between gap-3">
@@ -4032,6 +4066,8 @@
 
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
   <script>
 (function () {
   window.BP_CHARTS = {};
@@ -4162,7 +4198,7 @@
   var achievement = document.getElementById('achievement-toast');
   var achievementText = document.getElementById('achievement-text');
   var unlocked = {};
-  var currentMode = 'idle';
+  var currentMode = window.__BP_EARLY_MODE || 'idle';
   var completedModules = { market: false, ecosystem: false, success: false, finance: false, boss: false };
   var challengeAutoShown = {};
   var questModules = [
