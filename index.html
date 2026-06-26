@@ -511,6 +511,16 @@
       min-height: 88vh; display: flex; align-items: center; justify-content: center;
       background: var(--bg);
     }
+    .secret-command-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      padding: clamp(2rem, 5vw, 3rem) clamp(2rem, 6vw, 4rem);
+      border-radius: 1.75rem;
+      background: linear-gradient(135deg, #0f172a 0%, #0a1628 52%, #0f2744 100%);
+      box-shadow: 0 1.5rem 4rem rgba(15, 23, 42, 0.18);
+    }
+    .secret-command-section .secret-arrow-hint {
+      margin-bottom: clamp(1.25rem, 3vw, 2rem);
+    }
     .secret-arrow-cluster {
       display: grid;
       grid-template-columns: repeat(3, clamp(4.4rem, 10vw, 6.4rem));
@@ -1455,9 +1465,7 @@
         <button type="button" id="gate-start-btn" class="inline-flex items-center gap-2 rounded-xl border border-amber-200/70 text-white font-bold px-8 py-4 hover:bg-white/12 backdrop-blur-sm transition">闯关模式 · New Game</button>
       </div>
       <p class="mt-7 text-[10px] md:text-[11px] font-normal text-white/80 tracking-[0.08em] leading-relaxed reveal" style="transition-delay:.18s">
-        <a class="text-inherit no-underline" href="mailto:xiongsl2013@gmail.com">xiongsl2013@gmail.com</a>
-        <span class="mx-1 text-white/60">/</span>
-        <a class="text-inherit no-underline" href="tel:19924532173">19924532173</a>
+        上海未来引线人工智能科技
       </p>
     </div>
   </div>
@@ -1558,9 +1566,7 @@
           <button type="button" id="hero-start-btn" class="inline-flex items-center gap-2 rounded-xl border border-amber-200/70 text-white font-bold px-8 py-4 hover:bg-white/12 backdrop-blur-sm transition">闯关模式 · New Game</button>
         </div>
         <p class="mt-10 md:mt-12 text-[10px] md:text-[11px] font-normal text-white/80 tracking-[0.08em] leading-relaxed reveal" style="transition-delay:.18s">
-          <a class="text-inherit no-underline" href="mailto:xiongsl2013@gmail.com">xiongsl2013@gmail.com</a>
-          <span class="mx-1 text-white/60">/</span>
-          <a class="text-inherit no-underline" href="tel:19924532173">19924532173</a>
+          上海未来引线人工智能科技
         </p>
       </div>
     </header>
@@ -3155,9 +3161,9 @@
                     <li class="flex gap-2"><span class="text-violet-500 shrink-0">▸</span><span>个性化沉浸——「我是主角」</span></li>
                   </ul>
                   <p class="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs">
-                    <a href="https://lingogame-backend-685339952769.us-central1.run.app/arena/game/553f22cb-aaf9-4aa2-b4eb-ffcaab8005f8" target="_blank" rel="noopener noreferrer" class="text-violet-600 font-semibold underline underline-offset-2 hover:text-fuse-purple">MemeRush ↗</a>
-                    <a href="https://lingogame-backend-685339952769.us-central1.run.app/arena/game/64af0bf9-199a-41a1-a3a2-4077b26323d3" target="_blank" rel="noopener noreferrer" class="text-violet-600 font-semibold underline underline-offset-2 hover:text-fuse-purple">Angry Mary ↗</a>
-                    <a href="https://lingogame-backend-685339952769.us-central1.run.app/arena/game/9bd1a711-6c8b-43d2-a9ee-d79058051d4b" target="_blank" rel="noopener noreferrer" class="text-violet-600 font-semibold underline underline-offset-2 hover:text-fuse-purple">特朗普的命运大转盘 ↗</a>
+                    <a href="https://lingogame-backend-adecumh2za-uc.a.run.app/share/b3a8f2a2-a6b" target="_blank" rel="noopener noreferrer" class="text-violet-600 font-semibold underline underline-offset-2 hover:text-fuse-purple">愤怒的原始人 ↗</a>
+                    <a href="https://lingogame-backend-685339952769.us-central1.run.app/arena/game/80041809-926f-4e92-9a8f-6a8a0a66bf40" target="_blank" rel="noopener noreferrer" class="text-violet-600 font-semibold underline underline-offset-2 hover:text-fuse-purple">疯狂跳跳跳 ↗</a>
+                    <a href="https://lingogame-backend-685339952769.us-central1.run.app/arena/game/a3bd325e-262a-4169-b72b-d484ef849a03" target="_blank" rel="noopener noreferrer" class="text-violet-600 font-semibold underline underline-offset-2 hover:text-fuse-purple">特靠谱大转盘：懂王语录 ↗</a>
                   </p>
                 </article>
                 <article class="glass rounded-2xl bg-white/90 border border-amber-100 p-5 shadow-sm card-hover md:col-span-2 xl:col-span-1">
@@ -4154,13 +4160,18 @@
 
       <!-- DEMO EGG COMMAND -->
       <section id="s-demo-code" class="section-pad secret-command-section">
-        <div class="secret-arrow-cluster" role="group" aria-label="方向键">
-          <span class="secret-spacer" aria-hidden="true"></span>
-          <button type="button" class="secret-arrow-key" data-secret-dir="ArrowUp" aria-label="向上">↑</button>
-          <span class="secret-spacer" aria-hidden="true"></span>
-          <button type="button" class="secret-arrow-key" data-secret-dir="ArrowLeft" aria-label="向左">←</button>
-          <button type="button" class="secret-arrow-key" data-secret-dir="ArrowDown" aria-label="向下">↓</button>
-          <button type="button" class="secret-arrow-key" data-secret-dir="ArrowRight" aria-label="向右">→</button>
+        <div class="secret-command-wrap">
+          <div class="secret-arrow-hint" aria-label="指令提示：上上下下左右左右">
+            <span>↑</span><span>↑</span><span>↓</span><span>↓</span><span>←</span><span>→</span><span>←</span><span>→</span>
+          </div>
+          <div class="secret-arrow-cluster" role="group" aria-label="方向键">
+            <span class="secret-spacer" aria-hidden="true"></span>
+            <button type="button" class="secret-arrow-key" data-secret-dir="ArrowUp" aria-label="向上">↑</button>
+            <span class="secret-spacer" aria-hidden="true"></span>
+            <button type="button" class="secret-arrow-key" data-secret-dir="ArrowLeft" aria-label="向左">←</button>
+            <button type="button" class="secret-arrow-key" data-secret-dir="ArrowDown" aria-label="向下">↓</button>
+            <button type="button" class="secret-arrow-key" data-secret-dir="ArrowRight" aria-label="向右">→</button>
+          </div>
         </div>
       </section>
 
@@ -4195,6 +4206,11 @@
             </div>
           </div>
           <p class="text-center text-xs text-fuse-orange mt-8">Attention：个人实验产品，仅发挥目前大模型 10% 能力。</p>
+          <p class="text-center text-sm text-slate-600 mt-6">
+            <a href="mailto:xiongsl2013@gmail.com" class="text-fuse-blue font-semibold hover:underline">xiongsl2013@gmail.com</a>
+            <span class="mx-2 text-slate-400"> </span>
+            <a href="tel:19924532173" class="text-fuse-blue font-semibold hover:underline">19924532173</a>
+          </p>
         </div>
       </section>
 
