@@ -582,8 +582,13 @@
       overflow-y: auto;
       border-radius: 1.25rem;
       background: #fff;
+      -webkit-overflow-scrolling: touch;
     }
-    .thesis-phone-screen img { width: 100%; display: block; }
+    .thesis-phone-screen--long {
+      max-height: none;
+      overflow: visible;
+    }
+    .thesis-phone-screen img { width: 100%; display: block; height: auto; }
     .thesis-scarce {
       display: inline-flex;
       align-items: center;
@@ -4375,11 +4380,11 @@
               </div>
               <div class="xl:w-[380px] shrink-0 flex flex-col items-center">
                 <div class="thesis-phone">
-                  <div class="thesis-phone-screen">
+                  <div class="thesis-phone-screen thesis-phone-screen--long">
                     <img src="assets/lingguang-reviews.jpg" alt="Lingguang Google Play 近期评价截图，多数为五星好评">
                   </div>
                 </div>
-                <p class="mt-3 text-[11px] text-slate-500 text-center leading-relaxed">Google Play 近期评价：五星密集出现，对应评分从 3.8 拉升至 4.7。</p>
+                <p class="mt-3 text-[11px] text-slate-500 text-center leading-relaxed">Google Play 近期评价长截图：五星密集出现，对应评分从 3.8 拉升至 4.7。</p>
               </div>
             </div>
           </article>
