@@ -51,6 +51,7 @@ const CHAPTERS = [
   { id: 's-fiveyear', title: '六年路径' },
   { id: 's-nintendo', title: '任天堂对标' },
   { id: 's-vision', title: '愿景' },
+  { id: 's-core-thesis', title: '核心论点' },
 ];
 
 const PPT_STYLE = `

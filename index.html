@@ -570,6 +570,33 @@
     #s-vision {
       background-color: #f8fafc;
     }
+    .thesis-phone {
+      width: min(100%, 280px);
+      border-radius: 1.75rem;
+      background: #0f172a;
+      padding: 10px;
+      box-shadow: 0 24px 50px rgba(15, 23, 42, 0.22);
+    }
+    .thesis-phone-screen {
+      max-height: 36rem;
+      overflow-y: auto;
+      border-radius: 1.25rem;
+      background: #fff;
+    }
+    .thesis-phone-screen img { width: 100%; display: block; }
+    .thesis-scarce {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 9999px;
+      padding: 0.35rem 0.75rem;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      background: linear-gradient(90deg, rgba(245,158,11,0.14), rgba(30,107,255,0.1));
+      color: #9a3412;
+      border: 1px solid rgba(251,146,60,0.35);
+    }
     .vision-chinese-line {
       height: 1px;
       background: linear-gradient(90deg, rgba(185,28,28,0), rgba(185,28,28,0.34), rgba(245,158,11,0.28), rgba(185,28,28,0));
@@ -1371,6 +1398,10 @@
       header#s-hero {
         min-height: auto !important;
         padding: 1.25rem 0.75rem !important;
+      }
+      .thesis-phone-screen {
+        max-height: none !important;
+        overflow: visible !important;
       }
       [class*="min-h-"] {
         min-height: auto !important;
@@ -4282,6 +4313,174 @@
         </div>
       </section>
 
+      <!-- CORE THESIS -->
+      <section id="s-core-thesis" class="section-pad bg-white/40">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col lg:flex-row lg:items-end gap-8">
+            <div class="flex flex-1 gap-4 items-start min-w-0">
+              <span class="bp-title-dot shrink-0 mt-1 hidden sm:block"></span>
+              <div>
+                <p class="section-kicker mb-2 text-slate-500">06 · CORE THESIS</p>
+                <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">核心论点</h2>
+                <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl">两款已上线产品验证商业化稀缺性，后续产品承接更高 Token 溢价。目标不是做又一个 AI 工具，而是成为 C 端 Token 消耗的主入口之一。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-10 grid md:grid-cols-2 gap-4">
+            <article class="rounded-3xl bg-slate-950 text-white p-6 md:p-7 shadow-xl shadow-slate-900/18">
+              <p class="text-[10px] tracking-[0.28em] text-amber-200 font-black">COMPANY GOAL 01</p>
+              <h3 class="mt-3 text-xl md:text-2xl font-black leading-snug">最高的单位 Token 溢价</h3>
+              <p class="mt-3 text-sm text-blue-100/78 leading-relaxed">同一枚 Token，在可生成、可玩、可付费的作品里卖出最高毛利，而不是停在聊天或一次性生成。</p>
+            </article>
+            <article class="rounded-3xl bg-gradient-to-br from-fuse-blue to-indigo-700 text-white p-6 md:p-7 shadow-xl shadow-blue-900/18">
+              <p class="text-[10px] tracking-[0.28em] text-cyan-100 font-black">COMPANY GOAL 02</p>
+              <h3 class="mt-3 text-xl md:text-2xl font-black leading-snug">未来 C 端 Token 消耗主入口之一</h3>
+              <p class="mt-3 text-sm text-blue-50/85 leading-relaxed">用 App、游戏、短剧、教育把用户每天的创作与消费锁在同一套 Token 计费里。</p>
+            </article>
+          </div>
+
+          <article class="mt-10 rounded-[2rem] bg-gradient-to-br from-sky-50 via-white to-orange-50 border border-blue-100/80 p-6 md:p-8 shadow-glass">
+            <div class="flex flex-col xl:flex-row gap-8">
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[10px] font-black tracking-wide text-emerald-700">已上线 · 已验证</span>
+                  <span class="thesis-scarce">稀缺性：AI 产品赚钱难，我们有商业化上的稀缺性</span>
+                </div>
+                <p class="mt-5 text-xs font-black tracking-[0.18em] text-fuse-blue">01 · LINGGUANG</p>
+                <h3 class="mt-2 text-2xl md:text-[1.85rem] font-black text-slate-900 leading-snug">Lingguang · AI App Builder</h3>
+                <p class="mt-3 text-sm text-slate-600 leading-relaxed">自然语言生成可运行 App。Google Play 已上线并持续商业化，验证了「生成 → 使用 → 付费消耗 Token」这条链路。</p>
+                <a href="https://play.google.com/store/apps/details?id=com.lingguang.app&amp;hl=US" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-2 rounded-xl bg-fuse-blue text-white px-4 py-2.5 text-sm font-bold hover:opacity-90 transition">Google Play ↗</a>
+                <div class="mt-6 grid sm:grid-cols-3 gap-3">
+                  <div class="rounded-2xl bg-white border border-blue-100 p-4">
+                    <p class="text-[10px] font-black tracking-[0.16em] text-fuse-blue">TOKEN 毛利率</p>
+                    <p class="mt-2 text-2xl font-black text-slate-900">&gt;95%</p>
+                    <p class="mt-1 text-xs text-slate-500 leading-relaxed">AI 产品 Token 毛利率 #1</p>
+                  </div>
+                  <div class="rounded-2xl bg-white border border-emerald-100 p-4">
+                    <p class="text-[10px] font-black tracking-[0.16em] text-emerald-700">付费率</p>
+                    <p class="mt-2 text-2xl font-black text-slate-900">&gt;3%</p>
+                    <p class="mt-1 text-xs text-slate-500 leading-relaxed">稳定验证时间 &gt; 半年</p>
+                  </div>
+                  <div class="rounded-2xl bg-white border border-orange-100 p-4">
+                    <p class="text-[10px] font-black tracking-[0.16em] text-fuse-orange">评分</p>
+                    <p class="mt-2 text-2xl font-black text-slate-900">3.8 → 4.7</p>
+                    <p class="mt-1 text-xs text-slate-500 leading-relaxed">过去 1 个月持续上涨</p>
+                  </div>
+                </div>
+                <div class="mt-5 rounded-2xl bg-white/90 border border-slate-200 p-4">
+                  <p class="text-[10px] font-black tracking-[0.16em] text-slate-500">对比口径</p>
+                  <p class="mt-2 text-sm text-slate-700 leading-relaxed">豆包月活 <strong class="text-slate-900">3.45 亿</strong>，付费用户仅小几十万。Lingguang 付费率 &gt;3%，说明付费发生在真正消耗 Token 的创作行为上，而不是靠超大 DAU 摊薄。</p>
+                </div>
+              </div>
+              <div class="xl:w-[300px] shrink-0 flex flex-col items-center">
+                <div class="thesis-phone">
+                  <div class="thesis-phone-screen">
+                    <img src="assets/lingguang-reviews.png" alt="Lingguang Google Play 近期评价截图，多数为五星好评">
+                  </div>
+                </div>
+                <p class="mt-3 text-[11px] text-slate-500 text-center leading-relaxed">Google Play 近期评价：五星密集出现，对应评分从 3.8 拉升至 4.7。</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="mt-8 rounded-[2rem] bg-gradient-to-br from-orange-50 via-white to-violet-50 border border-orange-100/80 p-6 md:p-8 shadow-glass">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="rounded-full bg-orange-50 border border-orange-200 px-3 py-1 text-[10px] font-black tracking-wide text-orange-700">刚发布</span>
+              <span class="thesis-scarce">稀缺性：商业化潜力巨大，ROI 远高于竞品</span>
+            </div>
+            <p class="mt-5 text-xs font-black tracking-[0.18em] text-fuse-orange">02 · FUSEE</p>
+            <h3 class="mt-2 text-2xl md:text-[1.85rem] font-black text-slate-900 leading-snug">Fusee · AI Game Maker</h3>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed max-w-3xl">刚发布的 AI 小游戏生成器。同等提示词下，成本远低于竞品，效果更好更稳定——尤其是 3D 游戏；商业化速度也最快。</p>
+            <a href="https://play.google.com/store/apps/details?id=com.gamearena.app&amp;hl=US" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-2 rounded-xl bg-fuse-orange text-white px-4 py-2.5 text-sm font-bold hover:opacity-90 transition">Google Play ↗</a>
+            <div class="mt-6 grid sm:grid-cols-3 gap-3">
+              <div class="rounded-2xl bg-white border border-orange-100 p-4">
+                <p class="text-[10px] font-black tracking-[0.16em] text-fuse-orange">成本</p>
+                <p class="mt-2 font-black text-slate-900">远低于竞品</p>
+                <p class="mt-1 text-xs text-slate-500 leading-relaxed">同一提示词，Token 与制作成本更低</p>
+              </div>
+              <div class="rounded-2xl bg-white border border-violet-100 p-4">
+                <p class="text-[10px] font-black tracking-[0.16em] text-violet-600">效果</p>
+                <p class="mt-2 font-black text-slate-900">更好、更稳定</p>
+                <p class="mt-1 text-xs text-slate-500 leading-relaxed">3D 游戏完成度与稳定性领先</p>
+              </div>
+              <div class="rounded-2xl bg-white border border-emerald-100 p-4">
+                <p class="text-[10px] font-black tracking-[0.16em] text-emerald-700">商业化</p>
+                <p class="mt-2 font-black text-slate-900">速度最快</p>
+                <p class="mt-1 text-xs text-slate-500 leading-relaxed">从生成到可玩、可分享、可付费最短</p>
+              </div>
+            </div>
+            <div class="mt-8 rounded-2xl bg-blue-50 text-slate-900 px-5 py-4 border border-blue-200">
+              <p class="text-[10px] font-black tracking-[0.22em] text-fuse-blue">UNIFIED PROMPT</p>
+              <p class="mt-2 text-sm font-semibold leading-relaxed">生成一个皮卡丘跳一跳的游戏。</p>
+              <p class="mt-2 text-xs text-slate-500">同一提示词，Fusee 两版（含 3D）与四家竞品可直接点开对比。</p>
+            </div>
+            <div class="mt-5 grid md:grid-cols-2 xl:grid-cols-6 gap-4">
+              <article class="md:col-span-2 rounded-2xl bg-white border-2 border-fuse-orange/80 p-4 shadow-lg shadow-orange-100/50 relative overflow-hidden">
+                <div class="absolute top-0 right-0 rounded-bl-2xl bg-fuse-orange px-2.5 py-1 text-[10px] font-black tracking-wide text-white">FUSEE</div>
+                <p class="text-xs font-black tracking-[0.16em] text-fuse-orange">FUSEE · 两版可玩</p>
+                <div class="mt-3 grid sm:grid-cols-2 gap-3">
+                  <div>
+                    <p class="text-[10px] font-black tracking-wide text-orange-600">3D</p>
+                    <h4 class="mt-1 font-black text-slate-900 leading-snug">雷霆跳跳 · Pikachu 雷霆之跃</h4>
+                    <a href="https://lingogame-backend-adecumh2za-uc.a.run.app/share/d39270ae-e29" target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex items-center gap-1.5 rounded-xl bg-fuse-orange text-white px-3 py-2 text-xs font-bold hover:opacity-90 transition">试玩 3D ↗</a>
+                  </div>
+                  <div>
+                    <p class="text-[10px] font-black tracking-wide text-slate-500">2D</p>
+                    <h4 class="mt-1 font-black text-slate-900 leading-snug">天空塔上的皮卡丘 · 不情愿的弹跳</h4>
+                    <a href="https://lingogame-backend-adecumh2za-uc.a.run.app/share/7f0f14c7-d2c" target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex items-center gap-1.5 rounded-xl bg-orange-100 text-orange-800 px-3 py-2 text-xs font-bold hover:bg-orange-200 transition">试玩 2D ↗</a>
+                  </div>
+                </div>
+              </article>
+              <article class="rounded-2xl bg-white/90 border border-violet-100 p-4">
+                <p class="text-xs font-black tracking-[0.16em] text-violet-500">AIPPY</p>
+                <h4 class="mt-2 font-black text-slate-900 leading-snug">Pikachu Jump</h4>
+                <a href="https://aippy.ai/@grungybug_5j5d/pikachu-jump-game-3ima?s=dpO8" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-violet-600 text-white px-3 py-2 text-xs font-bold hover:opacity-90 transition">竞品试玩 ↗</a>
+              </article>
+              <article class="rounded-2xl bg-white/90 border border-blue-100 p-4">
+                <p class="text-xs font-black tracking-[0.16em] text-fuse-blue">ASTROCADE</p>
+                <h4 class="mt-2 font-black text-slate-900 leading-snug">Pikachu Leaps</h4>
+                <a href="https://www.astrocade.com/games/pikachu-leaps/01KTWRYW0N7V5TH50HRE3040GT?sharedByCreator=xiongsl201&amp;surface=native_android" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-fuse-blue text-white px-3 py-2 text-xs font-bold hover:opacity-90 transition">竞品试玩 ↗</a>
+              </article>
+              <article class="rounded-2xl bg-white/90 border border-slate-200 p-4">
+                <p class="text-xs font-black tracking-[0.16em] text-slate-500">REZONA</p>
+                <h4 class="mt-2 font-black text-slate-900 leading-snug">皮卡丘跳跳乐</h4>
+                <a href="https://web.rezona.ai/share/game/OTk5ODExOA" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-slate-800 text-white px-3 py-2 text-xs font-bold hover:opacity-90 transition">竞品试玩 ↗</a>
+              </article>
+              <article class="rounded-2xl bg-white/90 border border-emerald-100 p-4">
+                <p class="text-xs font-black tracking-[0.16em] text-emerald-600">LOOPIT</p>
+                <h4 class="mt-2 font-black text-slate-900 leading-snug">Loopit Playable</h4>
+                <a href="https://share.loopit.me/game/85c0e8aa-7f26-401e-ae60-a5affe8cef25?l_data=%7B%22said%22%3A%22sa_hTNaeh3C%22%2C%22ssuid%22%3A%22ss_XwszJ4XN%22%2C%22sharer%22%3A%22907ae7bb-30d9-4224-82b9-361da37733db%22%2C%22share_id%22%3A%2285c0e8aa-7f26-401e-ae60-a5affe8cef25%22%7D" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 text-white px-3 py-2 text-xs font-bold hover:opacity-90 transition">竞品试玩 ↗</a>
+              </article>
+            </div>
+          </article>
+
+          <div class="mt-8 grid lg:grid-cols-2 gap-6">
+            <article class="glass rounded-3xl p-6 md:p-7 shadow-glass border border-violet-100/80">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="rounded-full bg-violet-50 border border-violet-200 px-3 py-1 text-[10px] font-black tracking-wide text-violet-700">即将上线</span>
+                <span class="thesis-scarce">稀缺性：市面上第一家，短剧届的拼多多</span>
+              </div>
+              <p class="mt-5 text-xs font-black tracking-[0.18em] text-violet-600">03 · ZAKA</p>
+              <h3 class="mt-2 text-xl font-black text-slate-900">ZAKA · 连载短剧 / 动画 / 3D 世界</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">把连载短剧、动画和可进入的 3D 世界做成可持续消耗 Token 的内容入口。品类上尚无对标，走的是短剧的大众化、高周转路径。</p>
+            </article>
+            <article class="glass rounded-3xl p-6 md:p-7 shadow-glass border border-emerald-100/80">
+              <span class="rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[10px] font-black tracking-wide text-emerald-700">准备中</span>
+              <p class="mt-5 text-xs font-black tracking-[0.18em] text-emerald-600">04 · EDUCATION</p>
+              <h3 class="mt-2 text-xl font-black text-slate-900">教育</h3>
+              <p class="mt-3 text-sm text-slate-600 leading-relaxed">下一阶段品类。把已验证的生成、付费与 Token 溢价能力，延伸到高频学习场景，继续抬高单位 Token 价值。</p>
+            </article>
+          </div>
+
+          <div class="mt-8 rounded-3xl bg-slate-900 text-white p-6 md:p-8 shadow-xl shadow-slate-900/18">
+            <p class="text-xs tracking-[0.28em] text-amber-200 font-black">THE POINT</p>
+            <h3 class="mt-3 text-xl md:text-2xl font-black leading-snug">Lingguang 证明 AI 产品可以又赚又稳；Fusee 证明同样的 Token 能以更低成本做出更好的游戏；ZAKA 与教育把入口继续做宽。</h3>
+            <p class="mt-4 text-sm text-blue-100/78 leading-relaxed max-w-4xl">企业目标只有两句：拿下最高的单位 Token 溢价，成为未来 C 端 Token 消耗的主入口之一。</p>
+          </div>
+        </div>
+      </section>
+
       <!-- DEMO EGG COMMAND -->
       <section id="s-demo-code" class="section-pad secret-command-section">
         <div class="secret-command-wrap">
@@ -4528,6 +4727,7 @@
     { title: '05 对标与愿景', items: [
       ['行业对标 · 垄断破局', '#s-nintendo'],
       ['愿景', '#s-vision'],
+      ['核心论点', '#s-core-thesis'],
       ['Demo', '#s-demo', 'demo-nav-link']
     ] }
   ];
