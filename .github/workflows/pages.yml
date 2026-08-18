@@ -32,6 +32,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html _site/index.html
+          cp license.html _site/license.html
           cp share-cover.png _site/share-cover.png
           cp wechat-share.jpg wechat-share.png wechat-share.webp _site/ 2>/dev/null || true
           cp favicon.png favicon.webp apple-touch-icon.png _site/ 2>/dev/null || true

@@ -207,126 +207,6 @@
       border-radius: 99px;
     }
 
-    /* 分部估值表：层次化排版 + 财经数字对齐 */
-    .valuation-matrix-wrap {
-      border-radius: 1rem;
-      overflow-x: auto;
-      overflow-y: hidden;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 1px 2px rgba(15, 23, 42, 0.06);
-      border: 1px solid rgba(226, 232, 240, 0.95);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #f8fafc 100%);
-    }
-    .valuation-matrix {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-    .valuation-matrix thead th {
-      padding: 0.9rem 1rem;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      line-height: 1.35;
-      vertical-align: bottom;
-      background: linear-gradient(165deg, #1E6BFF 0%, #1558d6 55%, #1246b0 100%);
-      color: #fff;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    }
-    .valuation-matrix thead th .vm-h-sub {
-      display: block;
-      margin-top: 0.35rem;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      opacity: 0.82;
-    }
-    .valuation-matrix tbody tr:nth-child(odd) td {
-      background: #f8fafc;
-    }
-    .valuation-matrix tbody tr:nth-child(even) td {
-      background: #fff;
-    }
-    .valuation-matrix tbody tr:hover td {
-      background: rgba(239, 246, 255, 0.92);
-    }
-    .valuation-matrix tbody td {
-      padding: 1rem 1rem;
-      border-bottom: 1px solid rgba(226, 232, 240, 0.95);
-      vertical-align: middle;
-    }
-    .valuation-matrix tbody tr:last-child td {
-      border-bottom: none;
-    }
-    .valuation-matrix .vm-sector {
-      vertical-align: top;
-      padding-top: 1.05rem;
-      padding-bottom: 1.05rem;
-      border-left-width: 3px;
-      border-left-style: solid;
-    }
-    .valuation-matrix .vm-sector-title {
-      font-weight: 700;
-      font-size: 14px;
-      color: #0f172a;
-      letter-spacing: 0.02em;
-      line-height: 1.35;
-    }
-    .valuation-matrix .vm-sector-note {
-      margin: 0.35rem 0 0;
-      font-size: 12px;
-      font-weight: 500;
-      color: #64748b;
-      line-height: 1.55;
-      max-width: 17rem;
-    }
-    .valuation-matrix .vm-num {
-      font-variant-numeric: tabular-nums;
-      font-feature-settings: 'tnum' 1;
-      text-align: right;
-      white-space: nowrap;
-      font-weight: 600;
-      color: #1e293b;
-      letter-spacing: -0.02em;
-    }
-    .valuation-matrix .vm-num-lg {
-      font-size: 1.125rem;
-      font-weight: 800;
-      color: #1E6BFF;
-    }
-    .valuation-matrix .vm-ps {
-      text-align: center;
-    }
-    .valuation-matrix .vm-ps span {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 3rem;
-      padding: 0.35rem 0.65rem;
-      border-radius: 9999px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      background: rgba(241, 245, 249, 0.95);
-      color: #334155;
-      border: 1px solid rgba(226, 232, 240, 0.9);
-    }
-    .valuation-matrix tfoot td {
-      padding: 0.95rem 1rem;
-      font-size: 13px;
-      font-weight: 700;
-      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-      color: #f8fafc;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .valuation-matrix tfoot .vm-num-lg {
-      color: #93c5fd;
-    }
-    .valuation-matrix tfoot .vm-ps span {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.14);
-      color: rgba(226, 232, 240, 0.92);
-      font-weight: 700;
-    }
     .finance-mode-btn.active {
       background: rgba(30, 107, 255, 0.1);
       border-color: #1E6BFF;
@@ -1061,22 +941,6 @@
       .compare-icon {
         width: 2.15rem;
         height: 2.15rem;
-      }
-      .valuation-matrix-wrap {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      .valuation-matrix {
-        min-width: 620px;
-        font-size: 12px;
-      }
-      .valuation-matrix thead th,
-      .valuation-matrix tbody td,
-      .valuation-matrix tfoot td {
-        padding: 0.75rem 0.65rem;
-      }
-      .valuation-matrix .vm-sector-note {
-        max-width: 12rem;
       }
       .fin-num-inp {
         max-width: none;
@@ -2350,7 +2214,7 @@
           <p class="section-kicker mb-2 text-slate-500">PART 05 · TRIAD</p>
           <h2 class="text-2xl md:text-[2rem] lg:text-[2.4rem] font-extrabold text-gradient leading-snug tracking-tight">我们的解决方案：FuseAI 互动内容生成平台</h2>
           <p class="mt-4 text-lg text-fuse-orange font-semibold">三位一体核心架构：平台为核心 · 引擎做生成 · 场景做验证</p>
-          <p class="mt-2 text-sm text-slate-600 max-w-4xl"><strong class="text-slate-800">分部估值对齐：</strong>合并报表自上而下拆为三块——<strong>平台服务经常性收入</strong>（AI Token 订阅/充值、API 与 Fuse Store 抽成，核心增长引擎）；<strong>示范内容与模板</strong>（官方示范作品与模板交易）；<strong>硬件入口</strong>（Fuse PlayCanvas 等可选远期设备，非当前主赌注）。与右侧「分部估值」表行一一对应。</p>
+          <p class="mt-2 text-sm text-slate-600 max-w-4xl"><strong class="text-slate-800">收入结构对齐：</strong>合并报表自上而下拆为三块——<strong>平台服务经常性收入</strong>（AI Token 订阅/充值、API 与 Fuse Store 抽成，核心增长引擎）；<strong>示范内容与模板</strong>（官方示范作品与模板交易）；<strong>硬件入口</strong>（Fuse PlayCanvas 等可选远期设备，非当前主赌注）。</p>
           <div class="mt-10 flex flex-wrap gap-3" role="tablist" aria-label="三位一体：平台 / 引擎 / 触达">
             <button type="button" class="pillar-tab rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-700 hover:border-fuse-orange hover:text-fuse-orange transition shadow-sm" data-pillar-target="pillar-1">❶ Fuse Store · 核心平台</button>
             <button type="button" class="pillar-tab rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-700 hover:border-violet-500 hover:text-violet-700 transition shadow-sm" data-pillar-target="pillar-2">❷ AI 创作引擎</button>
@@ -3279,8 +3143,8 @@
                 </a>
                 <a href="https://www.prnewswire.com/apac/news-releases/aippy-raises-tens-of-millions-of-dollars-at-a-250-million-valuation-to-build-the-future-of-ai-native-interactive-entertainment-302787864.html" target="_blank" rel="noopener noreferrer" class="rounded-2xl bg-white/85 border border-violet-100 p-5 hover:-translate-y-0.5 transition shadow-sm">
                   <p class="text-xs font-black tracking-[0.18em] text-violet-500">AIPPY · 2026年6月</p>
-                  <h4 class="mt-3 font-black text-slate-900">$250M Valuation</h4>
-                  <p class="mt-2 text-slate-600 leading-relaxed">Aippy 宣布首轮融资数千万美元，由 Glowill Capital 领投，投后估值 2.5 亿美元，资金用于全球人才、用户增长和创作者生态建设。</p>
+                  <h4 class="mt-3 font-black text-slate-900">首轮融资完成</h4>
+                  <p class="mt-2 text-slate-600 leading-relaxed">Aippy 宣布完成首轮融资，由 Glowill Capital 领投，资金用于全球人才、用户增长和创作者生态建设。</p>
                   <p class="mt-4 text-xs font-bold text-violet-600">来源：PRNewswire ↗</p>
                 </a>
               </div>
@@ -3877,7 +3741,7 @@
           <div class="max-w-3xl mb-10">
             <p class="section-kicker mb-2 text-slate-500">GROWTH PATH · YEAR 1-6</p>
             <h2 class="text-2xl md:text-4xl font-bold text-slate-900">六年发展路径</h2>
-            <p class="mt-3 text-sm md:text-base text-slate-600 leading-relaxed">路径与上方 0–24 个月里程碑一致：先验证 Fuse Store 平台闭环，再用官方 IP / UGC 内容和 Fuse PlayCanvas / 手机 / PC 多端入口放大规模；硬件从早期便携入口逐步演进为 AI 创意控制台，最终在第 6 年形成「平台经常性收入 + 内容销售 + 硬件入口」三条估值口径。</p>
+            <p class="mt-3 text-sm md:text-base text-slate-600 leading-relaxed">路径与上方 0–24 个月里程碑一致：先验证 Fuse Store 平台闭环，再用官方 IP / UGC 内容和 Fuse PlayCanvas / 手机 / PC 多端入口放大规模；硬件从早期便携入口逐步演进为 AI 创意控制台，最终在第 6 年形成「平台经常性收入 + 内容销售 + 硬件入口」三条收入口径。</p>
           </div>
           <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
             <div class="glass rounded-2xl p-6 card-hover border-l-4 border-fuse-orange">
@@ -3893,7 +3757,7 @@
               <p class="text-sm text-slate-600 mt-3">Fuse Store API 和创作者工具对外开放，平台从自营内容生态扩展为开放分发生态；PlayCanvas 从便携入口向模块化创意画布过渡，手机 / PC 继续承担规模化触达。</p>
             </div>
             <div class="glass rounded-2xl p-6 card-hover border-l-4 border-fuse-orange">
-              <p class="text-sm font-bold text-fuse-orange">第 5-6 年 · 第 6 年估值终局</p>
+              <p class="text-sm font-bold text-fuse-orange">第 5-6 年 · 第 6 年业务终局</p>
               <p id="fin-fiveyear-ipo" class="text-sm text-slate-600 mt-3"><!-- recalcBpFinance --></p>
             </div>
           </div>
@@ -3910,11 +3774,7 @@
               <p class="fin-formula-strip text-slate-600 border-l-4 border-orange-400/70 pl-3">
                 <strong class="text-slate-900">计算公式（代码内实现）</strong><br />
                 · 硬件等价年出货量（万台）= <code>硬件分部营收(亿美元)×10⁸ USD × USD/CNY ÷ 硬件综合ASP(元/台) ÷ 10⁴</code><br />
-                · 各部隐含市值（亿美元·展示值）= <code>分部营收(亿美元)×PS</code>（分部「亿美元」刻度与表中数字一致）<br />
-                · 合计隐含 = <code>Σ 各部隐含</code>；人民币示意 = <code>合计隐含 × USD/CNY</code>（均为「亿人民币」刻度）<br />
-                · 若勾选<strong>校准平台 PS</strong>，则按目标合计反解：<code>PS<sub>平台</sub>=(目标隐含−硬件营收×PS<sub>硬件</sub>−内容营收×PS<sub>内容</sub>)÷平台营收</code><br />
                 · <strong>营收柱状（六年）</strong>：第<strong> 6 </strong>年为参数板分部营收之和；第<strong> 1 </strong>年封顶约<strong> 0.2 </strong>亿美元（约 2000 万美元），第<strong> 2–5 </strong>年进入正常增长通道并按脚本内置形状系数递增至终局。<br />
-                · <strong>分部隐含合计曲线</strong>：<code>各年 = 终局隐含合计 ×（当年合并营收÷第6年合并营收）</code>（与柱状同比例缩放，用于上图展示）。<br />
                 · <strong>净利（折线）</strong>：<code>第1–5年 = 当年合并营收 × 脚本系数</code>；<strong>第 6 年</strong>：<code>净利 = 第6年合并营收×（「第6年净利占营收%」÷100）</code>
               </p>
               <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 items-end">
@@ -3927,18 +3787,6 @@
                 <label class="block"><span class="text-slate-500 font-semibold">示范内容营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-ct" class="fin-num-inp mt-1" value="15" /></label>
                 <label class="block"><span class="text-slate-500 font-semibold">平台经常性营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-svc" class="fin-num-inp mt-1" value="100" /></label>
               </div>
-              <div class="grid sm:grid-cols-3 gap-3 items-end">
-                <label class="block"><span class="text-slate-500 font-semibold">分部 PS · 硬件</span><input type="number" step="any" id="fin-inp-ps-hw" class="fin-num-inp mt-1" value="2.5" /></label>
-                <label class="block"><span class="text-slate-500 font-semibold">分部 PS · 内容</span><input type="number" step="any" id="fin-inp-ps-ct" class="fin-num-inp mt-1" value="5" /></label>
-                <label class="block"><span class="text-slate-500 font-semibold">分部 PS · 平台</span><input type="number" step="any" id="fin-inp-ps-svc" class="fin-num-inp mt-1" value="10" /></label>
-              </div>
-              <div class="flex flex-wrap gap-4 items-center">
-                <label class="inline-flex gap-2 items-center cursor-pointer font-semibold text-slate-800">
-                  <input type="checkbox" id="fin-chk-calib-ps-svc" class="rounded border-slate-300 text-fuse-blue focus:ring-fuse-blue" />
-                  校准「平台分部 PS」，使隐含市值总和 = 下列目标值
-                </label>
-                <label class="inline-flex gap-2 items-center"><span class="text-slate-600 font-semibold">目标隐含（亿美元）</span><input type="number" step="any" id="fin-inp-target-implied" class="fin-num-inp" placeholder="勾选校准时填写" /></label>
-              </div>
               <p id="fin-msg" class="text-amber-800 text-[11px] font-medium min-h-[1rem]"></p>
             </div>
           </details>
@@ -3950,7 +3798,7 @@
               <h3 class="font-bold text-slate-900">增长趋势分析</h3>
             </div>
             <div class="flex flex-wrap gap-2 mb-4" id="finance-mode-bar" role="toolbar" aria-label="财务图表数据集">
-              <button type="button" class="finance-mode-btn rounded-full border border-slate-200 px-4 py-1.5 text-xs font-semibold bg-white hover:bg-blue-50/80 transition active" data-fmode="all">营收 · 净利 · 隐含</button>
+              <button type="button" class="finance-mode-btn rounded-full border border-slate-200 px-4 py-1.5 text-xs font-semibold bg-white hover:bg-blue-50/80 transition active" data-fmode="all">营收 · 净利</button>
               <button type="button" class="finance-mode-btn rounded-full border border-slate-200 px-4 py-1.5 text-xs font-semibold bg-white hover:bg-blue-50/80 transition" data-fmode="rev">营收</button>
               <button type="button" class="finance-mode-btn rounded-full border border-slate-200 px-4 py-1.5 text-xs font-semibold bg-white hover:bg-blue-50/80 transition" data-fmode="profit">净利润</button>
             </div>
@@ -3976,119 +3824,12 @@
         </div>
       </section>
 
-      <!-- VALUATION -->
-      <section id="s-valuation" class="section-pad bg-white/40">
-        <div class="max-w-7xl mx-auto">
-          <div class="max-w-3xl mb-8">
-            <p class="section-kicker mb-2 text-slate-500">VALUATION · IPO WINDOW</p>
-            <h2 class="text-2xl md:text-4xl font-bold text-slate-900">IPO 估值测算</h2>
-            <p class="mt-4 text-sm md:text-[15px] text-slate-600 leading-relaxed">承接上方六年路径与财务预测，以第 6 年分部营收和 PS 参数推导隐含市值，作为后续天使轮融资叙事的长期锚点。</p>
-          </div>
-          <div class="glass rounded-3xl p-6 md:p-8 shadow-glass overflow-x-auto card-hover">
-            <h3 class="text-fuse-blue font-bold text-lg mb-6">估值模型（分部估值法 · 第 6 年 IPO 测算时点）</h3>
-            <p id="fin-vm-intro" class="text-xs text-slate-500 mb-4"></p>
-            <details class="text-xs text-slate-600 mb-4 rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2">
-              <summary class="cursor-pointer font-semibold text-slate-700">PS 倍数如何取 · 分部常规做法（点击展开）</summary>
-              <p class="mt-2 leading-relaxed pl-1 border-l-2 border-fuse-orange/70"><strong class="text-slate-800">定义：</strong>PS（市销率）= 该分部隐含股权或企业价值 ÷ 对应分部在统一口径下的年度营收（实操中常以 TTM 或 NTM/远期一年预测营收为分母；分部可加总时需避免收入重复计费）。常与可比公司的 <strong>P/S、EV/Sales</strong> 中位数／区间对照。</p>
-              <p class="mt-2 leading-relaxed pl-1 border-l-2 border-fuse-blue/50"><strong class="text-slate-800">业态差异：</strong>低毛利、渠道型／代工型硬件长期在<strong>极低 PS</strong>带；品牌化游戏硬件与消费电子整机通常<strong>高于纯代工</strong>。内容与软件售卖更接近<strong>软件／发行／数字内容</strong>估值带。<strong>经常性</strong>的订阅、分成与平台抽成因利润率高、可复制性强，公开市场往往给<strong>显著更高</strong>的 PS／EV‑Sales（成长阶段常见区间上移），但个体差异极大。</p>
-              <p class="mt-2 leading-relaxed pl-1"><strong class="text-slate-800">本表取值：</strong>各部 PS 以「财务预测」区<strong>可调参数板</strong>为准并可一键<strong>反解平台 PS</strong>以贴合目标隐含总和；下表数字为公式输出而非写死。</p>
-            </details>
-            <div class="valuation-matrix-wrap">
-              <table class="valuation-matrix min-w-[340px]" aria-label="分部估值法测算表">
-                <thead>
-                  <tr>
-                    <th scope="col" class="text-left">业务板块</th>
-                    <th scope="col" class="text-right">
-                      预测营收<span class="vm-h-sub">第 6 年 · 亿美元</span>
-                    </th>
-                    <th scope="col" class="vm-ps">
-                      分部 PS<span class="vm-h-sub">市销率倍数</span>
-                    </th>
-                    <th scope="col" class="text-right">
-                      隐含市值<span class="vm-h-sub">营收 × PS · 亿美元</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="vm-sector border-l-orange-400">
-                      <div class="vm-sector-title">硬件</div>
-                      <p class="vm-sector-note">Fuse PlayCanvas 及入口设备等</p>
-                    </td>
-                    <td class="vm-num"><span id="fin-tbl-rev-hw">—</span></td>
-                    <td class="vm-ps"><span id="fin-tbl-ps-hw">—</span></td>
-                    <td class="vm-num vm-num-lg"><span id="fin-tbl-imp-hw">—</span></td>
-                  </tr>
-                  <tr>
-                    <td class="vm-sector border-l-violet-500">
-                      <div class="vm-sector-title">示范内容与模板</div>
-                      <p class="vm-sector-note">官方示范作品 · 模板交易</p>
-                    </td>
-                    <td class="vm-num"><span id="fin-tbl-rev-ct">—</span></td>
-                    <td class="vm-ps"><span id="fin-tbl-ps-ct">—</span></td>
-                    <td class="vm-num vm-num-lg"><span id="fin-tbl-imp-ct">—</span></td>
-                  </tr>
-                  <tr>
-                    <td class="vm-sector border-l-fuse-blue">
-                      <div class="vm-sector-title">平台服务经常性收入</div>
-                      <p class="vm-sector-note">Fuse AI 订阅 / API · Store 分成净入账</p>
-                    </td>
-                    <td class="vm-num"><span id="fin-tbl-rev-svc">—</span></td>
-                    <td class="vm-ps"><span id="fin-tbl-ps-svc">—</span></td>
-                    <td class="vm-num vm-num-lg"><span id="fin-tbl-imp-svc">—</span></td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td>合计（推导）</td>
-                    <td class="vm-num"><span id="fin-tbl-rev-sum">—</span></td>
-                    <td class="vm-ps"><span>—</span></td>
-                    <td class="vm-num vm-num-lg"><span id="fin-tbl-imp-sum">—</span></td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-            <div class="mt-6 rounded-xl bg-orange-50 border-2 border-fuse-orange p-5 text-center">
-              <p class="text-fuse-orange font-bold">合计隐含市值（USD）</p>
-              <p class="text-3xl font-bold text-fuse-orange mt-2"><span id="fin-out-big-implied" class="tabular-nums">—</span><span class="text-xl ml-1">亿美元</span></p>
-              <p class="text-xs font-semibold text-slate-600 mt-2">约合人民币 <strong id="fin-out-rmb-approx">—</strong> 亿元量级（由上方合计 × USD/CNY 公式折算，示意）</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- 天使轮融资计划 -->
       <section id="s-pre-a" class="section-pad bg-white/40">
         <div class="max-w-7xl mx-auto">
           <p class="section-kicker mb-2 text-slate-500">FINANCING · ANGEL ROUND</p>
-          <h2 class="text-2xl md:text-[2rem] lg:text-[2.5rem] font-extrabold text-gradient leading-snug tracking-tight">天使轮融资计划：迈向千亿美金隐含市值图谱</h2>
-          <p class="mt-4 text-slate-700 font-medium">本轮融资需求：<span class="text-fuse-orange font-bold">1,000 万</span><span class="inline-block ml-1 px-2 py-0.5 rounded-lg bg-orange-100 text-orange-700 text-sm font-black tracking-wide align-middle">美金</span> · 投前估值：<span class="text-fuse-blue font-bold">5,000 万</span><span class="inline-block ml-1 px-2 py-0.5 rounded-lg bg-blue-100 text-fuse-blue text-sm font-black tracking-wide align-middle">美金</span></p>
+          <h2 class="text-2xl md:text-[2rem] lg:text-[2.5rem] font-extrabold text-gradient leading-snug tracking-tight">天使轮融资计划</h2>
           <div class="mt-12 space-y-8">
-            <div class="glass rounded-3xl p-6 md:p-8 shadow-glass ring-1 ring-white/80">
-              <div class="mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
-                <div>
-                  <p class="text-xs font-black tracking-[0.22em] text-fuse-blue uppercase">Financing Request</p>
-                  <h3 class="mt-2 text-xl md:text-2xl font-extrabold text-slate-900">融资需求模块</h3>
-                </div>
-                <p class="text-sm text-slate-500">展示本轮融资额与投前估值。</p>
-              </div>
-              <div class="grid sm:grid-cols-2 gap-4 max-w-2xl">
-              <div class="glass rounded-2xl p-6 shadow-glass card-hover text-center ring-1 ring-orange-100 border border-orange-100/60">
-                <p class="text-2xl md:text-3xl font-bold text-fuse-orange flex items-center justify-center flex-wrap gap-x-1 gap-y-1">
-                  <span>1,000 万</span>
-                  <span class="inline-block px-2.5 py-1 rounded-lg bg-orange-100 text-orange-700 text-base md:text-lg font-black tracking-wide">美金</span>
-                </p>
-                <p class="text-xs text-slate-500 mt-2">本轮融资需求</p>
-              </div>
-              <div class="glass rounded-2xl p-6 shadow-glass card-hover text-center ring-1 ring-white/80">
-                <p class="text-2xl md:text-3xl font-bold text-fuse-blue flex items-center justify-center flex-wrap gap-x-1 gap-y-1">
-                  <span>5,000 万</span>
-                  <span class="inline-block px-2.5 py-1 rounded-lg bg-blue-100 text-fuse-blue text-base md:text-lg font-black tracking-wide">美金</span>
-                </p>
-                <p class="text-xs text-slate-500 mt-2">投前估值</p>
-              </div>
-            </div>
-            </div>
             <div class="glass rounded-3xl p-6 md:p-8 shadow-glass ring-1 ring-white/80">
               <div class="mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
                 <div>
@@ -4108,7 +3849,7 @@
                     <div class="w-10 h-10 rounded-lg bg-blue-100 text-fuse-blue flex items-center justify-center shrink-0 bp-li bp-li-md"><i data-lucide="cpu"></i></div>
                     <div class="min-w-0">
                       <p class="font-bold text-fuse-blue">硬件研发与生产</p>
-                      <p class="text-xs font-semibold text-slate-500 mt-0.5">1 亿 · 10%</p>
+                      <p class="text-xs font-semibold text-slate-500 mt-0.5">10%</p>
                       <p class="text-sm text-slate-600 mt-2 leading-relaxed">用于 Fuse PlayCanvas 芯片选型、ID/MD 设计、模具开发与小批量量产验证，保障新型硬件入口领先与可落地性。</p>
                     </div>
                   </div>
@@ -4118,7 +3859,7 @@
                     <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 bp-li bp-li-md"><i data-lucide="server"></i></div>
                     <div class="min-w-0">
                       <p class="font-bold text-emerald-700">平台建设与运营</p>
-                      <p class="text-xs font-semibold text-slate-500 mt-0.5">3 亿 · 30%</p>
+                      <p class="text-xs font-semibold text-slate-500 mt-0.5">30%</p>
                       <p class="text-sm text-slate-600 mt-2 leading-relaxed">重点投入 Fuse Store 平台研发、AI 生成与分发基础设施、服务器带宽、账号钱包、交易分账、社区运营与用户增长，夯实核心平台底座。</p>
                     </div>
                   </div>
@@ -4128,7 +3869,7 @@
                     <div class="w-10 h-10 rounded-lg bg-red-100 text-red-600 flex items-center justify-center shrink-0 bp-li bp-li-md"><i data-lucide="megaphone"></i></div>
                     <div class="min-w-0">
                       <p class="font-bold text-red-600">市场推广与品牌</p>
-                      <p class="text-xs font-semibold text-slate-500 mt-0.5">2 亿 · 20%</p>
+                      <p class="text-xs font-semibold text-slate-500 mt-0.5">20%</p>
                       <p class="text-sm text-slate-600 mt-2 leading-relaxed">新品发布、全球投放、KOL 合作与品牌公关，快速建立认知。</p>
                     </div>
                   </div>
@@ -4138,7 +3879,7 @@
                     <div class="w-10 h-10 rounded-lg bg-violet-100 text-fuse-purple flex items-center justify-center shrink-0 bp-li bp-li-md"><i data-lucide="brain"></i></div>
                     <div class="min-w-0">
                       <p class="font-bold text-fuse-purple">AI 引擎研发</p>
-                      <p class="text-xs font-semibold text-slate-500 mt-0.5">1 亿 · 10%</p>
+                      <p class="text-xs font-semibold text-slate-500 mt-0.5">10%</p>
                       <p class="text-sm text-slate-600 mt-2 leading-relaxed">核心算法与 AI 互动内容生成模型训练，组建一流算法团队，构筑技术壁垒。</p>
                     </div>
                   </div>
@@ -4148,7 +3889,7 @@
                     <div class="w-10 h-10 rounded-lg bg-orange-100 text-fuse-orange flex items-center justify-center shrink-0 bp-li bp-li-md"><i data-lucide="palette"></i></div>
                     <div class="min-w-0">
                       <p class="font-bold text-fuse-orange">内容生态建设</p>
-                      <p class="text-xs font-semibold text-slate-500 mt-0.5">1.5 亿 · 15%</p>
+                      <p class="text-xs font-semibold text-slate-500 mt-0.5">15%</p>
                       <p class="text-sm text-slate-600 mt-2 leading-relaxed">用于官方 IP 样板内容、UGC 激励、创作者扶持与二创活动，持续为 Fuse Store 提供首批内容供给和社区活力。</p>
                     </div>
                   </div>
@@ -4158,7 +3899,7 @@
                     <div class="w-10 h-10 rounded-lg bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 bp-li bp-li-md"><i data-lucide="users-round"></i></div>
                     <div class="min-w-0">
                       <p class="font-bold text-cyan-700">团队建设与运营</p>
-                      <p class="text-xs font-semibold text-slate-500 mt-0.5">1.5 亿 · 15%</p>
+                      <p class="text-xs font-semibold text-slate-500 mt-0.5">15%</p>
                       <p class="text-sm text-slate-600 mt-2 leading-relaxed">引进全球顶尖人才（硬件、软件、AI、设计、游戏研发等），覆盖未来 18～24 个月日常运营。</p>
                     </div>
                   </div>
@@ -4176,7 +3917,7 @@
           <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
             <div>
               <h2 class="text-2xl md:text-3xl font-black">增长融资节点已确认</h2>
-              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完短期里程碑、六年路径、财务预测、IPO 估值测算与天使轮计划。闯关模式下，完成「天使轮资金打砖块」，把六类资金用途全部击穿。</p>
+              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完短期里程碑、六年路径、财务预测与天使轮计划。闯关模式下，完成「天使轮资金打砖块」，把六类资金用途全部击穿。</p>
             </div>
             <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="finance">挑战 04 · 天使轮打砖块</button>
           </div>
@@ -4726,7 +4467,6 @@
       ['里程碑', '#s-milestones'],
       ['六年路径', '#s-fiveyear'],
       ['财务预测', '#s-finance'],
-      ['IPO估值', '#s-valuation'],
       ['天使轮', '#s-pre-a']
     ] },
     { title: '05 对标与愿景', items: [
@@ -6682,12 +6422,6 @@
     return bars;
   }
 
-  function finImpliedPathFromBars(bars, impSum, yEnd) {
-    var out = [0, 0, 0, 0, 0, 0];
-    if (!(yEnd > 0) || !isFinite(impSum)) return out;
-    for (var i = 0; i < 6; i++) out[i] = impSum * (bars[i] / yEnd);
-    return out;
-  }
   function finParseInput(id, fallback) {
     var el = document.getElementById(id);
     if (!el || el.value === '' || el.value === '-') return fallback;
@@ -6698,11 +6432,6 @@
     d = d == null ? 2 : d;
     if (!isFinite(n)) return '—';
     return (Math.round(n * Math.pow(10, d)) / Math.pow(10, d)).toLocaleString('zh-CN', { minimumFractionDigits: 0, maximumFractionDigits: d });
-  }
-  function finFmtPs(n) {
-    if (!isFinite(n)) return '—';
-    var r = Math.round(n * 1000) / 1000;
-    return r.toLocaleString('zh-CN', { minimumFractionDigits: 0, maximumFractionDigits: 3 }) + '×';
   }
   function finCaptionWanTai(wan) {
     if (!isFinite(wan) || wan < 0) return '—';
@@ -6716,69 +6445,25 @@
     var revHw = finParseInput('fin-inp-rev-hw', 25);
     var revCt = finParseInput('fin-inp-rev-ct', 10);
     var revSvc = finParseInput('fin-inp-rev-svc', 140);
-    var psHw = finParseInput('fin-inp-ps-hw', 2.5);
-    var psCt = finParseInput('fin-inp-ps-ct', 5);
     var marginPct = finParseInput('fin-inp-margin-pct', 10);
-    var chk = document.getElementById('fin-chk-calib-ps-svc');
-    var tgt = finParseInput('fin-inp-target-implied', 1225);
-    var psIn = document.getElementById('fin-inp-ps-svc');
     var msg = document.getElementById('fin-msg');
-    var psSvc;
-
-    if (chk && chk.checked) {
-      if (psIn) psIn.disabled = true;
-      if (revSvc > 1e-12) psSvc = (tgt - revHw * psHw - revCt * psCt) / revSvc;
-      else psSvc = NaN;
-      if (psIn && isFinite(psSvc)) psIn.value = (Math.round(psSvc * 1e6) / 1e6).toString();
-    } else {
-      if (psIn) psIn.disabled = false;
-      psSvc = finParseInput('fin-inp-ps-svc', 10);
-    }
-
-    if (msg) {
-      msg.textContent = '';
-      if (!isFinite(psSvc)) msg.textContent = '无法在「校准平台 PS」模式下计算分部 PS（请检查分部营收之和与目标隐含）。';
-      else if ((chk && chk.checked) && psSvc < 0) msg.textContent = '提示：校准得到的平台分部 PS 为负，说明在当前硬件/内容与目标隐含下假设不可行；请调高目标、降低硬件/分部 PS，或调整分部营收。';
-    }
+    if (msg) msg.textContent = '';
 
     var wan = (asp > 0 && fx > 0) ? (revHw * 1e8 * fx / asp / 1e4) : NaN;
-    var impHw = revHw * psHw;
-    var impCt = revCt * psCt;
-    var impSvc = revSvc * (isFinite(psSvc) ? psSvc : 0);
     var revSum = revHw + revCt + revSvc;
-    var impSum = impHw + impCt + impSvc;
-    var rmbYi = impSum * fx;
 
     function setTxt(id, t) {
       var n = document.getElementById(id);
       if (n) n.textContent = t;
     }
-    setTxt('fin-tbl-rev-hw', finFmtMoney(revHw, 2));
-    setTxt('fin-tbl-ps-hw', finFmtPs(psHw));
-    setTxt('fin-tbl-imp-hw', finFmtMoney(impHw, 2));
-    setTxt('fin-tbl-rev-ct', finFmtMoney(revCt, 2));
-    setTxt('fin-tbl-ps-ct', finFmtPs(psCt));
-    setTxt('fin-tbl-imp-ct', finFmtMoney(impCt, 2));
-    setTxt('fin-tbl-rev-svc', finFmtMoney(revSvc, 2));
-    setTxt('fin-tbl-ps-svc', isFinite(psSvc) ? finFmtPs(psSvc) : '—');
-    setTxt('fin-tbl-imp-svc', isFinite(impSvc) ? finFmtMoney(impSvc, 2) : '—');
-    setTxt('fin-tbl-rev-sum', finFmtMoney(revSum, 2));
-    setTxt('fin-tbl-imp-sum', finFmtMoney(impSum, 2));
-
-    var vmIntro = document.getElementById('fin-vm-intro');
-    if (vmIntro) {
-      vmIntro.innerHTML = '<strong class="text-slate-700">口径说明：</strong>三块对应「三位一体」；下表各部营收与隐含为<strong>第 6 年（IPO 测算时点）</strong>终局刻度。各部<strong>隐含市值(亿美元)·展示值 ≈ 分部营收(亿美元)·展示值 × 分部 PS</strong>。<strong class="text-slate-900">校准开启时「平台分部 PS」</strong>由目标隐含反解，见参数板公式。<strong class="text-slate-900">隐含合计：</strong>' + finFmtMoney(impSum, 2) + '（亿美元刻度）。';
-    }
     var fi = document.getElementById('fin-finance-intro');
     if (fi) {
-      fi.innerHTML = '本图承接上方<strong>六年发展路径</strong>：合并营收柱、净利线、隐含合计线与参数板分部营收、PS、校准目标联动。下方估值表展示<strong>第 6 年</strong>终局：<strong>' + finFmtMoney(revSum, 2) + ' </strong>亿美元分部营收之和（硬件&nbsp;' + finFmtMoney(revHw, 2) + ' · 示范内容&nbsp;' + finFmtMoney(revCt, 2) + ' · 平台经常性&nbsp;' + finFmtMoney(revSvc, 2) + '）；柱状第<strong> 1 </strong>年封顶 <strong>' + finFmtMoney(FIN_YEAR1_MERGED_REV_CAP_USD, 2) + '</strong> 亿美元；隐含折线按（当年营收÷终局营收）× 隐含合计<strong> ' + finFmtMoney(impSum, 2) + ' </strong>（亿美元刻度）计算；第<strong> 6 </strong>年净利＝终局营收×<strong>' + finFmtMoney(marginPct, 2) + '%</strong>。';
+      fi.innerHTML = '本图承接上方<strong>六年发展路径</strong>：合并营收柱与净利线与参数板分部营收联动。<strong>第 6 年</strong>终局：<strong>' + finFmtMoney(revSum, 2) + ' </strong>亿美元分部营收之和（硬件&nbsp;' + finFmtMoney(revHw, 2) + ' · 示范内容&nbsp;' + finFmtMoney(revCt, 2) + ' · 平台经常性&nbsp;' + finFmtMoney(revSvc, 2) + '）；柱状第<strong> 1 </strong>年封顶 <strong>' + finFmtMoney(FIN_YEAR1_MERGED_REV_CAP_USD, 2) + '</strong> 亿美元；第<strong> 6 </strong>年净利＝终局营收×<strong>' + finFmtMoney(marginPct, 2) + '%</strong>。';
     }
     var fb = document.getElementById('fin-fiveyear-ipo');
     if (fb) {
-      fb.innerHTML = '<strong>第 6 年</strong>测算口径与估值表一致：平台经常性营收<strong>' + finFmtMoney(revSvc, 2) + ' </strong>亿美元作为核心估值主轴；示范内容营收<strong>' + finFmtMoney(revCt, 2) + ' </strong>亿美元、硬件入口营收<strong>' + finFmtMoney(revHw, 2) + ' </strong>亿美元共同支撑。PlayCanvas 进入 AI 创意控制台形态，硬件等价出货约<strong>' + (isFinite(wan) ? Math.round(wan).toLocaleString('zh-CN') : '—') + '</strong> 万台（' + finCaptionWanTai(wan) + '），作为入口规模参考；合并营收<strong>' + finFmtMoney(revSum, 2) + ' </strong>亿美元，分部隐含合计<strong>' + finFmtMoney(impSum, 2) + ' </strong>亿美元。';
+      fb.innerHTML = '<strong>第 6 年</strong>：平台经常性营收<strong>' + finFmtMoney(revSvc, 2) + ' </strong>亿美元作为核心增长主轴；示范内容营收<strong>' + finFmtMoney(revCt, 2) + ' </strong>亿美元、硬件入口营收<strong>' + finFmtMoney(revHw, 2) + ' </strong>亿美元共同支撑。PlayCanvas 进入 AI 创意控制台形态，硬件等价出货约<strong>' + (isFinite(wan) ? Math.round(wan).toLocaleString('zh-CN') : '—') + '</strong> 万台（' + finCaptionWanTai(wan) + '），作为入口规模参考；合并营收<strong>' + finFmtMoney(revSum, 2) + ' </strong>亿美元。';
     }
-    setTxt('fin-out-big-implied', finFmtMoney(impSum, 2));
-    setTxt('fin-out-rmb-approx', isFinite(rmbYi) ? finFmtMoney(rmbYi, 0) : '—');
     setTxt('fin-kpi-units-wan', isFinite(wan) ? Math.round(wan).toLocaleString('zh-CN') : '—');
     var cap = document.getElementById('fin-kpi-units-caption');
     if (cap) cap.textContent = isFinite(wan) ? ('≈ ' + finCaptionWanTai(wan)) : '参数不足';
@@ -6789,16 +6474,13 @@
     setTxt('fin-kpi-net-y5', finFmtMoney(netY6, 2));
 
     var ch = window.BP_CHARTS.finance;
-    if (ch && ch.data && ch.data.datasets && ch.data.datasets.length >= 3) {
+    if (ch && ch.data && ch.data.datasets && ch.data.datasets.length >= 2) {
       var nm = FIN_NET_MARGIN_Y1Y5.slice();
       nm.push(marginPct / 100);
       var profits = [];
       for (var yi = 0; yi < 6; yi++) profits.push(bars[yi] * nm[yi]);
-      var impLine = finImpliedPathFromBars(bars, impSum, yEnd);
       ch.data.datasets[0].data = bars;
       ch.data.datasets[1].data = profits;
-      ch.data.datasets[2].data = impLine;
-      /* 避免沿用 update('none') 与子元素 opacity 初次布局叠加导致混合图轴区不刷新 */
       ch.update();
       requestAnimationFrame(function () {
         if (window.BP_CHARTS && window.BP_CHARTS.finance === ch) {
@@ -6809,7 +6491,7 @@
     }
   };
 
-  /* 财务预测图：六年营收柱 + 净利线 + 隐含合计线；数据来自 recalcBpFinance */
+  /* 财务预测图：六年营收柱 + 净利线；数据来自 recalcBpFinance */
   if (typeof Chart !== 'undefined' && document.getElementById('chart-finance-combo')) {
     var isMobileFinance = bpChartIsMobile();
     window.BP_CHARTS.finance = new Chart(document.getElementById('chart-finance-combo'), {
@@ -6830,20 +6512,6 @@
             pointBorderColor: '#F59E0B',
             pointRadius: 5,
             order: 0
-          },
-          {
-            label: '分部隐含合计（亿美元）',
-            type: 'line',
-            data: [0, 0, 0, 0, 0, 0],
-            borderColor: '#059669',
-            borderDash: [7, 4],
-            tension: 0.35,
-            yAxisID: 'yImp',
-            borderWidth: 2,
-            pointBackgroundColor: '#fff',
-            pointBorderColor: '#059669',
-            pointRadius: 4,
-            order: 1
           }
         ]
       },
@@ -6884,16 +6552,6 @@
             beginAtZero: false,
             grace: '12%'
           },
-          yImp: {
-            type: 'linear',
-            position: 'right',
-            offset: true,
-            stacked: false,
-            grid: { drawOnChartArea: false },
-            title: { display: !isMobileFinance, text: '隐含合计（亿美元）' },
-            ticks: { font: { size: isMobileFinance ? 10 : 12 }, maxTicksLimit: isMobileFinance ? 5 : 8 },
-            beginAtZero: true
-          },
           x: {
             stacked: false,
             grid: { display: false },
@@ -6902,7 +6560,7 @@
         }
       }
     });
-    var finIds = ['fin-inp-fx', 'fin-inp-asp-cny', 'fin-inp-margin-pct', 'fin-inp-rev-hw', 'fin-inp-rev-ct', 'fin-inp-rev-svc', 'fin-inp-ps-hw', 'fin-inp-ps-ct', 'fin-inp-ps-svc', 'fin-inp-target-implied'];
+    var finIds = ['fin-inp-fx', 'fin-inp-asp-cny', 'fin-inp-margin-pct', 'fin-inp-rev-hw', 'fin-inp-rev-ct', 'fin-inp-rev-svc'];
     finIds.forEach(function (id) {
       var el = document.getElementById(id);
       if (el) {
@@ -6910,8 +6568,6 @@
         el.addEventListener('change', function () { window.recalcBpFinance(); });
       }
     });
-    var finChk = document.getElementById('fin-chk-calib-ps-svc');
-    if (finChk) finChk.addEventListener('change', function () { window.recalcBpFinance(); });
     window.recalcBpFinance();
 
     /** 图表在首屏下方 + 外层 reveal 渐变时偶发首帧宽高为 0；进入视口与下一帧强制 resize */
@@ -6946,9 +6602,9 @@
     window.BP_CHARTS.preaAlloc = new Chart(document.getElementById('chart-prea-alloc'), {
       type: 'doughnut',
       data: {
-        labels: ['平台建设与运营 35%', 'AI 创作引擎研发 25%', '市场推广与品牌 15%', '示范模板与场景 10%', '硬件远期验证 5%', '团队建设与运营 10%'],
+        labels: ['平台建设与运营 30%', '市场推广与品牌 20%', '内容生态建设 15%', '团队建设与运营 15%', '硬件研发与生产 10%', 'AI 引擎研发 10%'],
         datasets: [{
-          data: [35, 25, 15, 10, 5, 10],
+          data: [30, 20, 15, 15, 10, 10],
           backgroundColor: ['#3B82F6', '#059669', '#DC2626', '#8B5CF6', '#F59E0B', '#0891B2'],
           borderWidth: 0
         }]
@@ -7338,22 +6994,18 @@
         btn.classList.add('active');
         var m = btn.getAttribute('data-fmode');
         var ch = window.BP_CHARTS.finance;
-        if (!ch || !ch.data.datasets[2]) return;
+        if (!ch || !ch.data.datasets[1]) return;
         var d0 = ch.data.datasets[0];
         var d1 = ch.data.datasets[1];
-        var d2 = ch.data.datasets[2];
         if (m === 'all') {
           d0.hidden = false;
           d1.hidden = false;
-          d2.hidden = false;
         } else if (m === 'rev') {
           d0.hidden = false;
           d1.hidden = true;
-          d2.hidden = true;
         } else {
           d0.hidden = true;
           d1.hidden = false;
-          d2.hidden = true;
         }
         ch.update();
       });
