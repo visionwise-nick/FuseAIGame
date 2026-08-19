@@ -303,7 +303,9 @@ async function run() {
   fs.rmSync(TMP_DIR, { recursive: true, force: true });
 
   const stat = fs.statSync(OUTPUT_PDF);
+  fs.copyFileSync(OUTPUT_PDF, path.join(ROOT, 'FuseAI-BP.pdf'));
   console.log(`\n✅ PDF 已生成: ${OUTPUT_PDF}`);
+  console.log(`   同步部署文件: ${path.join(ROOT, 'FuseAI-BP.pdf')}`);
   console.log(`   ${CHAPTERS.length} 章 / ${pageCount} 页 / ${(stat.size / 1024 / 1024).toFixed(1)} MB`);
 }
 
