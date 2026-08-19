@@ -891,9 +891,7 @@
         gap: 0.75rem;
       }
       #gate-normal-btn,
-      #gate-start-btn,
       #hero-normal-btn,
-      #hero-start-btn,
       .start-btn-primary {
         width: 100%;
         justify-content: center;
@@ -1228,9 +1226,7 @@
       .mini-control,
       .secret-arrow-hint,
       #gate-normal-btn,
-      #gate-start-btn,
       #hero-normal-btn,
-      #hero-start-btn,
       .hero-orbs,
       #hero-parallax,
       .egg-modal {
@@ -1361,13 +1357,7 @@
       </div>
       <div class="mt-8 flex flex-wrap justify-center gap-4 reveal" style="transition-delay:.14s">
         <button type="button" id="gate-normal-btn" class="inline-flex items-center gap-2 rounded-xl bg-white text-fuse-blue font-bold px-8 py-4 hover:bg-slate-100 transition shadow-xl shadow-black/25">普通模式 · 直接阅读</button>
-        <button type="button" id="gate-start-btn" class="inline-flex items-center gap-2 rounded-xl border border-amber-200/70 text-white font-bold px-8 py-4 hover:bg-white/12 backdrop-blur-sm transition">闯关模式 · New Game</button>
       </div>
-      <p class="mt-5 reveal" style="transition-delay:.16s">
-        <a href="/FuseAIGame/FuseAI-BP.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/10 text-white/90 font-semibold px-5 py-2.5 text-sm hover:bg-white/15 backdrop-blur-sm transition">
-          <span aria-hidden="true">↓</span> 下载 PDF 版商业计划书
-        </a>
-      </p>
       <p class="mt-7 text-[10px] md:text-[11px] font-normal text-white/80 tracking-[0.08em] leading-relaxed reveal" style="transition-delay:.18s">
         上海未来引线人工智能科技
       </p>
@@ -1397,36 +1387,15 @@
         window.__BP_EARLY_MODE = mode;
         document.body.classList.remove('mode-gate-open');
         document.body.classList.toggle('mode-normal', mode === 'normal');
-        document.body.classList.toggle('mode-quest', mode === 'quest');
         var gate = document.getElementById('mode-gate');
         if (gate) gate.classList.add('is-dismissed');
         scrollWhenReady('#s-market-opportunity');
       }
 
       var normal = document.getElementById('gate-normal-btn');
-      var quest = document.getElementById('gate-start-btn');
       if (normal) normal.addEventListener('click', function () { chooseMode('normal'); });
-      if (quest) quest.addEventListener('click', function () { chooseMode('quest'); });
     })();
   </script>
-
-  <aside id="quest-hud" class="quest-hud" aria-label="BP 闯关任务进度">
-    <div class="flex items-center justify-between gap-3">
-      <div>
-        <p class="text-[10px] tracking-[0.24em] text-blue-200/80 font-black">MISSION LOG</p>
-        <p id="quest-title" class="mt-1 text-sm font-black">等待开始</p>
-      </div>
-      <p id="quest-percent" class="text-lg font-black text-amber-200">0%</p>
-    </div>
-    <div class="quest-progress-track mt-3"><div id="quest-progress-fill" class="quest-progress-fill"></div></div>
-    <div class="mt-3 flex flex-wrap gap-1.5">
-      <span class="quest-badge" data-quest-badge="market">市场裂缝</span>
-      <span class="quest-badge" data-quest-badge="ecosystem">产品生态</span>
-      <span class="quest-badge" data-quest-badge="success">成功理由</span>
-      <span class="quest-badge" data-quest-badge="finance">增长融资</span>
-      <span class="quest-badge" data-quest-badge="egg">对标愿景</span>
-    </div>
-  </aside>
 
   <div id="achievement-toast" class="achievement-toast" role="status" aria-live="polite">
     <p class="text-[10px] tracking-[0.22em] text-amber-200 font-black">ACHIEVEMENT UNLOCKED</p>
@@ -1467,13 +1436,7 @@
         </div>
         <div class="mt-10 flex flex-wrap justify-center gap-4 reveal" style="transition-delay:.14s">
           <button type="button" id="hero-normal-btn" class="inline-flex items-center gap-2 rounded-xl bg-white text-fuse-blue font-bold px-8 py-4 hover:bg-slate-100 transition shadow-xl shadow-black/25">普通模式 · 直接阅读</button>
-          <button type="button" id="hero-start-btn" class="inline-flex items-center gap-2 rounded-xl border border-amber-200/70 text-white font-bold px-8 py-4 hover:bg-white/12 backdrop-blur-sm transition">闯关模式 · New Game</button>
         </div>
-        <p class="mt-5 reveal" style="transition-delay:.16s">
-          <a href="/FuseAIGame/FuseAI-BP.pdf" download="FuseAI商业计划书.pdf" class="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/10 text-white/90 font-semibold px-5 py-2.5 text-sm hover:bg-white/15 backdrop-blur-sm transition">
-            <span aria-hidden="true">↓</span> 下载 PDF 版商业计划书
-          </a>
-        </p>
         <p class="mt-10 md:mt-12 text-[10px] md:text-[11px] font-normal text-white/80 tracking-[0.08em] leading-relaxed reveal" style="transition-delay:.18s">
           上海未来引线人工智能科技
         </p>
@@ -2263,19 +2226,6 @@
         </div>
       </section>
 
-      <section id="gate-market" class="section-pad max-w-5xl mx-auto" data-quest-gate="market">
-        <div class="quest-gate">
-          <p class="text-[10px] tracking-[0.28em] text-amber-200 font-black">MODULE 01 CLEAR CHECK</p>
-          <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-            <div>
-              <h2 class="text-2xl md:text-3xl font-black">市场裂缝模块结束</h2>
-              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完变局、Token 计量与变现档位对比。闯关模式下，完成推箱子挑战后进入产品生态。</p>
-            </div>
-            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="market">挑战 01 · 破局推箱子</button>
-          </div>
-        </div>
-      </section>
-
       <!-- SOLUTION -->
       <section id="s-solution" class="section-pad bg-white/40">
         <div class="max-w-7xl mx-auto">
@@ -3028,19 +2978,6 @@
         </div>
       </section>
 
-      <section id="gate-ecosystem" class="section-pad max-w-5xl mx-auto" data-quest-gate="ecosystem">
-        <div class="quest-gate">
-          <p class="text-[10px] tracking-[0.28em] text-amber-200 font-black">MODULE 02 CLEAR CHECK</p>
-          <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-            <div>
-              <h2 class="text-2xl md:text-3xl font-black">产品生态模块结束</h2>
-              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完四个产品共用的后台能力、AI 创作引擎、互动一创/二创/N 创循环与示范模板库。闯关模式下，完成生态消消乐，把「四个产品、创作引擎、多端触达、UGC 场景」连成闭环。</p>
-            </div>
-            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="ecosystem">挑战 02 · 生态消消乐</button>
-          </div>
-        </div>
-      </section>
-
       <!-- WHY SUCCESS -->
       <section id="s-why-success" class="section-pad bg-white/40 relative overflow-hidden">
         <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(30,107,255,0.12),transparent_36%),radial-gradient(circle_at_86%_72%,rgba(245,158,11,0.13),transparent_34%)]" aria-hidden="true"></div>
@@ -3467,19 +3404,6 @@
             <h3 class="mt-3 font-black text-slate-900">YangJunMin：资深角色原画 / IP 设计专家</h3>
             <p class="mt-4 text-sm text-slate-600 leading-relaxed">资深原画师，主导《异人之下》《火影忍者》角色原画与概念设计，负责《洛克王国》核心角色迭代及《怪物猎人》角色与怪物设定，支撑 S 级版本上线并贡献千万级流水增量；完成《宝可梦大集结》核心原画及 QQ Family、舞狮 QQ 等国民级 IP 形象。具备全流程美术规范、3D 落地跟进与外包质量管控经验；AI 辅助绘画将单角色设计周期缩短 40%。7 年头部数字内容公司深耕，善于将产品需求转化为高商业价值美术设计。</p>
           </article>
-        </div>
-      </section>
-
-      <section id="gate-success" class="section-pad max-w-5xl mx-auto" data-quest-gate="success">
-        <div class="quest-gate">
-          <p class="text-[10px] tracking-[0.28em] text-amber-200 font-black">MODULE 03 CLEAR CHECK</p>
-          <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-            <div>
-              <h2 class="text-2xl md:text-3xl font-black">成功理由模块结束</h2>
-              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完商业化稀缺性、四条线时机与团队。闯关模式下，用「愤怒的小鸟」把三个成功理由打进增长堡垒。</p>
-            </div>
-            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="success">挑战 03 · 成功理由小鸟</button>
-          </div>
         </div>
       </section>
 
@@ -3971,31 +3895,10 @@
         </div>
       </section>
 
-      <section id="gate-finance" class="section-pad max-w-5xl mx-auto" data-quest-gate="finance">
-        <div class="quest-gate">
-          <p class="text-[10px] tracking-[0.28em] text-amber-200 font-black">MODULE 04 CLEAR CHECK</p>
-          <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-            <div>
-              <h2 class="text-2xl md:text-3xl font-black">增长融资节点已确认</h2>
-              <p class="mt-3 text-sm text-white/78 leading-relaxed">你已经看完短期里程碑、六年路径、财务预测与天使轮计划。闯关模式下，完成「天使轮资金打砖块」，把五类资金用途全部击穿。</p>
-            </div>
-            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="finance">挑战 04 · 天使轮打砖块</button>
-          </div>
-        </div>
-      </section>
-
       <!-- MONETIZATION BENCHMARK -->
       <section id="s-monetization-benchmark" class="section-pad bg-white/40">
         <div class="max-w-5xl mx-auto glass rounded-3xl p-6 md:p-10 shadow-glass card-hover">
-          <div class="rounded-2xl bg-slate-950 text-white p-5 border border-white/10 shadow-inner" data-quest-ui>
-            <div class="flex items-center justify-between gap-4 mb-3">
-              <p class="text-xs font-black tracking-[0.22em] text-amber-200">BOSS · MONETIZATION TIER</p>
-              <p id="boss-meter-label" class="text-xs font-bold text-amber-200">Boss 关已发现</p>
-            </div>
-            <div id="boss-meter" class="boss-meter" aria-hidden="true"><span></span></div>
-            <p class="mt-3 text-xs text-slate-300 leading-relaxed">读完变现档位对比后，通关打开完整愿景与核心论点。</p>
-          </div>
-          <p class="section-kicker mb-2 text-slate-500 mt-10">BENCHMARK · MONETIZATION</p>
+          <p class="section-kicker mb-2 text-slate-500">BENCHMARK · MONETIZATION</p>
           <h2 class="text-2xl md:text-[2rem] font-extrabold text-gradient leading-snug tracking-tight">变现档位：我们处在最好的一档</h2>
           <p class="mt-4 text-slate-600 text-sm md:text-base max-w-3xl">超大月活不等于会变现。对比行业常见路径，我们的付费发生在真正消耗 Token 的创作行为上。</p>
 
@@ -4049,19 +3952,6 @@
         </div>
       </section>
 
-      <section id="gate-boss" class="section-pad max-w-5xl mx-auto" data-quest-gate="boss">
-        <div class="quest-gate">
-          <p class="text-[10px] tracking-[0.28em] text-red-200 font-black">FINAL BOSS</p>
-          <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-            <div>
-              <h2 class="text-2xl md:text-3xl font-black">变现档位 Boss · 飞机大战</h2>
-              <p class="mt-3 text-sm text-white/78 leading-relaxed">读完变现档位对比后，通关后直接打开完整最终愿景页与核心论点。</p>
-            </div>
-            <button type="button" class="start-challenge start-btn-primary shrink-0" data-open-challenge="boss">挑战 05 · Boss 飞机大战</button>
-          </div>
-        </div>
-      </section>
-
       <!-- VISION -->
       <section id="s-vision" class="section-pad text-slate-900 relative overflow-hidden min-h-[90vh] flex items-center py-24">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_12%,rgba(239,68,68,0.1),transparent_32%),radial-gradient(circle_at_85%_78%,rgba(30,107,255,0.11),transparent_38%),linear-gradient(135deg,#fff7ed_0%,#ffffff_42%,#eef6ff_100%)] pointer-events-none"></div>
@@ -4076,15 +3966,7 @@
           <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1 1%22%3E%3C/svg%3E" data-fuse-asset="ceraBot" alt="" aria-hidden="true">
         </div>
         
-        <div class="vision-quest-placeholder max-w-6xl mx-auto relative z-10 w-full px-6" aria-hidden="true">
-          <div class="vision-quest-placeholder-card mx-auto border-red-200 bg-white/80 backdrop-blur-md">
-            <p class="text-[10px] tracking-[0.32em] text-red-700 font-black">VISION LOCKED</p>
-            <p class="mt-3 text-lg md:text-xl font-black text-slate-900">愿景正文 · 闯关锁定</p>
-            <p class="mt-3 text-sm text-slate-600 leading-relaxed">请挑战变现档位 Boss 飞机大战；Boss 通关后会直接打开完整最终愿景页。</p>
-          </div>
-        </div>
-        
-        <div class="vision-quest-body max-w-6xl mx-auto relative z-10 w-full px-6">
+        <div class="max-w-6xl mx-auto relative z-10 w-full px-6">
           <div class="max-w-3xl">
             <p class="text-red-700/80 text-sm tracking-[0.5em] mb-6 font-bold uppercase">愿景 · VISION</p>
             <h2 class="text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-black leading-[1.1] tracking-tighter vision-title-glow">
@@ -4325,15 +4207,6 @@
           </div>
           <p class="text-center text-xs text-fuse-orange mt-8">Attention：个人实验产品，仅发挥目前大模型 10% 能力。</p>
           <p class="text-center text-sm text-slate-600 mt-6">
-            <a href="/FuseAIGame/FuseAI-BP.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-slate-900 text-white font-bold px-5 py-3 hover:bg-slate-800 transition">
-              <span aria-hidden="true">↓</span> 下载 PDF 版商业计划书
-            </a>
-          </p>
-          <p class="text-center text-xs text-slate-500 mt-3 font-mono break-all px-2">
-            <span id="u-bp-pdf">https://visionwise-nick.github.io/FuseAIGame/FuseAI-BP.pdf</span>
-            <button type="button" class="copy-btn ml-2 px-2 py-0.5 rounded bg-slate-200 hover:bg-slate-300 text-xs align-middle" data-copy="u-bp-pdf">复制链接</button>
-          </p>
-          <p class="text-center text-sm text-slate-600 mt-6">
             <a href="mailto:xiongsl2013@gmail.com" class="text-fuse-blue font-semibold hover:underline">xiongsl2013@gmail.com</a>
             <span class="mx-2 text-slate-400"> </span>
             <a href="tel:19924532173" class="text-fuse-blue font-semibold hover:underline">19924532173</a>
@@ -4342,109 +4215,6 @@
       </section>
 
     </main>
-
-    <div id="challenge-modal" class="quest-modal" role="dialog" aria-modal="true" aria-labelledby="challenge-title">
-      <div class="quest-modal-card">
-        <div class="flex items-start justify-between gap-4">
-          <div>
-            <p id="challenge-kicker" class="text-[10px] tracking-[0.28em] text-amber-200 font-black">QUEST CHALLENGE</p>
-            <h2 id="challenge-title" class="mt-2 text-2xl md:text-3xl font-black">模块挑战</h2>
-            <p id="challenge-desc" class="mt-3 text-sm text-slate-300 leading-relaxed"></p>
-          </div>
-          <button type="button" id="challenge-close" class="mini-control shrink-0" aria-label="关闭挑战">关闭</button>
-        </div>
-
-        <div id="mini-market" class="mini-panel mt-8">
-          <div class="mini-stage flex flex-col items-center">
-            <div id="sokoban-board" class="mini-board sokoban-board" aria-label="破局推箱子棋盘"></div>
-            <div class="soko-dpad" role="group" aria-label="方向控制">
-              <span class="soko-spacer" aria-hidden="true"></span>
-              <button type="button" class="soko-dir" data-soko-dir="up" aria-label="向上移动">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4L4 15h16L12 4z"/></svg>
-              </button>
-              <span class="soko-spacer" aria-hidden="true"></span>
-              <button type="button" class="soko-dir" data-soko-dir="left" aria-label="向左移动">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 12l8-7v14L4 12z"/></svg>
-              </button>
-              <button type="button" class="soko-dir" data-soko-dir="down" aria-label="向下移动">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 20l8-11H4l8 11z"/></svg>
-              </button>
-              <button type="button" class="soko-dir" data-soko-dir="right" aria-label="向右移动">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 12l-8-7v14l8-7z"/></svg>
-              </button>
-            </div>
-          </div>
-          <p id="sokoban-status" class="mt-4 text-center text-sm text-amber-100 font-bold">把「AI」推进「裂缝」，注意柱子和拐角（可用方向键）。</p>
-        </div>
-
-        <div id="mini-ecosystem" class="mini-panel mt-8">
-          <div class="mini-stage flex flex-col items-center">
-            <div class="w-full max-w-md mx-auto">
-              <div class="match-hud">
-                <span class="match-pill"><span class="match-pill-ico" aria-hidden="true"></span><span>三连消</span></span>
-                <span id="match-score" class="match-pill" aria-live="polite"><span class="match-dots" id="match-dots" aria-hidden="true"></span></span>
-                <span class="match-pill"><span class="match-pill-ico-swap" aria-hidden="true"></span><span>拖动交换</span></span>
-              </div>
-              <div id="match-board" class="mini-board match-board" aria-label="生态消消乐棋盘"></div>
-            </div>
-          </div>
-          <p id="match-status" class="mt-4 text-center text-sm text-amber-100 font-bold">横向或纵向连成 3 个以上即消除。</p>
-        </div>
-
-        <div id="mini-success" class="mini-panel mt-8">
-          <div class="mini-stage">
-            <div class="angry-hud" aria-live="polite">
-              <span id="angry-bird-label">当前小鸟：商业化稀缺性</span>
-              <span id="angry-hit-label">命中 0/3</span>
-              <span>拖动弹弓蓄力 · 松手发射</span>
-            </div>
-            <div class="angry-arena">
-              <canvas id="angry-canvas" width="640" height="360" aria-label="成功理由愤怒的小鸟"></canvas>
-            </div>
-            <div class="mt-5 flex flex-wrap justify-center gap-3">
-              <button type="button" id="angry-reset" class="mini-control">重来</button>
-            </div>
-          </div>
-          <p id="angry-status" class="mt-4 text-center text-sm text-amber-100 font-bold">把四只小鸟分别打向方法、模式、时机、团队动物关卡目标。</p>
-        </div>
-
-        <div id="mini-finance" class="mini-panel mt-8">
-          <div class="mini-stage">
-            <div class="finance-breakout-hud" aria-live="polite">
-              <span id="finance-lives-label">生命 3</span>
-              <span id="finance-bricks-label">资金砖块 0/6</span>
-              <span id="finance-ball-label">空格发球 · 方向键移动</span>
-            </div>
-            <div class="finance-breakout-arena">
-              <canvas id="finance-breakout-canvas" width="640" height="360" aria-label="天使轮资金打砖块"></canvas>
-            </div>
-            <div class="mt-5 flex flex-wrap justify-center gap-3">
-              <button type="button" id="finance-launch" class="start-btn-primary">发球</button>
-              <button type="button" id="finance-alloc-reset" class="mini-control">重来</button>
-            </div>
-          </div>
-          <p id="finance-alloc-status" class="mt-4 text-center text-sm text-amber-100 font-bold">移动挡板接住资金球，击碎六类天使轮用途砖块。</p>
-        </div>
-
-        <div id="mini-boss" class="mini-panel mt-8">
-          <div class="mini-stage">
-            <div class="boss-hud" aria-live="polite">
-              <span id="boss-hp-label">Boss HP 100%</span>
-              <span id="boss-score-label">命中 0/8</span>
-              <span>移动：方向键 / 拖动 · 射击：空格</span>
-            </div>
-            <div class="boss-arena">
-              <canvas id="boss-canvas" width="640" height="360" aria-label="变现档位 Boss 飞机大战"></canvas>
-            </div>
-            <div class="mt-5 flex flex-wrap justify-center gap-3">
-              <button type="button" id="boss-fire" class="start-btn-primary">发射</button>
-              <button type="button" id="boss-reset" class="mini-control">重来</button>
-            </div>
-          </div>
-          <p id="boss-status" class="mt-4 text-center text-sm text-amber-100 font-bold">击中 Boss 8 次，打开完整最终愿景页。</p>
-        </div>
-      </div>
-    </div>
 
     <div id="interaction-fab" class="bp-wrap fixed z-[55] flex flex-col items-end gap-2 right-4 bottom-28 lg:bottom-10 lg:right-6">
       <button type="button" id="fab-next" class="fab-btn pointer-events-auto" title="下一部分">下一部分</button>
@@ -4576,14 +4346,9 @@
     });
   }
 
-  var heroStart = document.getElementById('hero-start-btn');
   var heroNormal = document.getElementById('hero-normal-btn');
   var modeGate = document.getElementById('mode-gate');
   var gateNormal = document.getElementById('gate-normal-btn');
-  var gateStart = document.getElementById('gate-start-btn');
-  var questTitle = document.getElementById('quest-title');
-  var questPercent = document.getElementById('quest-percent');
-  var questFill = document.getElementById('quest-progress-fill');
   var achievement = document.getElementById('achievement-toast');
   var achievementText = document.getElementById('achievement-text');
   var unlocked = {};
@@ -4629,27 +4394,17 @@
   function setMode(mode, targetSelector) {
     dismissModeGate();
     currentMode = mode;
-    document.body.classList.toggle('mode-quest', mode === 'quest');
     document.body.classList.toggle('mode-normal', mode === 'normal');
-    if (mode === 'quest') {
-      document.body.classList.toggle('quest-finance-unlocked', !!completedModules.finance);
-      document.body.classList.toggle('quest-vision-unlocked', !!completedModules.boss);
-    }
-    if (mode === 'quest') showAchievement('闯关模式已启动：按二级目录完成五个模块，最后挑战 Boss 解锁最终愿景。');
-    else showAchievement('普通模式已开启：可直接完整阅读 BP。');
-    syncQuestBadges();
+    if (mode === 'normal') showAchievement('普通模式已开启：可直接完整阅读 BP。');
     if (targetSelector) {
-      scrollToSectionStart(targetSelector, mode === 'quest' ? 'auto' : 'smooth');
+      scrollToSectionStart(targetSelector, 'smooth');
     }
   }
 
-  function beginQuest(targetSelector) { setMode('quest', targetSelector || '#s-market-opportunity'); }
   function beginNormal(targetSelector) { setMode('normal', targetSelector || '#s-market-opportunity'); }
 
-  if (heroStart) heroStart.addEventListener('click', function () { beginQuest('#s-market-opportunity'); });
   if (heroNormal) heroNormal.addEventListener('click', function () { beginNormal('#s-market-opportunity'); });
   if (gateNormal) gateNormal.addEventListener('click', function () { beginNormal('#s-market-opportunity'); });
-  if (gateStart) gateStart.addEventListener('click', function () { beginQuest('#s-market-opportunity'); });
 
   document.querySelectorAll('#s-hero .reveal, #mode-gate .reveal').forEach(function (el, i) {
     el.style.transitionDelay = (0.06 * i) + 's';
@@ -4702,24 +4457,7 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  function syncQuestProgress(idx) {
-    var pct = Math.round((idx / Math.max(1, NAV.length - 1)) * 100);
-    var currentNav = NAV[idx] || NAV[0];
-    if (questTitle) questTitle.textContent = currentMode === 'quest' ? (currentNav[2] + ' / ' + currentNav[0]) : '普通阅读模式';
-    if (questPercent) questPercent.textContent = pct + '%';
-    if (questFill) questFill.style.width = pct + '%';
-    document.querySelectorAll('#bp-nav a, #bp-nav-mobile a').forEach(function (a) {
-      var navIdx = parseInt(a.getAttribute('data-nav-index'), 10);
-      a.classList.toggle('quest-done', currentMode === 'quest' && navIdx <= idx && idx > 0);
-    });
-    syncQuestBadges();
-    var bossMeter = document.getElementById('boss-meter');
-    var bossLabel = document.getElementById('boss-meter-label');
-    var bossTriggerIdx = NAV_INDEX['#s-monetization-benchmark'] || 0;
-    if (currentMode === 'quest' && idx >= bossTriggerIdx && completedModules.finance && !completedModules.boss && bossLabel) {
-      bossLabel.textContent = 'Boss 关已发现';
-    }
-  }
+  function syncQuestProgress(idx) {}
 
   function syncQuestBadges() {
     ['market', 'ecosystem', 'success', 'finance'].forEach(function (key) {
@@ -4824,34 +4562,6 @@
       var next = document.querySelector(mod.next);
       if (next) setTimeout(function () { next.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 520);
     }
-  }
-
-  document.querySelectorAll('[data-open-challenge]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      if (currentMode !== 'quest') {
-        showAchievement('这是闯关模式关卡；普通模式可继续自由阅读。');
-        return;
-      }
-      openChallenge(btn.getAttribute('data-open-challenge'));
-    });
-  });
-  if (challengeClose) challengeClose.addEventListener('click', closeChallenge);
-  if (challengeModal) {
-    challengeModal.addEventListener('click', function (ev) {
-      if (ev.target === challengeModal) closeChallenge();
-    });
-  }
-  if (typeof IntersectionObserver === 'function') {
-    var gateIo = new IntersectionObserver(function (ents) {
-      ents.forEach(function (e) {
-        if (!e.isIntersecting || currentMode !== 'quest') return;
-        var key = e.target.getAttribute('data-quest-gate');
-        if (!key || completedModules[key] || challengeAutoShown[key]) return;
-        challengeAutoShown[key] = true;
-        openChallenge(key);
-      });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('[data-quest-gate]').forEach(function (gate) { gateIo.observe(gate); });
   }
 
   var SOKO_ROWS = [
