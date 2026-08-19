@@ -1,20 +1,18 @@
 #!/usr/bin/env node
 /**
- * FuseAI BP → 横版 PPT（16:9）
- * - 逐章独立渲染，章节之间零混杂
- * - 每章第一页必为新 slide
- * - 放大字号/zoom，适合投屏
+ * FuseAI BP → 逐章截图 → 16:9 PDF
+ * 完整正式版（含财务/天使轮），不含闯关闸门与 Demo。
  */
 const puppeteer = require('puppeteer-core');
-const PptxGenJS = require('pptxgenjs');
 const sharp = require('sharp');
+const { spawnSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const HTML_PATH = path.join(ROOT, 'index.html');
-const OUTPUT_PPT = path.join(ROOT, '商业计划书-FuseAI-离线版.pptx');
-const TMP_DIR = path.join(__dirname, '.ppt-slides');
+const OUTPUT_PDF = path.join(ROOT, 'FuseAI商业计划书-BP正式版.pdf');
+const TMP_DIR = path.join(__dirname, '.pdf-slides');
 const CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
 const VIEWPORT_W = 1440;
@@ -23,7 +21,6 @@ const SCALE = 1;
 const SLIDE_BG = { r: 240, g: 244, b: 248, alpha: 1 };
 
 const EXCLUDE_IDS = new Set([
-  's-finance', 's-valuation', 's-pre-a',
   'gate-finance', 'gate-market', 'gate-ecosystem', 'gate-success', 'gate-boss',
   's-demo', 's-demo-code',
 ]);
@@ -34,28 +31,30 @@ const CHAPTERS = [
   { id: 's-market-opportunity', title: '百年变局' },
   { id: 's-ai-evolution', title: 'AI 演进' },
   { id: 's-market-global', title: 'AI 互动内容生成市场' },
-  { id: 's-console-platform', title: '龙头启发' },
+  { id: 's-console-platform', title: '赛道龙头' },
   { id: 's-market-vs', title: '破局点' },
   { id: 's-model-compare', title: '模式对比' },
   { id: 's-solution', title: '解决方案' },
-  { id: 's-hardware', title: 'Fuse PlayCanvas' },
   { id: 's-fuse-store-reserved', title: '共用后台' },
-  { id: 's-game-1', title: '一创' },
-  { id: 's-game-2', title: '二创' },
-  { id: 's-game-n', title: 'N 创' },
-  { id: 's-ip-plan-reserved', title: 'Fuse IP' },
+  { id: 's-hardware', title: '多端触达 · PlayCanvas' },
+  { id: 's-game-1', title: '互动一创' },
+  { id: 's-game-2', title: '互动二创' },
+  { id: 's-game-n', title: '互动 N 创' },
+  { id: 's-ip-plan-reserved', title: '示范模板库' },
   { id: 's-why-success', title: '为什么成功' },
   { id: 's-ai-native-business', title: '四条线 Token 引擎' },
   { id: 's-timing', title: '时机' },
   { id: 's-team', title: '人才团队' },
   { id: 's-milestones', title: '里程碑' },
   { id: 's-fiveyear', title: '六年路径' },
+  { id: 's-finance', title: '财务预测' },
+  { id: 's-pre-a', title: '天使轮' },
   { id: 's-monetization-benchmark', title: '变现档位' },
   { id: 's-vision', title: '愿景' },
   { id: 's-core-thesis', title: '核心论点' },
 ];
 
-const PPT_STYLE = `
+const EXPORT_STYLE = `
   body.mode-gate-open, body, html {
     overflow: visible !important;
     height: auto !important;
@@ -68,9 +67,8 @@ const PPT_STYLE = `
 
   :root { --bp-sidebar-gutter: 0px !important; }
 
-  /* 保持页面原始比例，避免截图时重叠、拉伸或坐标错位 */
   html { font-size: 100% !important; }
-  body.ppt-export { zoom: 1 !important; }
+  body.pdf-export { zoom: 1 !important; }
 
   .bp-main-safe {
     padding-left: 0 !important;
@@ -84,15 +82,14 @@ const PPT_STYLE = `
   }
   .reveal { opacity: 1 !important; transform: none !important; }
 
-  /* 非当前章节隐藏 */
   .ppt-hidden-chapter { display: none !important; }
 `;
 
 async function preparePage(page) {
-  await page.addStyleTag({ content: PPT_STYLE });
+  await page.addStyleTag({ content: EXPORT_STYLE });
 
   await page.evaluate(() => {
-    document.body.classList.add('ppt-export');
+    document.body.classList.add('pdf-export');
     document.body.classList.remove('mode-gate-open');
     document.body.classList.add('mode-normal');
     document.body.classList.remove('mode-quest');
@@ -103,32 +100,9 @@ async function preparePage(page) {
 
     document.querySelectorAll('#mode-gate, .mode-gate-overlay, #bp-nav, #read-progress, #scroll-cta, #bp-mobile-menu, #interaction-fab, #toast-container, #quest-hud, #achievement-toast, #mesh-canvas').forEach(el => el.remove());
 
-    // 融资整节隐藏
-    ['s-finance', 's-valuation', 's-pre-a', 'gate-finance', 'gate-market', 'gate-ecosystem', 'gate-success', 'gate-boss', 's-demo', 's-demo-code'].forEach(id => {
+    ['gate-finance', 'gate-market', 'gate-ecosystem', 'gate-success', 'gate-boss', 's-demo', 's-demo-code'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.style.display = 'none';
-    });
-
-    document.querySelectorAll('#s-milestones .rounded-xl.bg-amber-50').forEach(el => {
-      if (/融资/.test(el.textContent)) el.style.display = 'none';
-    });
-
-    const timing = document.getElementById('s-timing');
-    if (timing) {
-      timing.querySelectorAll('a[href*="funding"], a[href*="raises"]').forEach(el => {
-        const card = el.closest('.rounded-2xl, .glass, div[class*="grid"] > div');
-        if (card) card.style.display = 'none';
-      });
-    }
-
-    ['s-why-success', 's-team'].forEach(id => {
-      const sec = document.getElementById(id);
-      if (!sec) return;
-      sec.querySelectorAll('p, li').forEach(el => {
-        if (/千万美元级融资|完成.*融资|融资经验|融资热度|融资新闻/.test(el.textContent)) {
-          el.style.display = 'none';
-        }
-      });
     });
 
     const hero = document.getElementById('s-hero');
@@ -143,7 +117,6 @@ async function preparePage(page) {
   await new Promise(r => setTimeout(r, 1000));
 }
 
-/** 只显示当前章节，其余全部隐藏 */
 async function showOnlyChapter(page, chapterId, allIds) {
   await page.evaluate(({ activeId, ids }) => {
     ids.forEach(id => {
@@ -162,7 +135,6 @@ async function showOnlyChapter(page, chapterId, allIds) {
   await new Promise(r => setTimeout(r, 500));
 }
 
-/** 获取当前章节在页面上的绝对位置与高度 */
 async function getChapterRect(page, chapterId) {
   return page.evaluate(id => {
     const el = document.getElementById(id);
@@ -175,7 +147,6 @@ async function getChapterRect(page, chapterId) {
   }, chapterId);
 }
 
-/** 在章节内部找分页点（仅用于续页，第一章节页固定从 top 开始） */
 function findBreakInRange(blocks, from, to, chapterTop, chapterBottom) {
   const searchFrom = from + Math.floor(VIEWPORT_H * 0.58);
   const searchTo = Math.min(to, chapterBottom);
@@ -237,29 +208,55 @@ async function captureChapter(page, chapter, allIds) {
     const scrollY = slideStarts[i];
     const segmentBottom = i + 1 < slideStarts.length ? slideStarts[i + 1] : chapterBottom;
     const clipH = Math.min(VIEWPORT_H, Math.max(1, Math.ceil(segmentBottom - scrollY)));
-    const rawPath = path.join(TMP_DIR, `${chapter.id}-${i}.raw.png`);
-    const slidePath = path.join(TMP_DIR, `${chapter.id}-${i}.jpg`);
+    const pngPath = path.join(TMP_DIR, `${chapter.id}-${i}.png`);
+    const jpgPath = path.join(TMP_DIR, `${chapter.id}-${i}.jpg`);
 
     await page.evaluate(y => window.scrollTo(0, y), scrollY);
     await new Promise(r => setTimeout(r, 300));
     await page.screenshot({
-      path: rawPath,
+      path: pngPath,
       clip: { x: 0, y: scrollY, width: VIEWPORT_W, height: clipH },
     });
 
-    let pipeline = sharp(rawPath);
+    let pipeline = sharp(pngPath);
     if (clipH < VIEWPORT_H) {
       pipeline = pipeline.extend({
         bottom: VIEWPORT_H - clipH,
         background: SLIDE_BG,
       });
     }
-    await pipeline.jpeg({ quality: 90, mozjpeg: true }).toFile(slidePath);
-    fs.unlinkSync(rawPath);
-    images.push({ path: slidePath, title: chapter.title, isChapterStart: i === 0 });
+    await pipeline.jpeg({ quality: 90, mozjpeg: true }).toFile(jpgPath);
+    fs.unlinkSync(pngPath);
+    images.push(jpgPath);
   }
 
   return images;
+}
+
+function assemblePdf(imagePaths) {
+  const manifest = path.join(TMP_DIR, 'manifest.json');
+  fs.writeFileSync(manifest, JSON.stringify({ images: imagePaths, output: OUTPUT_PDF }));
+
+  const py = `
+import json, sys
+from PIL import Image
+
+data = json.load(open(sys.argv[1], encoding='utf-8'))
+pages = []
+for p in data['images']:
+    im = Image.open(p).convert('RGB')
+    pages.append(im)
+if not pages:
+    raise SystemExit('no pages')
+first, rest = pages[0], pages[1:]
+first.save(data['output'], save_all=True, append_images=rest, resolution=144.0)
+print(len(pages))
+`;
+  const result = spawnSync('python3', ['-c', py, manifest], { encoding: 'utf8' });
+  if (result.status !== 0) {
+    throw new Error(result.stderr || result.stdout || 'PDF assemble failed');
+  }
+  return Number(String(result.stdout).trim());
 }
 
 async function run() {
@@ -282,47 +279,32 @@ async function run() {
   await preparePage(page);
 
   const allIds = CHAPTERS.map(c => c.id).filter(id => !EXCLUDE_IDS.has(id));
-
   const allImages = [];
+
   for (const ch of CHAPTERS) {
     if (EXCLUDE_IDS.has(ch.id)) continue;
     const exists = await page.$(`#${ch.id}`);
-    if (!exists) continue;
+    if (!exists) {
+      console.log(`\n跳过 ${ch.title}（页面中不存在）`);
+      continue;
+    }
     await exists.dispose();
 
     process.stdout.write(`\n📌 ${ch.title}`);
     const imgs = await captureChapter(page, ch, allIds);
-    imgs.forEach(img => allImages.push(img));
+    allImages.push(...imgs);
     process.stdout.write(` → ${imgs.length} 页`);
   }
 
-  console.log('\n\n合并 PPT...');
+  console.log('\n\n合并 PDF...');
   await browser.close();
 
-  const pptx = new PptxGenJS();
-  pptx.layout = 'LAYOUT_16x9';
-  pptx.author = 'Fuse AI';
-  pptx.title = 'FuseAI 商业计划书';
-
-  allImages.forEach((item, idx) => {
-    const slide = pptx.addSlide();
-    slide.addImage({ path: item.path, x: 0, y: 0, w: 10, h: 5.625 });
-    if (item.isChapterStart) {
-      slide.addText(item.title, {
-        x: 0.35, y: 5.35, w: 5, h: 0.22, fontSize: 9, color: '64748B',
-      });
-    }
-    slide.addText(String(idx + 1), {
-      x: 9.2, y: 5.35, w: 0.5, h: 0.22, fontSize: 9, color: '94A3B8', align: 'right',
-    });
-  });
-
-  await pptx.writeFile({ fileName: OUTPUT_PPT });
+  const pageCount = assemblePdf(allImages);
   fs.rmSync(TMP_DIR, { recursive: true, force: true });
 
-  const stat = fs.statSync(OUTPUT_PPT);
-  console.log(`\n✅ PPT 已生成: ${OUTPUT_PPT}`);
-  console.log(`   ${CHAPTERS.length} 章 / ${allImages.length} 页 / ${(stat.size / 1024 / 1024).toFixed(1)} MB`);
+  const stat = fs.statSync(OUTPUT_PDF);
+  console.log(`\n✅ PDF 已生成: ${OUTPUT_PDF}`);
+  console.log(`   ${CHAPTERS.length} 章 / ${pageCount} 页 / ${(stat.size / 1024 / 1024).toFixed(1)} MB`);
 }
 
 run().catch(err => {
