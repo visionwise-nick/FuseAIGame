@@ -207,36 +207,6 @@
       border-radius: 99px;
     }
 
-    .finance-mode-btn.active {
-      background: rgba(30, 107, 255, 0.1);
-      border-color: #1E6BFF;
-      color: #1E6BFF;
-      box-shadow: 0 0 0 2px rgba(30, 107, 255, 0.35);
-    }
-    /* 财务可调参数面板 */
-    .fin-model-panel summary { cursor: pointer; user-select: none; list-style: none; }
-    .fin-model-panel summary::-webkit-details-marker { display: none; }
-    .fin-num-inp {
-      width: 100%;
-      max-width: 7rem;
-      padding: 0.35rem 0.5rem;
-      font-size: 12px;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-      border: 1px solid rgba(30,107,255,0.35);
-      border-radius: 0.5rem;
-      background: #fff;
-      color: #0f172a;
-    }
-    .fin-num-inp:focus {
-      outline: 2px solid rgba(30,107,255,0.35);
-      border-color: #1E6BFF;
-    }
-    .fin-formula-strip {
-      font-size: 10px;
-      line-height: 1.65;
-      color: #475569;
-    }
     .fw-node.fw-on { outline: 2px solid rgba(251,146,60,.95); outline-offset: 6px;
       transform: translateY(-4px) scale(1.02); box-shadow: 0 20px 48px rgba(251,146,60,.28);
     }
@@ -940,12 +910,6 @@
         width: 2.15rem;
         height: 2.15rem;
       }
-      .fin-num-inp {
-        max-width: none;
-        min-height: 2.5rem;
-        font-size: 16px;
-      }
-      div:has(> canvas#chart-finance-combo),
       div:has(> canvas#chart-ai-impact) {
         width: 100%;
         max-width: 100%;
@@ -960,7 +924,6 @@
       }
       #panel-global-combo,
       #panel-global-pie,
-      #s-finance .glass,
       #s-monetization-benchmark .glass {
         min-width: 0;
       }
@@ -3717,7 +3680,7 @@
             </div>
             <div class="mt-4 flex flex-wrap gap-3">
               <div class="rounded-xl bg-amber-600/10 border border-amber-200 px-4 py-2 text-xs font-semibold text-amber-700">📦 交付物：平台全球化版本、API 商业化、下一代 PlayCanvas 定义、官方 IP 矩阵</div>
-              <div class="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2 text-xs font-semibold text-emerald-700">✅ 月末门控：平台、内容、入口三条增长线对齐财务预测第 1 年终局值</div>
+              <div class="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2 text-xs font-semibold text-emerald-700">✅ 月末门控：平台、内容、入口三条增长线对齐阶段目标</div>
               <div class="rounded-xl bg-amber-50 border border-amber-200 px-4 py-2 text-xs font-semibold text-amber-700">💰 融资节点：A+ 轮或 B 轮启动，资金支撑第 2–3 年规模化扩张</div>
             </div>
           </details>
@@ -3749,70 +3712,8 @@
               <p class="text-sm text-slate-600 mt-3">短剧与教育正式上线；API 开放；PlayCanvas 演进为模块化创意控制台。</p>
             </div>
             <div class="glass rounded-2xl p-6 card-hover border-l-4 border-fuse-orange">
-              <p class="text-sm font-bold text-fuse-orange">第 5-6 年 · 第 6 年业务终局</p>
-              <p id="fin-fiveyear-ipo" class="text-sm text-slate-600 mt-3"><!-- recalcBpFinance --></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- FINANCE -->
-      <section id="s-finance" class="section-pad max-w-7xl mx-auto">
-        <div class="max-w-3xl mb-10">
-          <h2 class="text-2xl md:text-4xl font-bold text-slate-900">财务预测</h2>
-          <details class="fin-model-panel glass rounded-2xl border border-fuse-blue/25 shadow-sm mb-4 overflow-hidden ring-1 ring-white/70" id="fin-model-panel">
-            <summary class="px-5 py-4 font-bold text-fuse-blue bg-blue-50/60 hover:bg-blue-50 transition text-sm md:text-[15px]">财务建模参数 · 点此展开修改（以下为公式说明，非投资建议）</summary>
-            <div class="px-5 py-4 border-t border-slate-200/90 bg-white/90 space-y-4 text-xs md:text-sm text-slate-700">
-              <p class="fin-formula-strip text-slate-600 border-l-4 border-orange-400/70 pl-3">
-                <strong class="text-slate-900">计算公式（代码内实现）</strong><br />
-                · 硬件等价年出货量（万台）= <code>硬件分部营收(亿美元)×10⁸ USD × USD/CNY ÷ 硬件综合ASP(元/台) ÷ 10⁴</code><br />
-                · <strong>营收柱状（六年）</strong>：第<strong> 6 </strong>年为参数板分部营收之和；第<strong> 1 </strong>年封顶约<strong> 0.2 </strong>亿美元（约 2000 万美元），第<strong> 2–5 </strong>年进入正常增长通道并按脚本内置形状系数递增至终局。<br />
-                · <strong>净利（折线）</strong>：<code>第1–5年 = 当年合并营收 × 脚本系数</code>；<strong>第 6 年</strong>：<code>净利 = 第6年合并营收×（「第6年净利占营收%」÷100）</code>
-              </p>
-              <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 items-end">
-                <label class="block"><span class="text-slate-500 font-semibold">USD/CNY</span><input type="number" step="any" id="fin-inp-fx" class="fin-num-inp mt-1" value="6.8" /></label>
-                <label class="block"><span class="text-slate-500 font-semibold">硬件 ASP（元人民币/台）</span><input type="number" step="any" id="fin-inp-asp-cny" class="fin-num-inp mt-1" value="4000" /></label>
-                <label class="block sm:col-span-2 lg:col-span-1"><span class="text-slate-500 font-semibold">第6年净利占营收(%)</span><input type="number" step="any" id="fin-inp-margin-pct" class="fin-num-inp mt-1" value="10" title="第6年：净利＝终局合并营收×该÷100；第1–5年净利由脚本内固定系数×各年柱状营收得出" /></label>
-              </div>
-              <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 items-end">
-                <label class="block"><span class="text-slate-500 font-semibold">工具线营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-tool" class="fin-num-inp mt-1" value="45" /></label>
-                <label class="block"><span class="text-slate-500 font-semibold">游戏线营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-game" class="fin-num-inp mt-1" value="50" /></label>
-                <label class="block"><span class="text-slate-500 font-semibold">连载短剧营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-drama" class="fin-num-inp mt-1" value="40" /></label>
-                <label class="block"><span class="text-slate-500 font-semibold">教育线营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-edu" class="fin-num-inp mt-1" value="25" /></label>
-                <label class="block"><span class="text-slate-500 font-semibold">硬件入口营收（亿美元）</span><input type="number" step="any" id="fin-inp-rev-hw" class="fin-num-inp mt-1" value="15" /></label>
-              </div>
-              <p id="fin-msg" class="text-amber-800 text-[11px] font-medium min-h-[1rem]"></p>
-            </div>
-          </details>
-          <p id="fin-finance-intro" class="text-slate-600 mt-2 text-sm md:text-[15px] leading-relaxed"></p>
-        </div>
-        <div class="grid lg:grid-cols-12 gap-8">
-          <div class="lg:col-span-7 glass rounded-3xl p-6 md:p-8 shadow-glass card-hover ring-1 ring-white/70">
-            <div class="flex flex-wrap items-center gap-3 mb-5">
-              <h3 class="font-bold text-slate-900">增长趋势分析</h3>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-4" id="finance-mode-bar" role="toolbar" aria-label="财务图表数据集">
-              <button type="button" class="finance-mode-btn rounded-full border border-slate-200 px-4 py-1.5 text-xs font-semibold bg-white hover:bg-blue-50/80 transition active" data-fmode="all">营收 · 净利</button>
-              <button type="button" class="finance-mode-btn rounded-full border border-slate-200 px-4 py-1.5 text-xs font-semibold bg-white hover:bg-blue-50/80 transition" data-fmode="rev">营收</button>
-              <button type="button" class="finance-mode-btn rounded-full border border-slate-200 px-4 py-1.5 text-xs font-semibold bg-white hover:bg-blue-50/80 transition" data-fmode="profit">净利润</button>
-            </div>
-            <div class="h-80"><canvas id="chart-finance-combo"></canvas></div>
-          </div>
-          <div class="lg:col-span-5 space-y-4">
-            <div class="glass rounded-2xl p-5 flex flex-wrap items-center gap-4 card-hover">
-              <div class="w-12 h-12 rounded-xl bg-blue-100 text-fuse-blue flex items-center justify-center shrink-0 bp-li bp-li-lg"><i data-lucide="monitor-smartphone"></i></div>
-              <div class="flex-1 min-w-[140px]"><p class="text-xs text-slate-500">硬件年出货量折算（万台）</p><p class="text-xs text-slate-500 mt-1">由参数表公式自动计算；与硬件分部营收、汇率、ASP 联动</p></div>
-              <div class="text-right"><span id="fin-kpi-units-wan" class="text-2xl md:text-3xl font-bold text-fuse-orange tabular-nums">—</span><p id="fin-kpi-units-caption" class="text-xs text-slate-500">第 6 年等价出货</p></div>
-            </div>
-            <div class="glass rounded-2xl p-5 flex flex-wrap items-center gap-4 card-hover">
-              <div class="w-12 h-12 rounded-full bg-blue-100 text-fuse-blue flex items-center justify-center shrink-0 bp-li bp-li-lg"><i data-lucide="coins"></i></div>
-              <div class="flex-1 min-w-[140px]"><p class="text-xs text-slate-500">总营收（亿美元 · 第 6 年）</p><p class="text-xs text-slate-500 mt-1">五部营收之和 · 公式</p></div>
-              <div class="text-right"><span id="fin-kpi-rev-sum" class="text-2xl md:text-3xl font-bold text-fuse-orange tabular-nums">—</span></div>
-            </div>
-            <div class="glass rounded-2xl p-5 flex flex-wrap items-center gap-4 card-hover">
-              <div class="w-12 h-12 rounded-full bg-blue-100 text-fuse-blue flex items-center justify-center shrink-0 bp-li bp-li-lg"><i data-lucide="trending-up"></i></div>
-              <div class="flex-1 min-w-[140px]"><p class="text-xs text-slate-500">净利润（亿美元 · 第 6 年）</p><p class="text-xs text-slate-500">合并口径、略低于产品矩阵型综合净利</p></div>
-              <div class="text-right"><span id="fin-kpi-net-y5" class="text-2xl md:text-3xl font-bold text-fuse-orange tabular-nums">—</span></div>
+              <p class="text-sm font-bold text-fuse-orange">第 5-6 年 · 业务终局</p>
+              <p class="text-sm text-slate-600 mt-3">工具、游戏、短剧、教育四条线为主轴，硬件入口成形；五条收入口径全部进入规模化运营，平台进入全球化阶段。</p>
             </div>
           </div>
         </div>
@@ -4295,7 +4196,6 @@
     { title: '04 增长与融资', items: [
       ['里程碑', '#s-milestones'],
       ['六年路径', '#s-fiveyear'],
-      ['财务预测', '#s-finance'],
       ['天使轮', '#s-pre-a']
     ] },
     { title: '05 变现与愿景', items: [
@@ -6164,208 +6064,6 @@
     });
   }
 
-  /* —— BP 财务参数：公式联动（仅页面计算，可调） —— */
-  /** 第 1 年合并营收（柱状）封顶，亿美元刻度；0.2 亿美元约等于 2000 万美元 */
-  var FIN_YEAR1_MERGED_REV_CAP_USD = 0.2;
-  /** 第1–5年净利占当年营收（脚本固定）；第6年取输入框「第6年净利占营收%」 */
-  var FIN_NET_MARGIN_Y1Y5 = [-0.92, -0.26, -0.055, 0.012, 0.026];
-
-  /** 六年合并营收柱状：终局=y；第1年收窄到早期验证规模，之后进入正常增长通道 */
-  function finMergedRevBarsSix(y) {
-    var cap = FIN_YEAR1_MERGED_REV_CAP_USD;
-    var s = [3.2 / 262, 10 / 262, 30 / 262, 90 / 262];
-    if (!(y > 0) || !isFinite(y)) return [0, 0, 0, 0, 0, 0];
-    var mx = Math.max;
-    var b0 = Math.min(cap, s[0] * y);
-    var b1 = mx(b0, s[1] * y);
-    var b2 = mx(b1, s[2] * y);
-    var b3 = mx(b2, s[3] * y);
-    var b4 = mx(b3, b3 + (y - b3) * 0.62);
-    var b5 = mx(b4, y);
-    var bars = [b0, b1, b2, b3, b4, b5];
-    for (var i = 1; i < 6; i++) {
-      if (bars[i] < bars[i - 1]) bars[i] = bars[i - 1];
-    }
-    if (bars[5] < y) bars[5] = y;
-    return bars;
-  }
-
-  function finParseInput(id, fallback) {
-    var el = document.getElementById(id);
-    if (!el || el.value === '' || el.value === '-') return fallback;
-    var v = parseFloat(el.value);
-    return isFinite(v) ? v : fallback;
-  }
-  function finFmtMoney(n, d) {
-    d = d == null ? 2 : d;
-    if (!isFinite(n)) return '—';
-    return (Math.round(n * Math.pow(10, d)) / Math.pow(10, d)).toLocaleString('zh-CN', { minimumFractionDigits: 0, maximumFractionDigits: d });
-  }
-  function finCaptionWanTai(wan) {
-    if (!isFinite(wan) || wan < 0) return '—';
-    if (wan >= 10000) return (wan / 10000).toFixed(2).replace(/\.?0+$/, '') + ' 亿台/年量级';
-    return Math.round(wan).toLocaleString('zh-CN') + ' 万台/年';
-  }
-
-  window.recalcBpFinance = function recalcBpFinance() {
-    var fx = finParseInput('fin-inp-fx', 6.8);
-    var asp = finParseInput('fin-inp-asp-cny', 4000);
-    var revTool = finParseInput('fin-inp-rev-tool', 45);
-    var revGame = finParseInput('fin-inp-rev-game', 50);
-    var revDrama = finParseInput('fin-inp-rev-drama', 40);
-    var revEdu = finParseInput('fin-inp-rev-edu', 25);
-    var revHw = finParseInput('fin-inp-rev-hw', 15);
-    var marginPct = finParseInput('fin-inp-margin-pct', 10);
-    var msg = document.getElementById('fin-msg');
-    if (msg) msg.textContent = '';
-
-    var wan = (asp > 0 && fx > 0) ? (revHw * 1e8 * fx / asp / 1e4) : NaN;
-    var revSum = revTool + revGame + revDrama + revEdu + revHw;
-
-    function setTxt(id, t) {
-      var n = document.getElementById(id);
-      if (n) n.textContent = t;
-    }
-    var fi = document.getElementById('fin-finance-intro');
-    if (fi) {
-      fi.innerHTML = '本图承接上方<strong>六年发展路径</strong>：合并营收柱与净利线与参数板分部营收联动。<strong>第 6 年</strong>终局：<strong>' + finFmtMoney(revSum, 2) + ' </strong>亿美元分部营收之和（工具&nbsp;' + finFmtMoney(revTool, 2) + ' · 游戏&nbsp;' + finFmtMoney(revGame, 2) + ' · 短剧&nbsp;' + finFmtMoney(revDrama, 2) + ' · 教育&nbsp;' + finFmtMoney(revEdu, 2) + ' · 硬件&nbsp;' + finFmtMoney(revHw, 2) + '）；柱状第<strong> 1 </strong>年封顶 <strong>' + finFmtMoney(FIN_YEAR1_MERGED_REV_CAP_USD, 2) + '</strong> 亿美元；第<strong> 6 </strong>年净利＝终局营收×<strong>' + finFmtMoney(marginPct, 2) + '%</strong>。';
-    }
-    var fb = document.getElementById('fin-fiveyear-ipo');
-    if (fb) {
-      fb.innerHTML = '<strong>第 6 年</strong>：工具<strong>' + finFmtMoney(revTool, 2) + '</strong> · 游戏<strong>' + finFmtMoney(revGame, 2) + '</strong> · 短剧<strong>' + finFmtMoney(revDrama, 2) + '</strong> · 教育<strong>' + finFmtMoney(revEdu, 2) + '</strong> 亿美元四条线为主轴；硬件入口<strong>' + finFmtMoney(revHw, 2) + ' </strong>亿美元。PlayCanvas 等价出货约<strong>' + (isFinite(wan) ? Math.round(wan).toLocaleString('zh-CN') : '—') + '</strong> 万台；合并营收<strong>' + finFmtMoney(revSum, 2) + ' </strong>亿美元。';
-    }
-    setTxt('fin-kpi-units-wan', isFinite(wan) ? Math.round(wan).toLocaleString('zh-CN') : '—');
-    var cap = document.getElementById('fin-kpi-units-caption');
-    if (cap) cap.textContent = isFinite(wan) ? ('≈ ' + finCaptionWanTai(wan)) : '参数不足';
-    setTxt('fin-kpi-rev-sum', finFmtMoney(revSum, 2));
-    var yEnd = revSum;
-    var bars = finMergedRevBarsSix(yEnd);
-    var netY6 = yEnd * (marginPct / 100);
-    setTxt('fin-kpi-net-y5', finFmtMoney(netY6, 2));
-
-    var ch = window.BP_CHARTS.finance;
-    if (ch && ch.data && ch.data.datasets && ch.data.datasets.length >= 2) {
-      var nm = FIN_NET_MARGIN_Y1Y5.slice();
-      nm.push(marginPct / 100);
-      var profits = [];
-      for (var yi = 0; yi < 6; yi++) profits.push(bars[yi] * nm[yi]);
-      ch.data.datasets[0].data = bars;
-      ch.data.datasets[1].data = profits;
-      ch.update();
-      requestAnimationFrame(function () {
-        if (window.BP_CHARTS && window.BP_CHARTS.finance === ch) {
-          ch.resize();
-          ch.update();
-        }
-      });
-    }
-  };
-
-  /* 财务预测图：六年营收柱 + 净利线；数据来自 recalcBpFinance */
-  if (typeof Chart !== 'undefined' && document.getElementById('chart-finance-combo')) {
-    var isMobileFinance = bpChartIsMobile();
-    window.BP_CHARTS.finance = new Chart(document.getElementById('chart-finance-combo'), {
-      type: 'bar',
-      data: {
-        labels: ['第1年', '第2年', '第3年', '第4年', '第5年', '第6年'],
-        datasets: [
-          { label: '营收（亿美元）', data: [0, 0, 0, 0, 0, 0], backgroundColor: '#3B82F6', borderRadius: 6, yAxisID: 'y', order: 2 },
-          {
-            label: '净利润（亿美元）',
-            type: 'line',
-            data: [0, 0, 0, 0, 0, 0],
-            borderColor: '#F59E0B',
-            tension: 0.35,
-            yAxisID: 'y1',
-            borderWidth: 2.5,
-            pointBackgroundColor: '#fff',
-            pointBorderColor: '#F59E0B',
-            pointRadius: 5,
-            order: 0
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: false,
-        interaction: { mode: 'index', intersect: false },
-        layout: { padding: isMobileFinance ? { top: 4, right: 0, bottom: 0, left: 0 } : 0 },
-        plugins: {
-          legend: {
-            position: isMobileFinance ? 'bottom' : 'top',
-            labels: {
-              boxWidth: isMobileFinance ? 9 : 40,
-              boxHeight: isMobileFinance ? 9 : 12,
-              padding: isMobileFinance ? 8 : 10,
-              font: { size: isMobileFinance ? 10 : 12 }
-            }
-          }
-        },
-        scales: {
-          y: {
-            type: 'linear',
-            position: 'left',
-            stacked: false,
-            grid: { color: 'rgba(15,23,42,0.06)' },
-            title: { display: !isMobileFinance, text: '营收（亿美元）' },
-            ticks: { font: { size: isMobileFinance ? 10 : 12 }, maxTicksLimit: isMobileFinance ? 5 : 8 },
-            beginAtZero: true
-          },
-          y1: {
-            type: 'linear',
-            position: 'right',
-            stacked: false,
-            grid: { drawOnChartArea: false },
-            title: { display: !isMobileFinance, text: '净利润（亿美元）' },
-            ticks: { font: { size: isMobileFinance ? 10 : 12 }, maxTicksLimit: isMobileFinance ? 5 : 8 },
-            beginAtZero: false,
-            grace: '12%'
-          },
-          x: {
-            stacked: false,
-            grid: { display: false },
-            ticks: { font: { size: isMobileFinance ? 10 : 12 }, maxRotation: 0, minRotation: 0 }
-          }
-        }
-      }
-    });
-    var finIds = ['fin-inp-fx', 'fin-inp-asp-cny', 'fin-inp-margin-pct', 'fin-inp-rev-tool', 'fin-inp-rev-game', 'fin-inp-rev-drama', 'fin-inp-rev-edu', 'fin-inp-rev-hw'];
-    finIds.forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el) {
-        el.addEventListener('input', function () { window.recalcBpFinance(); });
-        el.addEventListener('change', function () { window.recalcBpFinance(); });
-      }
-    });
-    window.recalcBpFinance();
-
-    /** 图表在首屏下方 + 外层 reveal 渐变时偶发首帧宽高为 0；进入视口与下一帧强制 resize */
-    function financeComboRedraw() {
-      var ch = window.BP_CHARTS.finance;
-      if (!ch) return;
-      ch.resize();
-      ch.update();
-    }
-    requestAnimationFrame(function () {
-      requestAnimationFrame(financeComboRedraw);
-    });
-    window.addEventListener('resize', function () {
-      var ch = window.BP_CHARTS.finance;
-      if (ch) ch.resize();
-    }, { passive: true });
-    var secFin = document.getElementById('s-finance');
-    if (secFin && typeof IntersectionObserver === 'function') {
-      var finIo = new IntersectionObserver(function (ents) {
-        ents.forEach(function (e) {
-          if (!e.isIntersecting) return;
-          financeComboRedraw();
-        });
-      }, { threshold: 0.02, rootMargin: '120px 0px' });
-      finIo.observe(secFin);
-    }
-  }
-
   /* 天使轮融资 · 资金分配比例（与文案卡片一致） */
   if (typeof Chart !== 'undefined' && document.getElementById('chart-prea-alloc')) {
     var isMobilePrea = bpChartIsMobile();
@@ -6484,7 +6182,7 @@
     unlockDemoEgg();
   }
   if (eggFinance) eggFinance.addEventListener('click', function () {
-    var fin = document.getElementById('s-pre-a') || document.getElementById('s-finance');
+    var fin = document.getElementById('s-pre-a');
     if (fin) fin.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
@@ -6751,33 +6449,6 @@
   });
   var fwr = document.getElementById('flywheel-reset');
   if (fwr) fwr.addEventListener('click', clearFlywheel);
-
-  /* 财务图表显示模式 */
-  var fbar = document.getElementById('finance-mode-bar');
-  if (fbar) {
-    fbar.querySelectorAll('.finance-mode-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        fbar.querySelectorAll('.finance-mode-btn').forEach(function (b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        var m = btn.getAttribute('data-fmode');
-        var ch = window.BP_CHARTS.finance;
-        if (!ch || !ch.data.datasets[1]) return;
-        var d0 = ch.data.datasets[0];
-        var d1 = ch.data.datasets[1];
-        if (m === 'all') {
-          d0.hidden = false;
-          d1.hidden = false;
-        } else if (m === 'rev') {
-          d0.hidden = false;
-          d1.hidden = true;
-        } else {
-          d0.hidden = true;
-          d1.hidden = false;
-        }
-        ch.update();
-      });
-    });
-  }
 
   /* 重置 section reveal：已进入视口的 hero 外挂 section 不参与重复 */
   if (window.lucide && typeof lucide.createIcons === 'function') {

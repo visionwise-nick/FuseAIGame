@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * FuseAI BP → 逐章截图 → 16:9 PDF
- * 完整正式版（含财务/天使轮），不含闯关闸门与 Demo。
+ * 完整正式版（含天使轮，不含财务预测），不含闯关闸门与 Demo。
  */
 const puppeteer = require('puppeteer-core');
 const sharp = require('sharp');
@@ -47,7 +47,6 @@ const CHAPTERS = [
   { id: 's-team', title: '人才团队' },
   { id: 's-milestones', title: '里程碑' },
   { id: 's-fiveyear', title: '六年路径' },
-  { id: 's-finance', title: '财务预测' },
   { id: 's-pre-a', title: '天使轮' },
   { id: 's-monetization-benchmark', title: '变现档位' },
   { id: 's-vision', title: '愿景' },
